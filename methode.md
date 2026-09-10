@@ -57,6 +57,17 @@ reports/<nom-de-la-passe>/
 
 `00-suivi.md` porte :
 
+- la **version des conventions appliquée**, en tête — sans elle, une citation de
+  règle n'est plus interprétable dans quelques mois :
+
+  ```text
+  Conventions : ocots-conventions v1.0.0 (commit 1a2b3c4)
+  ```
+
+  ```bash
+  git -C conventions describe --tags --always
+  ```
+
 - le **cap retenu** — ce qu'on améliore, ce qu'on ne touche pas, décidé avec
   l'auteur et daté ;
 - la **baseline** des warnings ;
@@ -88,7 +99,7 @@ séparé et clairement nommé.
 `reports/<passe>/06-regles-style-relecture.md` ne recopie pas les règles : il
 renvoie ici et ne porte que les adaptations du cours —
 
-- le **décor de section** ([poly 7](poly.md#7-décor-de-section)) : la liste des
+- le **décor de section** ([P7](poly.md#p7--décor-de-section)) : la liste des
   objets courants ;
 - les **arbitrages de terminologie** tranchés pour ce cours ;
 - les **cas concrets repérés** (`fichier:ligne`), qui sont la matière des salves.

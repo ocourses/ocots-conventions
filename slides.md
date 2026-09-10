@@ -8,7 +8,7 @@ Prérequis : [`communes.md`](communes.md).
 > **Squelette.** Ces règles sont posées d'après la pratique existante mais
 > n'ont pas encore été éprouvées par une passe de relecture complète. À affiner.
 
-Numérotation stable : `SL1`, `SL2`, … (voir [`README.md`](README.md#numérotation--cest-une-api)).
+Identifiants : `SL1`, `SL2`, … (voir [`README.md`](README.md#citer-une-règle--épingler-la-version)).
 
 ---
 
@@ -33,12 +33,12 @@ raisonnement. Deux idées → deux diapositives. Un `slide` qui déborde est un
 
 Le texte d'un transparent est **télégraphique** ; la narration est **orale**.
 Conséquence : les règles d'amorce et de reprise du polycopié
-([poly 3](poly.md#3-une-phrase-damorce-motivée-avant-chaque-boîte) et
-[poly 4](poly.md#4-une-phrase-de-reprise-après-la-boîte)) **ne s'appliquent
+([P3](poly.md#p3--une-phrase-damorce-motivée-avant-chaque-boîte) et
+[P4](poly.md#p4--une-phrase-de-reprise-après-la-boîte)) **ne s'appliquent
 pas** ici — c'est l'enseignant qui fait la liaison.
 
 En revanche, la règle
-[poly 2](poly.md#2-pas-de-blocs-isolés-ou-enchaînés-sans-texte) survit sous une
+[P2](poly.md#p2--pas-de-blocs-isolés-ou-enchaînés-sans-texte) survit sous une
 autre forme : **une suite de boîtes sans titre ni fil visible** reste illisible
 en projection. Le fil passe par les titres de diapositives.
 

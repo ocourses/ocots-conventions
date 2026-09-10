@@ -6,7 +6,7 @@ Ce qui vaut aussi bien dans un polycopié que sur un transparent, dans un TD ou
 dans un sujet d'examen. **À lire dans tous les cas**, avant le fichier du
 support concerné.
 
-Numérotation stable : `C1`, `C2`, … (voir [`README.md`](README.md#numérotation--cest-une-api)).
+Identifiants : `C1`, `C2`, … (voir [`README.md`](README.md#citer-une-règle--épingler-la-version)).
 
 ---
 
@@ -177,23 +177,50 @@ grep -rn -E '\\(newcommand|DeclareMathOperator)\*?\{\\foo\}' template/tex/math/
 
 ## C4 — Typographie
 
-Les règles ci-dessous sont celles du **français**. Un cours en anglais
-(`lang=en`, règle [C1](#c1--langue-et-registre)) suit la typographie anglaise :
-pas d'espace avant les deux-points, guillemets `` `` … '' `` doubles droits. Les
-lignes « terme défini », « renvois » et « étapes de preuve » valent dans les deux
-langues.
+**Ne pas faire à la main ce que le paquet fait mieux.** Le template charge
+babel dans la langue du cours, et babel connaît la typographie de cette langue —
+les deux premières lignes du tableau existent pour rappeler de le **laisser
+faire**.
 
-Checklist `grep`-able, à passer sur tout document :
+| Point | Règle | Vérification |
+|---|---|---|
+| Deux-points | **ne pas écrire `~:`** — babel-french pose l'espace tout seul | `grep -rn '~:' --include='*.tex' .` |
+| Guillemets | **`\enquote{…}`** — jamais `` `` `` ni `"` ni `\og` | `grep -rn "\`\`\|\\\\og\b" --include='*.tex' .` |
+| Apostrophes | U+2019 → U+0027 dans les sources | `grep -rn $'’' --include='*.tex' .` |
+| Terme défini | première occurrence : `\keyword{terme}` **et** `\index{terme}` | — |
+| Renvois | capitalisés et insécables : `Théorème~\ref{…}`, `Définition~\ref{…}`, `Figure~\ref{…}`, `Exemple~\ref{…}`, `Section~\ref{…}`, `Exercice~\ref{…}` | `grep -rn -E '\b(théorème\|définition\|figure\|exemple\|section\|exercice) *\\\\ref' --include='*.tex' .` |
+| Étapes de preuve | `\newstep` pour séparer les étapes d'une preuve longue | — |
+| Mots composés | « sous-section », « sous-espace » (trait d'union) | `grep -rn 'sous [a-zé]' --include='*.tex' .` |
 
-| Point | Règle |
-|---|---|
-| Deux-points | `~:` — espace fine insécable avant (idem `\ie~`, `\cf~`) |
-| Guillemets | français `` ``…'' ``, jamais `"` |
-| Apostrophes | U+2019 → U+0027 dans les sources |
-| Terme défini | première occurrence : `\keyword{terme}` **et** `\index{terme}` |
-| Renvois | capitalisés et insécables : `Théorème~\ref{…}`, `Définition~\ref{…}`, `Figure~\ref{…}`, `Exemple~\ref{…}`, `Section~\ref{…}`, `Exercice~\ref{…}` |
-| Étapes de preuve | `\newstep` pour séparer les étapes d'une preuve longue |
-| Mots composés | « sous-section », « sous-espace » (trait d'union) |
+### Pourquoi pas `~:`
+
+babel-french rend le `:` actif et pose lui-même l'espace insécable. Les trois
+écritures donnent **exactement** le même résultat — mesuré sur `mot: fin`,
+`mot : fin` et `mot~: fin` :
+
+```text
+COLLE = 44.37804pt   ESPACE = 44.37804pt   TILDE = 44.37804pt
+```
+
+Le `~` est donc du bruit dans la source, qui laisse croire à une règle
+typographique là où il n'y en a pas. Idem pour `\ie~` et `\cf~`, qui
+contournent un défaut du template (voir [`macros.md`](macros.md)) plutôt qu'une
+règle de langue.
+
+### Pourquoi `\enquote{…}`
+
+`` ``ceci'' `` ne donne **pas** de guillemets français : sous `[french]{babel}`,
+la sortie est **“ceci”** (guillemets anglais, U+201C/U+201D). `\enquote{…}`, de
+`csquotes` avec `autostyle`, suit `lang=` tout seul et gère l'imbrication :
+
+| Source | `lang=fr` | `lang=en` |
+|---|---|---|
+| `\enquote{ceci}` | « ceci » | “ceci” |
+| `\enquote{a \enquote{b}}` | « a “b” » | “a ‘b’ ” |
+
+C'est la seule écriture qu'un cours bilingue n'a pas à retoucher, et la seule
+qu'on ne peut pas se tromper à écrire. (Une macro maison `\quote` était
+impossible : `\begin{quote}` se développe en `\quote`.)
 
 ## C5 — Labels et renvois
 

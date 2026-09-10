@@ -2,14 +2,18 @@
 
 # Règles de rédaction — polycopié
 
-Les **13 règles**, dégagées pendant la relecture ligne à ligne de
-`calcul-differentiel-edo-enseignants` puis éprouvées sur
-`automatique-enseignants`. La numérotation **1 à 13 est historique et ne change
-pas** : elle est citée dans les journaux de relecture et les messages de commit
-de ces deux cours.
+Dégagées pendant la relecture ligne à ligne de
+`calcul-differentiel-edo-enseignants`, puis éprouvées sur
+`automatique-enseignants`.
 
 Prérequis : [`communes.md`](communes.md) (langue, notations, macros,
 typographie, labels).
+
+> **Citation antérieure.** Les journaux de relecture de ces deux cours citent
+> ces règles par un nombre nu — « règle 5 », « règles 3, 4, 13 ». Ce sont les
+> mêmes : **P*n* était la règle *n*** (voir
+> [`CHANGELOG.md`](CHANGELOG.md)). Depuis, une relecture épingle la version des
+> conventions qu'elle applique, ce qui permet de réordonner les règles.
 
 > **Le fil conducteur.** On n'enchaîne jamais des boîtes (`definition`,
 > `theorem`, `proposition`, `corollary`, `remark`, `example`) sans texte autour.
@@ -19,7 +23,7 @@ typographie, labels).
 
 ---
 
-## 1. Placement des hypothèses
+## P1 — Placement des hypothèses
 
 - **Définitions** : sortir « Soient $f\colon U \to F$… » dans le texte qui
   précède la boîte, pour l'alléger. La boîte se concentre alors sur la seule
@@ -35,7 +39,7 @@ typographie, labels).
   définition de façon isolée, on garde les hypothèses dedans même pour une
   définition.
 
-## 2. Pas de blocs isolés ou enchaînés sans texte
+## P2 — Pas de blocs isolés ou enchaînés sans texte
 
 - Toujours **au moins une phrase de liaison** entre deux boîtes (définition →
   remarque, remarque → proposition, proposition → corollaire…). **Jamais deux ou
@@ -44,7 +48,7 @@ typographie, labels).
   (« on note aussi… », « ne pas confondre… ») se **fond** dans la définition ou
   le résultat qui précède, plutôt que de rester une boîte à part.
 
-## 3. Une phrase d'amorce *motivée* avant chaque boîte
+## P3 — Une phrase d'amorce *motivée* avant chaque boîte
 
 La phrase qui précède une boîte ne fait pas que la jonction : elle **situe** le
 résultat, dit **à quoi il sert**, ou **annonce sa forme**. Par exemple :
@@ -64,7 +68,7 @@ mais préférer une amorce qui apporte une information.
 **Ne jamais laisser une phrase se jeter dans une boîte** (« On peut donc donner
 la » suivi de `\begin{definition}`) : l'amorce est une phrase complète.
 
-## 4. Une phrase de reprise *après* la boîte
+## P4 — Une phrase de reprise *après* la boîte
 
 Après une définition ou un résultat, une phrase **interprète** ce qu'on vient
 d'obtenir et **amène la suite**.
@@ -74,7 +78,7 @@ apporte* (« En prenant $E = \R^n$, on obtient la forme habituelle… », « Le 
 linéaire homogène en découle immédiatement… »), jamais un simple « On en déduit
 le corollaire suivant. » sans contenu.
 
-## 5. `remark` : ne pas en empiler
+## P5 — `remark` : ne pas en empiler
 
 - Deux ou trois `remark` consécutives → **fusionner** (éventuellement en une
   `itemize`), **passer en texte courant**, ou **promouvoir en sous-section** si
@@ -86,7 +90,7 @@ le corollaire suivant. » sans contenu.
 - La `remark` est réservée aux vrais apartés : mise en garde, cas limite, lien
   avec un résultat ultérieur, contre-exemple ponctuel.
 
-## 6. `remark` vs `example`
+## P6 — `remark` vs `example`
 
 Une boîte qui **instancie** un résultat général sur un cas concret (objets
 précis substitués) est un `example`, **pas** une `remark`. Un contre-exemple
@@ -96,10 +100,11 @@ L'exemple est amené par une phrase qui dit **ce qu'il illustre**, **placée ava
 la boîte** (« … cette inclusion est toujours stricte, `\cf` l'exemple
 suivant. »).
 
-## 7. Décor de section
+## P7 — Décor de section
 
-Aussi appelée la « cast list » : chaque section — et souvent chaque sous-section — s'ouvre par un **court
-paragraphe qui (re)pose les objets courants** avant la première boîte :
+Aussi appelée la « cast list » : chaque section — et souvent chaque
+sous-section — s'ouvre par un **court paragraphe qui (re)pose les objets
+courants** avant la première boîte :
 
 > Soient $(E,\norm{\cdot}_E)$ et $(F,\norm{\cdot}_F)$ deux espaces vectoriels
 > normés, $U$ un ouvert de $E$, une application $f \colon U \to F$ et un point
@@ -113,21 +118,21 @@ dans `reports/<passe>/06-regles-style-relecture.md` du dépôt de cours, en
 cohérence avec la page de notations (`frontmatter/notations.tex`) quand elle
 existe. Ne pas redéfinir dans le corps ce qui y est déjà fixé.
 
-## 8. Ne pas répéter une hypothèse
+## P8 — Ne pas répéter une hypothèse
 
 Si une hypothèse (« $E$ Hilbert », « $f$ de classe $\xCn{1}$ ») sert à plusieurs
 conséquences dans un même exemple ou une même preuve, la poser **une seule
 fois**, à l'endroit qui couvre toutes ses conséquences — jamais répétée à chaque
 usage.
 
-## 9. Ne pas re-dériver un cas particulier d'un résultat déjà écrit
+## P9 — Ne pas re-dériver un cas particulier d'un résultat déjà écrit
 
 Si un second énoncé n'est que la **restriction** ou un **cas particulier** d'un
 résultat déjà donné plus haut, y **renvoyer** plutôt que de le réafficher ou de
 le redémontrer en entier. Cela vaut aussi pour une définition redonnée dans un
 chapitre ultérieur, et pour une figure redondante.
 
-## 10. Cohérence terminologique et notationnelle
+## P10 — Cohérence terminologique et notationnelle
 
 → voir **[`communes.md` C2 et C3](communes.md#c2--cohérence-terminologique-et-notationnelle)**.
 
@@ -135,7 +140,7 @@ Spécifique au polycopié : c'est le document **de référence** du cours. Les
 arbitrages de terminologie s'y prennent, et les transparents, TD et examens s'y
 alignent — pas l'inverse.
 
-## 11. Conventions typographiques
+## P11 — Conventions typographiques
 
 → voir **[`communes.md` C4](communes.md#c4--typographie)** pour la checklist.
 
@@ -143,11 +148,11 @@ Spécifique au polycopié : la paire `\keyword{terme}` + `\index{terme}` à la
 première occurrence est ce qui **peuple l'index**. Un polycopié dont l'index est
 vide n'a pas eu sa passe typographique.
 
-## 12. Labels `\ref`-ables uniquement si le résultat est cité
+## P12 — Labels `\ref`-ables uniquement si le résultat est cité
 
 → voir **[`communes.md` C5](communes.md#c5--labels-et-renvois)**.
 
-## 13. Figures
+## P13 — Figures
 
 - Une figure est **annoncée et référencée dans le texte avant** d'apparaître
   (« … `\cf` l'illustration Figure~\ref{…} »).
@@ -157,7 +162,7 @@ vide n'a pas eu sa passe typographique.
   le mode paragraphe (erreur `Not in outer par mode`). Elle est sortie en
   `figure` flottante — et le `\ref` qui la vise vérifié après déplacement.
 
-## 14. Structure du polycopié
+## P14 — Structure du polycopié
 
 Tout polycopié a la même ossature. Référence :
 [`calcul-differentiel-edo-enseignants/poly/main.tex`](https://github.com/ocourses/calcul-differentiel-edo-enseignants/blob/main/poly/main.tex).
@@ -186,8 +191,8 @@ Un `\chapter*{Avant-propos}` court, qui dit :
 ### La page de notations
 
 Un `\chapter*{Notations}` dans `frontmatter/notations.tex`. Elle **fixe le décor
-global** du cours (règle 7) une fois pour toutes, et le corps du document n'y
-revient pas.
+global** du cours (règle [P7](#p7--décor-de-section)) une fois pour toutes, et
+le corps du document n'y revient pas.
 
 - Un paragraphe d'ouverture pose les conventions permanentes (« Sauf mention
   contraire, $(E,\norm{\cdot}_E)$ et $(F,\norm{\cdot}_F)$ désignent des espaces
@@ -205,5 +210,5 @@ Les entrées de cette page ne sont **pas** redéfinies dans le corps (règle
 ### L'index
 
 `\printindex` en `\backmatter`, alimenté par les `\index{…}` posés à chaque
-première occurrence (règle 11). Un index vide signale une passe typographique
-qui n'a pas eu lieu.
+première occurrence (règle [P11](#p11--conventions-typographiques)). Un index
+vide signale une passe typographique qui n'a pas eu lieu.

@@ -9,7 +9,7 @@ Classe `ocots-exam`. Prérequis : [`communes.md`](communes.md) et
 > **Squelette.** Ces règles sont posées d'après la pratique existante mais
 > n'ont pas encore été éprouvées par une passe de relecture complète. À affiner.
 
-Numérotation stable : `EX1`, `EX2`, … (voir [`README.md`](README.md#numérotation--cest-une-api)).
+Identifiants : `EX1`, `EX2`, … (voir [`README.md`](README.md#citer-une-règle--épingler-la-version)).
 
 ---
 

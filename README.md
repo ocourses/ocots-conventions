@@ -74,23 +74,44 @@ faite par la couche mécanique, pas par l'agent — il n'a ni `webfetch` ni
 
 ---
 
-## Numérotation : c'est une API
+## Citer une règle : épingler la version
 
 Les journaux de relecture et les messages de commit citent les règles par leur
-numéro (« règle 5 », « règles 3, 4, 13 »). **Un numéro attribué ne change
-plus.**
+identifiant. Plutôt que de **figer** la numérotation pour toujours, on
+**épingle la version** des conventions appliquée — ce qui laisse la liberté de
+réordonner, fusionner ou scinder les règles.
 
-- On n'insère pas au milieu : on ajoute à la fin.
-- Une règle abandonnée garde son numéro et devient « *(retirée)* ».
-- Chaque fichier a son espace de numérotation :
+### Les identifiants
 
-| Fichier | Espace | Note |
-|---|---|---|
-| `communes.md` | `C1`, `C2`, … | |
-| `poly.md` | `1` … `13` | **numérotation historique préservée** — citée dans les journaux de `calcul-differentiel-edo-enseignants` et `automatique-enseignants` |
-| `slides.md` | `SL1`, `SL2`, … | |
-| `td.md` | `TD1`, `TD2`, … | |
-| `exam.md` | `EX1`, `EX2`, … | |
+| Fichier | Espace |
+|---|---|
+| `communes.md` | `C1`, `C2`, … |
+| `poly.md` | `P1`, `P2`, … |
+| `slides.md` | `SL1`, `SL2`, … |
+| `td.md` | `TD1`, `TD2`, … |
+| `exam.md` | `EX1`, `EX2`, … |
+
+Un identifiant **préfixé** (`P5`, `C2`) dit à lui seul qu'il désigne ces
+conventions-ci. Un **nombre nu** (« règle 5 ») est une citation antérieure à ce
+dépôt : voir [`CHANGELOG.md`](CHANGELOG.md) pour la correspondance.
+
+### Toute passe de relecture épingle sa version
+
+Le fichier de suivi (`reports/<passe>/00-suivi.md`, ou le fichier de run d'un
+agent) porte, en tête :
+
+```text
+Conventions : ocots-conventions v1.0.0 (commit 1a2b3c4)
+```
+
+```bash
+git -C conventions describe --tags --always
+```
+
+C'est ce qui rend une trace de relecture relisable des années plus tard : on
+sait quelles règles étaient en vigueur, et on peut les retrouver exactement.
+Le pointeur de sous-module l'enregistre déjà dans l'historique du cours ;
+l'écrire dans le suivi le rend lisible sans fouiller le `git log`.
 
 ---
 
@@ -99,7 +120,8 @@ plus.**
 Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 `reports/<passe>/06-regles-style-relecture.md` :
 
-- le **décor de section** (règle 7) — la liste des objets courants du cours :
+- le **décor de section** (règle [P7](poly.md#p7--décor-de-section)) — la liste
+  des objets courants du cours :
   $x, u, y, f, g$ en automatique ; $E, F, U, x$ en calcul différentiel ;
   $(X, \mathcal{A}, \mu)$ en mesure et intégration ;
 - les **cas concrets repérés** dans les fichiers du cours (`fichier:ligne`) ;
@@ -113,13 +135,13 @@ Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 
 | Fichier | État |
 |---|---|
-| `communes.md` | v1 — socle C1–C6, relu avec l'auteur |
-| `poly.md` | v1 — les 13 règles éprouvées sur deux cours, + règle 14 (structure) |
+| `communes.md` | `C1`–`C6` — relues avec l'auteur jusqu'à `C4` |
+| `poly.md` | `P1`–`P14` — éprouvées sur deux cours |
 | `methode.md` | v1 |
+| `td.md` | `TD1`–`TD9` — dérivées du rôle `exercise-corrector` de `ocourses/agents` |
+| `slides.md` | `SL1`–`SL7` — **squelette**, à affiner |
+| `exam.md` | `EX1`–`EX7` — **squelette**, à affiner |
 | `macros.md` | proposition — refonte du nommage, non appliquée au template |
-| `td.md` | v1 — dérivé du rôle `exercise-corrector` de `ocourses/agents` |
-| `slides.md` | **squelette** — à affiner |
-| `exam.md` | **squelette** — à affiner |
 
 ---
 

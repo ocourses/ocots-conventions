@@ -4,7 +4,7 @@
 
 Classe `ocots-td`. Prérequis : [`communes.md`](communes.md).
 
-Numérotation stable : `TD1`, `TD2`, … (voir [`README.md`](README.md#numérotation--cest-une-api)).
+Identifiants : `TD1`, `TD2`, … (voir [`README.md`](README.md#citer-une-règle--épingler-la-version)).
 
 ---
 

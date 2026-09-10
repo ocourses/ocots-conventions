@@ -192,6 +192,16 @@ relèvent d'un `\softwarename{…}` unique, ou d'un module à part.
 
 ---
 
+## Correctifs du template, hors nommage
+
+Trois défauts relevés en passant, indépendants du renommage :
+
+| Fichier | Défaut | Correctif |
+|---|---|---|
+| `ocots-text.sty:38-39` | `\ie` et `\cf` n'ont pas `\xspace` : `\ie foo` donne « i.e.foo ». C'est ce qui oblige à écrire `\ie~` partout | ajouter `\xspace` (le paquet est déjà chargé) |
+| `ocots-packages.sty` | rien ne fournit de guillemets suivant la langue, d'où `` ``…'' `` (guillemets **anglais**) dans les cours français | charger `csquotes` avec `autostyle=true` et documenter `\enquote{…}` (voir [`communes.md` C4](communes.md#c4--typographie)) |
+| `ocots-text.sty:38-39` | `\ie` et `\cf` sont figés, alors que d'autres chaînes passent par `\ocotsstring` | les localiser (P1) |
+
 ## Migration
 
 1. **PR sur `ocots-latex-template`** : nouveaux noms ajoutés, anciens conservés
