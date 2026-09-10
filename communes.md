@@ -280,7 +280,52 @@ Sans préfixe automatique, deux objets peuvent se disputer une clé — LaTeX
 
 ## C6 — Listes et énumérations
 
-- `enumerate` / `itemize` plutôt que « 1) 2) 3) » saisis à la main.
-- `label=\roman*)` pour les points i), ii) d'un énoncé.
-- Dans un TD ou un examen, les questions passent par `question` /
-  `subquestion` (voir [`td.md`](td.md)), pas par un `enumerate` manuel.
+**Jamais de numérotation saisie à la main.** Pas de « 1) 2) 3) » ni de
+« (i) (ii) » tapés dans le texte : `enumerate` sait le faire, et lui seul
+permet d'y renvoyer.
+
+### Choisir l'environnement
+
+| Besoin | Environnement |
+|---|---|
+| points numérotés d'un **énoncé** (conditions équivalentes, assertions d'un théorème) | `enumerate[label=\roman*)]` → i), ii), iii) |
+| liste ordinaire dans le texte courant | `enumerate` ou `itemize`, réglages par défaut |
+| énumération **courte, dans le fil d'une phrase** | `enumerate*` / `itemize*` — `enumitem` est chargé avec `[inline]` |
+| **termes définis** ou corrigé structuré par numéros d'énoncé | `description` (`\item[1.]`, `\item[a.]`) |
+| **questions** d'un TD ou d'un examen | `question` / `subquestion` — voir [`td.md` TD3](td.md#td3--questions--les-environnements-pas-la-numérotation-manuelle) |
+
+Les points numérotés d'un énoncé prennent **toujours** `label=\roman*)` :
+
+```latex
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}[label=\roman*)]
+  \item $f$ est mesurable ;
+  \item $f^{-1}(B)$ est mesurable pour tout borélien $B$.
+\end{enumerate}
+```
+
+### Ne jamais régler l'espacement dans un document
+
+Le **support** s'en charge, une fois pour tous les documents :
+
+```latex
+\setlist{itemsep=0.0em}     % ocots-carrier-book.sty:96
+\setlist{itemsep=0.25em}    % ocots-carrier-slides.sty:157
+```
+
+Un `\setlist`, un `itemsep=`, un `topsep=` ou un `\vspace` posé à la main dans
+un document est ce qui fait diverger l'allure d'un poly et de ses transparents.
+Si un réglage manque, il se corrige **dans le support**, pas dans le cours.
+
+```bash
+grep -rn -E '\\(setlist|vspace)|itemsep|topsep|parsep' --include='*.tex' .
+```
+
+### Pourquoi les listes ne suivent pas la typographie française
+
+`ocots-lang-fr.def:22` pose `\frenchbsetup{StandardLists=true}`, qui
+**désactive** la mise en forme française des listes de babel — nécessaire, car
+`frenchb` et `enumitem` se marchent dessus. Conséquence assumée : les
+conventions françaises de liste (tirets cadratins, espacement resserré) ne
+s'appliquent pas, et c'est `\setlist` qui gouverne. **Ce réglage ne se
+« corrige » pas.**
