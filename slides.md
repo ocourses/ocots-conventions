@@ -34,7 +34,7 @@ raisonnement. Deux idées → deux diapositives. Un `slide` qui déborde est un
 Le texte d'un transparent est **télégraphique** ; la narration est **orale**.
 Conséquence : les règles d'amorce et de reprise du polycopié
 ([P3](poly.md#p3--une-phrase-damorce-motivée-avant-chaque-boîte) et
-[P4](poly.md#p4--une-phrase-de-reprise-après-la-boîte)) **ne s'appliquent
+[P4](poly.md#p4--un-résultat-qui-nest-pas-exploité-na-pas-été-posé)) **ne s'appliquent
 pas** ici — c'est l'enseignant qui fait la liaison.
 
 En revanche, la règle

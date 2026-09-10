@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+"""Vérifie les liens internes des fichiers Markdown de ce dépôt.
+
+    ./bin/liens
+
+Les règles se citent entre elles par des ancres (`poly.md#p4--…`) : renommer
+un titre casse silencieusement les renvois. Sortie 1 si un lien est mort.
+"""
+
+import os
+import re
+import sys
+
+RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RE_TITRE = re.compile(r"^#{1,6}\s+(.*)$")
+RE_LIEN = re.compile(r"\[[^\]]*\]\(([^)\s]+)\)")
+
+
+def ancre(titre):
+    """Reproduit la fabrication d'ancre de GitHub."""
+    titre = re.sub(r"`([^`]*)`", r"\1", titre)
+    titre = re.sub(r"\*\*?([^*]*)\*\*?", r"\1", titre)
+    titre = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", titre)
+    titre = "".join(c for c in titre.strip().lower()
+                    if c.isalnum() or c in " -_")
+    return titre.replace(" ", "-")
+
+
+def main():
+    fichiers = sorted(f for f in os.listdir(RACINE) if f.endswith(".md"))
+    ancres = {}
+    for f in fichiers:
+        with open(os.path.join(RACINE, f), encoding="utf-8") as fh:
+            ancres[f] = {ancre(m.group(1))
+                         for m in (RE_TITRE.match(l) for l in fh) if m}
+
+    morts = 0
+    for f in fichiers:
+        with open(os.path.join(RACINE, f), encoding="utf-8") as fh:
+            contenu = fh.read()
+        for m in RE_LIEN.finditer(contenu):
+            cible = m.group(1)
+            if cible.startswith(("http", "mailto", "#!")):
+                continue
+            fichier, _, anc = cible.partition("#")
+            fichier = fichier or f
+            ligne = contenu.count("\n", 0, m.start()) + 1
+            if not os.path.exists(os.path.join(RACINE, fichier)):
+                print(f"{f}:{ligne}: fichier absent -> {cible}")
+                morts += 1
+            elif anc and anc not in ancres.get(fichier, set()):
+                print(f"{f}:{ligne}: ancre morte -> {cible}")
+                morts += 1
+
+    print(f"{len(fichiers)} fichiers, {morts} lien(s) mort(s)", file=sys.stderr)
+    return 1 if morts else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
