@@ -99,7 +99,7 @@ séparé et clairement nommé.
 `reports/<passe>/06-regles-style-relecture.md` ne recopie pas les règles : il
 renvoie ici et ne porte que les adaptations du cours —
 
-- le **décor de section** ([P7](poly.md#p7--décor-de-section)) : la liste des
+- le **décor de section** ([P7](poly.md#p7--ouverture-de-chapitre-et-de-section)) : la liste des
   objets courants ;
 - les **arbitrages de terminologie** tranchés pour ce cours ;
 - les **cas concrets repérés** (`fichier:ligne`), qui sont la matière des salves.

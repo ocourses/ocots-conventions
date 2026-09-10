@@ -120,7 +120,7 @@ l'écrire dans le suivi le rend lisible sans fouiller le `git log`.
 Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 `reports/<passe>/06-regles-style-relecture.md` :
 
-- le **décor de section** (règle [P7](poly.md#p7--décor-de-section)) — la liste
+- le **décor de section** (règle [P7](poly.md#p7--ouverture-de-chapitre-et-de-section)) — la liste
   des objets courants du cours :
   $x, u, y, f, g$ en automatique ; $E, F, U, x$ en calcul différentiel ;
   $(X, \mathcal{A}, \mu)$ en mesure et intégration ;

@@ -25,19 +25,58 @@ typographie, labels).
 
 ## P1 — Placement des hypothèses
 
-- **Définitions** : sortir « Soient $f\colon U \to F$… » dans le texte qui
-  précède la boîte, pour l'alléger. La boîte se concentre alors sur la seule
-  condition définissante.
-- **Théorèmes** : toujours garder toutes les hypothèses **à l'intérieur** — un
-  théorème doit rester citable isolément, sans remonter dans le texte.
-- **Propositions** : selon le contexte.
-  - Elle prolonge le texte qui précède (mêmes objets déjà en place) : pas besoin
-    de les répéter.
-  - Elle introduit un cadre réellement nouveau (nouveaux espaces, notation non
-    encore utilisée) : on restitue les hypothèses dedans, comme un théorème.
-- **Exception** : après une longue digression, si un lecteur peut vouloir lire la
-  définition de façon isolée, on garde les hypothèses dedans même pour une
-  définition.
+> **Le critère est unique : un résultat cité de loin réénonce ses hypothèses.**
+
+Un lecteur arrive sur une boîte de deux façons — en lisant dans l'ordre, ou par
+un renvoi. Le second n'a pas le texte qui précède sous les yeux : **si l'objet
+est cité de loin, il doit se suffire à lui-même.**
+
+Ce n'est pas le type d'environnement qui décide, c'est cet usage. Et il est
+observable : *cité de loin* = **porte un label qui est `\ref`-encé ailleurs**
+(règle [C5](communes.md#c5--labels-et-renvois)).
+
+```bash
+grep -rn 'ref{thm:cauchy}' --include='*.tex' . | wc -l
+```
+
+### Ce que le critère donne, par environnement
+
+| | Hypothèses | Pourquoi |
+|---|---|---|
+| **théorème** | **dedans**, toujours | un théorème est fait pour être cité |
+| **lemme** | **dedans** | il est sorti du texte précisément pour être réutilisé ailleurs |
+| **corollaire** | selon qu'il est cité ou non | s'il n'est qu'une lecture immédiate de ce qui précède, il s'appuie sur le décor |
+| **proposition** | selon le contexte | prolonge le texte (mêmes objets) → dehors ; ouvre un cadre nouveau → dedans |
+| **définition** | **dehors**, dans la phrase qui précède | la boîte se concentre sur la seule condition définissante |
+
+**Exception** : après une longue digression, une définition qu'un lecteur voudra
+lire isolément garde ses hypothèses dedans, comme un théorème.
+
+### Le corpus le confirme déjà
+
+Dans `calcul-differentiel-edo-enseignants`, les trois corollaires du chapitre sur
+le flot se répartissent exactement ainsi — sans que la règle ait été écrite :
+
+| Corollaire | Étiqueté | Hypothèses |
+|---|---|---|
+| « Le flot $\vphi$ est défini sur un ouvert $\D$ » | non | aucune — s'appuie sur le décor |
+| `resolvante` | oui | partielles (« Soit $\xsol_0 \in \Omega$ et $t \in I(\xsol_0)$ ») |
+| `globale` | oui | complètes (« Soit $f \colon \Ical\times\R^n\to\R^n$ continue… ») |
+
+Et les quatre lemmes y sont **tous** étiquetés, tous avec leurs hypothèses
+dedans, tous sortis au niveau du texte — **jamais à l'intérieur d'une preuve**.
+Un lemme qu'on hisse hors d'une preuve, c'est un lemme qu'on veut pouvoir citer :
+il suit donc la règle du théorème. Un argument qui ne sert qu'une fois, à un seul
+endroit, n'a pas besoin d'être un lemme — il reste une étape de la preuve,
+séparée par `\newstep`.
+
+### La redondance avec le décor est voulue
+
+Le décor de section ([P7](#p7--ouverture-de-chapitre-et-de-section)) **ne
+dispense jamais** un résultat cité de le réénoncer. Les deux servent deux
+lecteurs différents : le décor sert celui qui lit dans l'ordre, P1 sert celui qui
+arrive par un `\ref`. Répéter les hypothèses d'un théorème déjà posées trois
+lignes plus haut n'est pas une faute, c'est la règle.
 
 ## P2 — Pas de blocs isolés ou enchaînés sans texte
 
@@ -100,23 +139,80 @@ L'exemple est amené par une phrase qui dit **ce qu'il illustre**, **placée ava
 la boîte** (« … cette inclusion est toujours stricte, `\cf` l'exemple
 suivant. »).
 
-## P7 — Décor de section
+## P7 — Ouverture de chapitre et de section
 
-Aussi appelée la « cast list » : chaque section — et souvent chaque
-sous-section — s'ouvre par un **court paragraphe qui (re)pose les objets
-courants** avant la première boîte :
+### Le chapitre : une ossature fixe
+
+```latex
+\chapter{Théorie de la mesure}%
+\label{chap:theorie-mesure}%
+\minitoc%
+
+<introduction du chapitre>
+
+\clearpage
+\section{Espaces mesurables}
+```
+
+`minitoc` est chargé par le support livre (`ocots-carrier-book.sty:27`, avec
+`minitocdepth=2`) — rien à faire d'autre que l'appeler.
+
+L'**introduction de chapitre** dit où l'on va et pourquoi : l'objet qu'on
+cherche à construire, les notions qu'il faudra pour y arriver, dans quel ordre.
+Elle s'adresse à un lecteur qui n'a encore rien lu du chapitre. Le meilleur
+exemple du corpus est l'ouverture du chapitre « Théorie de la mesure » de
+`mesure-integration-enseignants` : elle part de l'intégrale à définir, puis
+introduit tribu, ensemble mesurable, mesure et application mesurable, chacune
+motivée par la précédente.
+
+Puis **un saut de page** : l'introduction n'a pas à partager sa page avec la
+première section.
+
+### La section : trois outils, selon le cadre
+
+Il n'y a **pas** d'ouverture obligatoire pour une section. Ce qui décide, c'est
+le **poids du cadre** et le **nombre de résultats qui le partagent** :
+
+| Le cadre est… | partagé par… | Outil |
+|---|---|---|
+| léger (un ou deux objets) | un seul résultat | **rien** — les objets vont dans la boîte |
+| léger | plusieurs résultats de la section | **décor** en tête de section |
+| lourd (plusieurs conditions) | plusieurs résultats, cités | bloc **`assumption`**, référencé |
+
+**Le décor** (la « cast list ») repose les objets courants avant la première
+boîte :
 
 > Soient $(E,\norm{\cdot}_E)$ et $(F,\norm{\cdot}_F)$ deux espaces vectoriels
 > normés, $U$ un ouvert de $E$, une application $f \colon U \to F$ et un point
 > $x \in U$.
 
-ou, si le décor est déjà en place plus haut : « Rappelons que $f \colon U
-\subset E \to F$ désigne une application et $U$ un ouvert de $E$. »
+ou, s'il est déjà en place plus haut : « Rappelons que $f \colon U \subset E \to
+F$ désigne une application et $U$ un ouvert de $E$. » Il est surtout utile quand
+une section a **plusieurs sous-sections** qui travaillent sur les mêmes objets.
+
+**Le bloc `assumption`** (environnement du template, étiqueté `H1`, `H2`…) sert
+quand le cadre est trop lourd pour être répété : les énoncés disent alors « sous
+l'hypothèse~\ref{hyp:croissance} ». C'est l'outil le moins fréquent, réservé aux
+cadres vraiment encombrants.
+
+### La phrase d'introduction est un quatrième outil, indépendant
+
+Elle ne parle pas des objets mais du **rôle** de la section : ce qu'on va y
+faire, et quel est le résultat qui compte. Elle se combine avec n'importe lequel
+des trois cas ci-dessus, ou s'emploie seule.
+
+Elle n'est **pas obligatoire** — mais une section de plus de deux ou trois
+boîtes en gagne presque toujours une.
+
+### Cohérence avec la page de notations
 
 La **liste des objets courants est propre à chaque cours** : elle se consigne
 dans `reports/<passe>/06-regles-style-relecture.md` du dépôt de cours, en
-cohérence avec la page de notations (`frontmatter/notations.tex`) quand elle
-existe. Ne pas redéfinir dans le corps ce qui y est déjà fixé.
+cohérence avec la page de notations (règle
+[P14](#p14--structure-du-polycopié)). **Ne pas redéfinir dans le corps ce qui y
+est déjà fixé** — mais voir [P1](#p1--placement-des-hypothèses) : un résultat
+cité de loin réénonce quand même ses hypothèses, et cette redondance-là est
+voulue.
 
 ## P8 — Ne pas répéter une hypothèse
 
@@ -191,7 +287,7 @@ Un `\chapter*{Avant-propos}` court, qui dit :
 ### La page de notations
 
 Un `\chapter*{Notations}` dans `frontmatter/notations.tex`. Elle **fixe le décor
-global** du cours (règle [P7](#p7--décor-de-section)) une fois pour toutes, et
+global** du cours (règle [P7](#p7--ouverture-de-chapitre-et-de-section)) une fois pour toutes, et
 le corps du document n'y revient pas.
 
 - Un paragraphe d'ouverture pose les conventions permanentes (« Sauf mention
