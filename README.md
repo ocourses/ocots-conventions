@@ -209,7 +209,7 @@ Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 | `poly.md` | `P1`–`P14` — éprouvées sur deux cours |
 | `methode.md` | v1 |
 | `td.md` | `TD1`–`TD9` — dérivées du rôle `exercise-corrector` de `ocourses/agents` |
-| `slides.md` | `SL1`–`SL7` — **squelette**, à affiner |
+| `slides.md` | `SL1`–`SL8` — SL1 et SL2 arrêtées, le reste **squelette** |
 | `exam.md` | `EX1`–`EX7` — **squelette**, à affiner |
 | `template.md` | 3 chantiers — **non appliqués** au template |
 

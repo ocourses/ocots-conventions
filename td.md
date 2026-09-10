@@ -38,6 +38,13 @@ sans retouche.
   la perd pas.
 - Un exercice sans texte d'intro : `\exercisenotext` en première ligne.
 
+> **`exercise` est déjà la forme cible.** C'est le seul environnement du template
+> qui prenne une liste clé-valeur et pose son label **tel quel**, sans préfixe
+> ajouté — exactement ce que demande [C5](communes.md#c5--labels-et-renvois), et
+> ce vers quoi le [chantier 1](template.md#chantier-1--signature-des-environnements-et-labels)
+> veut amener tous les autres. Écrire `label=ex:matrices` puis citer
+> `\ref{ex:matrices}` fonctionne donc **dès aujourd'hui**.
+
 ## TD4 — Progression
 
 Les exercices vont du plus simple au plus complexe, et **chaque exercice a un
@@ -104,4 +111,5 @@ boîte, ou le passer en non-flottant :
 ```
 
 Puis vérifier que le `\label` / `\ref` qui le vise pointe toujours (règle
-[C5](communes.md#c5--labels-et-renvois)).
+[C5](communes.md#c5--labels-et-renvois)). Même contrainte dans le polycopié,
+[P13](poly.md#p13--figures), où elle vaut aussi pour `remark` et `example`.

@@ -20,8 +20,13 @@ documents sont explicitement autorisés (et alors le sujet le dit).
 
 Conséquence pratique : un résultat du cours mobilisé par le sujet est soit
 **rappelé dans l'énoncé**, soit **nommé sans ambiguïté** (« le théorème de
-convergence dominée »). **Pas de `\ref{…}` vers le polycopié** dans un sujet — le
-renvoi ne résout pas, et l'étudiant ne peut pas le suivre.
+convergence dominée »). **Pas de `\ref{…}` vers le polycopié** dans un sujet :
+c'est un autre document, le renvoi ne résout donc pas — et
+[C5](communes.md#c5--labels-et-renvois) exige zéro référence non résolue.
+
+C'est la différence avec un TD, qui lui **cite** le cours
+([TD5](td.md#td5--nommer-le-résultat-du-cours-mobilisé)) : en TD le polycopié est
+à portée de main, à l'examen non.
 
 ## EX2 — Conditions annoncées en tête
 

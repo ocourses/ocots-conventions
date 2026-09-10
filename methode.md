@@ -41,8 +41,35 @@ perdre si la session est coupée.
 Avant la première édition : compiler et **noter les warnings existants**
 (la « baseline »). Sans ça, impossible de dire si un warning est nouveau.
 
-Chaque salve annonce ensuite : warnings inchangés, ou lesquels ont été résorbés.
-La dernière salve vise **zéro warning**.
+Relever aussi le compte des règles outillées : il donne l'ampleur du travail et
+permet de l'annoncer.
+
+```bash
+./conventions/bin/verifier poly/ 2>&1 >/dev/null   # les comptes, par règle
+```
+
+Chaque salve annonce ensuite ce qu'elle change des deux côtés : warnings
+inchangés ou résorbés, compte de règle en baisse. La dernière salve vise **zéro
+warning**.
+
+Les comptes ne certifient rien — l'outil rate des choses et en signale d'autres
+à tort (voir [`README.md`](README.md#ce-que-loutil-ne-fait-pas)). Ils mesurent
+une ampleur et suivent une tendance.
+
+## Un nettoyage mécanique est sa propre salve
+
+`bin/nettoyer` corrige d'un coup ce qui l'est — les `~:` inutiles, les
+guillemets. Sur un polycopié, cela touche des dizaines de fichiers pour un rendu
+identique. **Ce genre de correction ne se mêle jamais à une passe de fond** :
+elle noierait le diff qu'il faut relire.
+
+Elle se fait donc seule, dans sa propre salve et sa propre PR, avec la
+vérification qui va avec : recompiler, et **comparer le texte du PDF avant et
+après**. Un nettoyage typographique ne doit rien changer au rendu.
+
+```bash
+pdftotext avant.pdf avant.txt && pdftotext apres.pdf apres.txt && diff avant.txt apres.txt
+```
 
 ## Le suivi est le plan, le journal et le bilan
 

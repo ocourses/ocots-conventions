@@ -361,6 +361,11 @@ résultat déjà donné plus haut, y **renvoyer** plutôt que de le réafficher 
 le redémontrer en entier. Cela vaut aussi pour une définition redonnée dans un
 chapitre ultérieur, et pour une figure redondante.
 
+Renvoyer suppose de pouvoir citer : le résultat d'origine doit donc porter un
+label ([C5](communes.md#c5--labels-et-renvois)) et, dès lors qu'il est cité de
+loin, réénoncer ses hypothèses ([P1](#p1--placement-des-hypothèses)). C'est le
+cas typique où l'on **ajoute** un label plutôt que d'en retirer un.
+
 ## P10 — Cohérence terminologique et notationnelle
 
 → voir **[`communes.md` C2 et C3](communes.md#c2--cohérence-terminologique-et-notationnelle)**.
@@ -373,13 +378,34 @@ alignent — pas l'inverse.
 
 → voir **[`communes.md` C4](communes.md#c4--typographie)** pour la checklist.
 
+**Deux règles ont changé de sens** depuis les documents d'origine, et le corpus
+suit encore l'ancienne :
+
+- **ne pas écrire `~:`** — babel-french pose l'espace lui-même. Le corpus en
+  compte plus de mille, tous sans effet ;
+- **`\enquote{…}`** remplace `` ``…'' ``, qui produisait des guillemets
+  **anglais** dans un texte français.
+
+Les deux se corrigent mécaniquement :
+
+```bash
+./conventions/bin/nettoyer C4 poly/            # aperçu
+```
+
 Spécifique au polycopié : la paire `\keyword{terme}` + `\index{terme}` à la
-première occurrence est ce qui **peuple l'index**. Un polycopié dont l'index est
-vide n'a pas eu sa passe typographique.
+première occurrence est ce qui **peuple l'index** ([P14](#p14--structure-du-polycopié)).
+Un polycopié dont l'index est vide n'a pas eu sa passe typographique.
 
 ## P12 — Labels `\ref`-ables uniquement si le résultat est cité
 
-→ voir **[`communes.md` C5](communes.md#c5--labels-et-renvois)**.
+→ voir **[`communes.md` C5](communes.md#c5--labels-et-renvois)** : la clé qu'on
+écrit est la clé qu'on référence, et le préfixe (`thm:`, `fig:`…) en fait partie.
+
+Spécifique au polycopié : **ne pas étiqueter en masse**. Un label ne se pose que
+si le résultat est cité ailleurs — ce qui est exactement le critère de
+[P1](#p1--placement-des-hypothèses) pour décider où vont ses hypothèses. Les
+deux règles se lisent ensemble : *poser un label, c'est déclarer que le résultat
+sera lu isolément, donc s'engager à le rendre autonome.*
 
 ## P13 — Figures
 
@@ -389,7 +415,12 @@ vide n'a pas eu sa passe typographique.
 - Placement `[ht!]` par défaut.
 - **Une figure ne vit pas dans une boîte** `remark` / `example` : elle en casse
   le mode paragraphe (erreur `Not in outer par mode`). Elle est sortie en
-  `figure` flottante — et le `\ref` qui la vise vérifié après déplacement.
+  `figure` flottante — et le `\ref` qui la vise vérifié après déplacement. Même
+  contrainte dans un exercice, [TD9](td.md#td9--flottants-dans-un-exercice).
+
+Une figure peut être **l'exploitation** d'un résultat au sens de
+[P4](#p4--un-résultat-qui-nest-pas-exploité-na-pas-été-posé) : montrer ce que le
+théorème signifie vaut souvent mieux qu'une phrase qui le paraphrase.
 
 ## P14 — Structure du polycopié
 
