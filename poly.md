@@ -128,23 +128,53 @@ produit.
 
 ## P3 — Une phrase d'amorce *motivée* avant chaque boîte
 
-La phrase qui précède une boîte ne fait pas que la jonction : elle **situe** le
-résultat, dit **à quoi il sert**, ou **annonce sa forme**. Par exemple :
+La phrase qui précède une boîte ne fait pas que la jonction. **Elle répond à au
+moins une de ces questions :**
 
-- « La propriété suivante est fondamentale, elle permet de calculer de
-  nombreuses dérivées. »
-- « Cette première forme ne requiert que la différentiabilité $k$ fois au point
-  $x$ lui-même et fournit un reste seulement négligeable : c'est la version
-  adaptée à l'étude locale. »
-- « Le théorème suivant, qui établit la symétrie de $f''(x)$, montre que ce
-  choix n'a en réalité aucune importance. »
+| | Exemple du corpus |
+|---|---|
+| **à quoi sert le résultat ?** | « La propriété suivante est fondamentale, elle permet de calculer de nombreuses dérivées. » |
+| **que fournit-il exactement ?** | « Cette première forme ne requiert que la différentiabilité $k$ fois au point $x$ lui-même et fournit un reste seulement négligeable : c'est la version adaptée à l'étude locale. » · « On obtient ainsi la condition nécessaire suivante, d'optimalité locale faible à l'ordre deux. » |
+| **d'où vient-il ?** | « …qui n'est qu'un cas particulier de \cite[Lemme~2.6.2]{Sontag:1998} » · « …qui n'est qu'une simple conséquence du lemme de Morse » |
+| **à quoi se rattache-t-il ?** | « …analogue au Théorème~\ref{thm:appliOuverteNL}, mais à l'ordre 2 » · « comme corollaire du Théorème~\ref{thm:regulariteFlot} » |
+| **que va-t-on en faire ?** | « Donnons maintenant une caractérisation géométrique du premier instant conjugué. » |
 
-Formulations passe-partout à éviter **seules** (« Nous avons le résultat
-suivant. », « On a alors le théorème suivant. ») : acceptables en dépannage,
-mais préférer une amorce qui apporte une information.
+### Ce n'est pas l'ouverture qui est fautive, c'est l'arrêt
+
+« Nous avons le résultat suivant. » n'est pas interdit **comme ouverture** — il
+l'est comme **phrase entière**. Comparer :
+
+> ❌ « Nous avons alors le théorème suivant. »
+> ✅ « Nous avons alors le théorème suivant **qui n'est qu'un cas particulier
+> de~\cite[Lemme~2.6.2]{Sontag:1998}, nous assurant l'existence et l'unicité
+> d'une solution maximale.** »
+
+Le test : **retirer l'annonce, reste-t-il une information ?**
 
 **Ne jamais laisser une phrase se jeter dans une boîte** (« On peut donc donner
 la » suivi de `\begin{definition}`) : l'amorce est une phrase complète.
+
+### Les exercices aussi
+
+Un **exercice isolé** au fil du texte s'amorce comme les autres boîtes : on dit
+ce qu'il fait travailler. L'exception de [P2](#p2--pas-de-blocs-isolés-ou-enchaînés-sans-texte)
+ne porte que sur les **séries** d'exercices en fin de chapitre, où la liste se
+présente une fois pour toutes.
+
+### Deux signaux automatisables
+
+```bash
+./conventions/bin/verifier P3 poly/
+```
+
+Ce sont des **signaux, pas des verdicts** — une amorce motivée ne se juge pas
+mécaniquement. L'outil repère seulement deux formes sûres :
+
+- la phrase d'annonce qui **s'arrête** à l'annonce ;
+- la phrase qui **ne se termine pas** avant `\begin{…}`.
+
+Là encore, le polycopié qui a reçu la passe (`automatique`) est à **0**, contre
+13 et 14 pour ceux qui ne l'ont pas reçue.
 
 ## P4 — Une phrase de reprise *après* la boîte
 

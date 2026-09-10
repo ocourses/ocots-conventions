@@ -25,7 +25,7 @@ versions doivent rester cohérentes.
    supports (langue, notations, macros, typographie, labels, listes).
    **À lire dans tous les cas.**
 2. Le fichier du support sur lequel on travaille :
-   - **[`poly.md`](poly.md)** — polycopié (les 13 règles)
+   - **[`poly.md`](poly.md)** — polycopié (`P1`–`P14`)
    - **[`slides.md`](slides.md)** — transparents
    - **[`td.md`](td.md)** — TD et corrigés
    - **[`exam.md`](exam.md)** — sujets d'examen
@@ -95,6 +95,7 @@ décide pas.
 | Règle | Ce qui est vérifié |
 |---|---|
 | `P2` | enchaînements de boîtes sans texte entre elles (série d'exercices tolérée) |
+| `P3` | amorces passe-partout, phrases qui se jettent dans la boîte (signaux, pas verdicts) |
 | `C4` | `~:` inutiles, guillemets, apostrophes U+2019, renvois en bas de casse, mots composés |
 
 Les contrôles typographiques **masquent le mode mathématique** avant de
@@ -164,7 +165,7 @@ Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 
 | Fichier | État |
 |---|---|
-| `communes.md` | `C1`–`C6` — relues avec l'auteur jusqu'à `C4` |
+| `communes.md` | `C1`–`C6` — relues avec l’auteur |
 | `poly.md` | `P1`–`P14` — éprouvées sur deux cours |
 | `methode.md` | v1 |
 | `td.md` | `TD1`–`TD9` — dérivées du rôle `exercise-corrector` de `ocourses/agents` |
