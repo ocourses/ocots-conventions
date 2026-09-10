@@ -87,6 +87,45 @@ lignes plus haut n'est pas une faute, c'est la règle.
   (« on note aussi… », « ne pas confondre… ») se **fond** dans la définition ou
   le résultat qui précède, plutôt que de rester une boîte à part.
 
+[P5](#p5--remark--ne-pas-en-empiler) et [P6](#p6--remark-vs-example) sont deux
+cas particuliers de cette règle, et ce sont les plus fréquents.
+
+### La seule exception : une série d'exercices
+
+`exercise` → `exercise` est légitime. Une série d'exercices en fin de chapitre
+est une **liste**, pas une narration ; elle n'a pas à être commentée entre
+chaque item.
+
+Il n'y a **pas** d'exception pour les autres :
+
+- `example` → `example` : chaque exemple s'amorce **individuellement**, par une
+  phrase qui dit ce qu'il illustre ([P3](#p3--une-phrase-damorce-motivée-avant-chaque-boîte)) ;
+- `definition` → `definition` : une phrase entre chaque, même pour une série de
+  notions liées (contrôle / sortie / consigne).
+
+### La règle se mesure
+
+Un `\end{boîte}` suivi d'un `\begin{boîte}` sans rien entre les deux est
+détectable exactement :
+
+```bash
+./conventions/bin/verifier P2 poly/
+```
+
+Relevé sur les quatre polycopiés, à la première passe :
+
+| Polycopié | Enchaînements | État |
+|---|---|---|
+| `automatique` | **8** | passe P2 complète faite |
+| `calcul-differentiel-edo` | 51 | partiellement relu |
+| `controle_optimal` | 82 | non relu |
+| `mesure-integration` | **111** | non relu |
+
+Le seul polycopié ayant reçu la passe est à 8, celui qui n'a rien reçu est à
+111. Le compte suit le travail : il fait une bonne **baseline** au sens de
+[`methode.md`](methode.md), et une salve peut s'annoncer par la baisse qu'elle
+produit.
+
 ## P3 — Une phrase d'amorce *motivée* avant chaque boîte
 
 La phrase qui précède une boîte ne fait pas que la jonction : elle **situe** le

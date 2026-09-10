@@ -74,6 +74,35 @@ faite par la couche mécanique, pas par l'agent — il n'a ni `webfetch` ni
 
 ---
 
+## Vérifier
+
+```bash
+./conventions/bin/verifier            # toutes les règles mécaniques, sur le dépôt
+./conventions/bin/verifier P2 poly/   # une règle, un périmètre
+./conventions/bin/verifier --list     # ce qui est implémenté
+```
+
+Sortie `1` s'il y a au moins une infraction — utilisable en CI.
+
+**Seules les règles *mécaniques* sont outillées**, celles qui se tranchent sans
+jugement. Une règle qui demande de l'interprétation
+([C2](communes.md#c2--cohérence-terminologique-et-notationnelle),
+[P1](poly.md#p1--placement-des-hypothèses),
+[P3](poly.md#p3--une-phrase-damorce-motivée-avant-chaque-boîte)…) porte à la
+place une commande `grep` dans sa section : elle **mesure** l'ampleur, elle ne
+décide pas.
+
+| Règle | Ce qui est vérifié |
+|---|---|
+| `P2` | enchaînements de boîtes sans texte entre elles (série d'exercices tolérée) |
+| `C4` | `~:` inutiles, guillemets, apostrophes U+2019, renvois en bas de casse, mots composés |
+
+Les contrôles typographiques **masquent le mode mathématique** avant de
+chercher : `~` y est une espace, et `\forall h \in E ~:~ J'(x) \cdot h = 0` ne
+doit pas être « corrigé ».
+
+---
+
 ## Citer une règle : épingler la version
 
 Les journaux de relecture et les messages de commit citent les règles par leur

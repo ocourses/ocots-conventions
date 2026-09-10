@@ -1,0 +1,151 @@
+#!/usr/bin/env python3
+"""Vérifie les règles mécaniques de ocots-conventions sur des sources LaTeX.
+
+    ./conventions/bin/verifier            toutes les règles, sur le dépôt courant
+    ./conventions/bin/verifier P2         une règle
+    ./conventions/bin/verifier P2 poly/   une règle, un périmètre
+    ./conventions/bin/verifier --list     les règles implémentées
+
+Sortie 1 si au moins une infraction est trouvée, 0 sinon : utilisable en CI.
+
+Seules les règles *mécaniques* sont ici — celles qui se tranchent sans jugement.
+Une règle qui demande de l'interprétation (C2, P1, P3…) porte à la place une
+commande `grep` dans sa section, qui *mesure* sans décider.
+"""
+
+import os
+import re
+import sys
+
+SKIP = ("/template/", "/build/", "/conventions/", "/.git/")
+
+BOX = (r"(?:my)?(?:definition|theorem|proposition|corollary|lemma|example"
+       r"|remark|assumption|exercisecb|exercise)\*?")
+
+# Une série d'exercices est une liste, pas une narration (P2).
+CHAINE_TOLEREE = {("exercise", "exercise"), ("exercisecb", "exercisecb")}
+
+RE_CHAINE = re.compile(
+    r"\\end\{(" + BOX + r")\}"
+    r"((?:[^\S\n]*\n|[^\S\n]*%[^\n]*\n)*)"
+    r"[^\S\n]*\\begin\{(" + BOX + r")\}")
+
+RE_TILDE_DEUX_POINTS = re.compile(r"~:")
+RE_GUILLEMETS = re.compile(r"``|\\og\b")
+RE_APOSTROPHE = re.compile("\u2019")
+RE_RENVOI_BAS_DE_CASSE = re.compile(
+    r"\b(théorème|définition|proposition|corollaire|lemme|figure|tableau"
+    r"|exemple|section|exercice)[ ~]*\\ref\{")
+RE_SOUS = re.compile(r"\bsous (section|espace|ensemble|groupe|suite)\b")
+
+
+def sources(racines):
+    for racine in racines:
+        if os.path.isfile(racine):
+            yield racine
+            continue
+        for dossier, _, fichiers in os.walk(racine):
+            chemin = dossier + "/"
+            if any(s in chemin for s in SKIP):
+                continue
+            for f in sorted(fichiers):
+                if f.endswith(".tex"):
+                    yield os.path.join(dossier, f)
+
+
+def lire(chemin):
+    with open(chemin, encoding="utf-8", errors="replace") as fh:
+        return fh.read()
+
+
+# Zones où « ~ » est une espace mathématique et non une décoration : les
+# masquer avant tout contrôle de typographie, sinon on propose de « corriger »
+# des formules. Le masque garde longueur et retours à la ligne, pour que les
+# numéros de ligne restent justes.
+ENV_MATH = ("equation", "align", "aligned", "array", "gather", "multline",
+            "cases", "split", "eqnarray", "displaymath", "verbatim",
+            "lstlisting", "tikzpicture", "pmatrix", "bmatrix", "vmatrix")
+
+RE_MATH = re.compile(
+    r"\\begin\{(?:" + "|".join(ENV_MATH) + r")\*?\}.*?\\end\{(?:"
+    + "|".join(ENV_MATH) + r")\*?\}"
+    r"|\\\[.*?\\\]"
+    r"|\\\(.*?\\\)"
+    r"|(?<!\\)\$\$.*?(?<!\\)\$\$"
+    r"|(?<!\\)\$.*?(?<!\\)\$",
+    re.S)
+
+
+def hors_math(texte):
+    """Remplace les zones mathématiques par des blancs de même longueur."""
+    def blanchir(m):
+        return "".join(c if c == "\n" else " " for c in m.group(0))
+    return RE_MATH.sub(blanchir, texte)
+
+
+def ligne_de(texte, position):
+    return texte.count("\n", 0, position) + 1
+
+
+def regle_P2(racines):
+    """P2 — enchaînements de boîtes sans texte entre elles."""
+    for chemin in sources(racines):
+        texte = lire(chemin)
+        for m in RE_CHAINE.finditer(texte):
+            avant, apres = m.group(1), m.group(3)
+            if (avant.replace("my", ""), apres.replace("my", "")) in CHAINE_TOLEREE:
+                continue
+            yield chemin, ligne_de(texte, m.start()), f"{avant} -> {apres}"
+
+
+def regle_C4(racines):
+    """C4 — typographie : ~:, guillemets, apostrophes, renvois, mots composés."""
+    controles = (
+        (RE_TILDE_DEUX_POINTS, "`~:` inutile — babel-french pose l'espace seul"),
+        (RE_GUILLEMETS, "guillemets : utiliser \\enquote{…}"),
+        (RE_APOSTROPHE, "apostrophe U+2019 — utiliser U+0027"),
+        (RE_RENVOI_BAS_DE_CASSE, "renvoi en bas de casse — « Théorème~\\ref{…} »"),
+        (RE_SOUS, "mot composé — trait d'union"),
+    )
+    for chemin in sources(racines):
+        texte = hors_math(lire(chemin))
+        for motif, message in controles:
+            for m in motif.finditer(texte):
+                yield chemin, ligne_de(texte, m.start()), message
+
+
+REGLES = {"P2": regle_P2, "C4": regle_C4}
+
+
+def main(argv):
+    if "--list" in argv:
+        print("Règles implémentées :")
+        for nom, fn in sorted(REGLES.items()):
+            print(f"  {nom}  {fn.__doc__.splitlines()[0]}")
+        return 0
+
+    noms = [a for a in argv if a in REGLES]
+    racines = [a for a in argv if a not in REGLES and not a.startswith("-")] or ["."]
+    inconnues = [a for a in argv
+                 if a not in REGLES and not a.startswith("-")
+                 and not os.path.exists(a)]
+    if inconnues:
+        print(f"chemin ou règle inconnu : {', '.join(inconnues)}", file=sys.stderr)
+        print(f"règles : {', '.join(sorted(REGLES))}", file=sys.stderr)
+        return 2
+    if not noms:
+        noms = sorted(REGLES)
+
+    total = 0
+    for nom in noms:
+        trouvailles = list(REGLES[nom](racines))
+        for chemin, ligne, message in trouvailles:
+            print(f"{os.path.relpath(chemin)}:{ligne}: [{nom}] {message}")
+        print(f"{nom} : {len(trouvailles)} infraction(s)", file=sys.stderr)
+        total += len(trouvailles)
+
+    return 1 if total else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
