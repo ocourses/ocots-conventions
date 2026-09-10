@@ -32,6 +32,9 @@ versions doivent rester cohérentes.
 3. **[`methode.md`](methode.md)** — comment se déroule une passe de relecture :
    salves, périmètre, compilation, PR, format du rapport.
 
+En annexe, **[`macros.md`](macros.md)** — spec de refonte du nommage des macros
+mathématiques du template. Proposition, pas encore appliquée.
+
 Le fil conducteur, si on ne devait retenir qu'une phrase :
 
 > **On n'enchaîne jamais des boîtes sans texte autour.** Chaque boîte est amenée
@@ -110,9 +113,10 @@ Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 
 | Fichier | État |
 |---|---|
-| `communes.md` | v1 — extrait des règles 10, 11, 12 éprouvées sur deux cours |
-| `poly.md` | v1 — les 13 règles, éprouvées sur deux cours |
+| `communes.md` | v1 — socle C1–C6, relu avec l'auteur |
+| `poly.md` | v1 — les 13 règles éprouvées sur deux cours, + règle 14 (structure) |
 | `methode.md` | v1 |
+| `macros.md` | proposition — refonte du nommage, non appliquée au template |
 | `td.md` | v1 — dérivé du rôle `exercise-corrector` de `ocourses/agents` |
 | `slides.md` | **squelette** — à affiner |
 | `exam.md` | **squelette** — à affiner |

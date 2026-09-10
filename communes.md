@@ -136,17 +136,42 @@ Chaque décision de terminologie va dans
 
 ## C3 — Macros du template plutôt que du LaTeX manuel
 
-Utiliser systématiquement les macros dédiées : `\norm`, `\abs`, `\prodscal`,
-`\enstq{}{}`, `\grandO{}` / `\petito{}`, `\intervalleff{}{}` /
-`\intervalleoo{}{}`, `\fonction`, `\diff` / `\xdif`, `\diag`, `\rang`, `\trace`,
-`\Im`, `\ker`, `\dot{x}` (**jamais** `x'` pour une dérivée en temps).
+Utiliser systématiquement les macros dédiées plutôt que le LaTeX manuel
+équivalent : `\norm`, `\abs`, `\prodscal`, `\enstq{}{}`, `\grandO{}` /
+`\petito{}`, `\intervalleff{}{}` / `\intervalleoo{}{}`, `\fonction`, `\diff` /
+`\xdif`, `\diag`, `\trace`, `\im`, `\Ker`, `\dot{x}` (**jamais** `x'` pour une
+dérivée en temps — mais voir l'exception locale de
+[C2](#c2--cohérence-terminologique-et-notationnelle), où `f'` et `\diff f`
+coexistent exprès).
 
-- Le jeu disponible dépend du module chargé par l'option `math=` du cours
-  (`base`, `analysis`, `control`, `measure`). **Vérifier au `grep` dans
-  `template/tex/math/` avant de supposer qu'une macro existe** — et ne jamais
-  inventer une macro du template.
+> Le nommage actuel de ces macros est incohérent et une refonte est proposée
+> dans **[`macros.md`](macros.md)**. Les noms ci-dessous sont ceux d'aujourd'hui.
+
+### Vérifier avant de supposer
+
+Le jeu disponible dépend du module chargé par l'option `math=` du cours
+(`base`, `analysis`, `control`, `measure`). **Ne jamais inventer une macro du
+template** : la chercher d'abord.
+
+```bash
+# la macro \foo existe-t-elle, et dans quel module ?
+grep -rn -E '\\(newcommand|DeclareMathOperator)\*?\{\\foo\}' template/tex/math/
+```
+
+### Trois pièges vérifiés
+
+| Piège | Réalité |
+|---|---|
+| `\Im` | **n'existe pas** dans le template. C'est le `\Im` standard de LaTeX = partie imaginaire, rendu **ℑ** en fraktur. Pour l'image d'une application : **`\im`** |
+| `\ker` | le `\ker` standard donne « ker » minuscule ; le template fournit **`\Ker`** |
+| `\rang` / `\rank` | doublon : `\rang` suit `lang=` (« rg » en français), `\rank` est figé en anglais. À terme, un seul (`\rank` localisé, voir [`macros.md`](macros.md)) |
+
+### Divers
+
 - Une macro absente du template : définition locale minimale et **commentée**
-  dans le préambule, signalée en relecture.
+  dans le préambule, signalée en relecture. Exemple existant :
+  `\renewcommand{\M}{\mathcal M}`, parce que le template définit `\M` comme un M
+  **gras**.
 - `\fonction` du template produit un `array` **nu** : ne s'utilise qu'en mode
   maths (`\[ \fonction{...} \]`).
 
