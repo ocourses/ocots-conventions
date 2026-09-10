@@ -93,32 +93,36 @@ Spec de refonte des modules `tex/math/`. Complète la règle
 [C3](communes.md#c3--macros-du-template-plutôt-que-du-latex-manuel), qui dit
 d'utiliser les macros ; cette partie dit **comment elles s'appellent**.
 
-## Les six principes
+## Les six principes de nommage
 
-**P1 — Le nom est en anglais, la sortie suit `lang=`.**
+> Numérotés `N*` — `P*` est réservé aux règles du
+> [polycopié](poly.md) (voir
+> [`README.md`](README.md#citer-une-règle--épingler-la-version)).
+
+**N1 — Le nom est en anglais, la sortie suit `lang=`.**
 Le mécanisme existe (`\ocotsstring{op-…}`) mais seuls trois opérateurs s'en
 servent aujourd'hui. Il doit devenir la norme pour tout opérateur dont le rendu
 diffère d'une langue à l'autre : `\rank` affiche « rg » en français, « rank » en
 anglais ; `\sinh` affiche « sh » en français, « sinh » en anglais.
 
-**P2 — Un concept, une macro.**
+**N2 — Un concept, une macro.**
 Aujourd'hui la lettre E a deux macros (`\E` en `\mathcal`, `\Ecal` en
 `\mathscr`) et la lettre F en a trois (`\F`, `\Fcal`, `\FT`). Une seule doit
 survivre par concept.
 
-**P3 — Jamais un nom d'une lettre, jamais la redéfinition d'une macro standard.**
+**N3 — Jamais un nom d'une lettre, jamais la redéfinition d'une macro standard.**
 `\O` (Ø) et `\P` (¶) sont aujourd'hui écrasées silencieusement. `\B \C \D \E \F
 \K \M \U \X` monopolisent des noms d'une lettre. Seule exception assumée : les
 ensembles de nombres `\R \N \Z \Q \C \K`, dont l'usage est universel.
 
-**P4 — Le nom dit le concept, pas le glyphe.**
+**N4 — Le nom dit le concept, pas le glyphe.**
 `\Lcal` est nommée d'après son dessin. `\Borel` se lit, `\Bor` se devine.
 
-**P5 — Lisible jusqu'au bout, plutôt que concis.**
+**N5 — Lisible jusqu'au bout, plutôt que concis.**
 En cas d'arbitrage, le nom long gagne. `\ContinuousLinear` plutôt que `\Lcal`,
 `\PowerSet` plutôt que `\Parties`.
 
-**P6 — La police est une option, pas un nom.**
+**N6 — La police est une option, pas un nom.**
 Un auteur choisit une fois, au préambule, la fonte de ses ensembles ; il ne la
 réécrit pas à chaque appel. C'est la philosophie du template — le thème fournit
 l'apparence, l'environnement ne la connaît jamais.
@@ -142,7 +146,7 @@ pour les lettres calligraphiques — c'est le principal travail de la refonte.
 
 | Actuel | Sens | Proposé |
 |---|---|---|
-| `\N \Z \Q \R \C \K` | ensembles usuels | **inchangés** (exception P3) |
+| `\N \Z \Q \R \C \K` | ensembles usuels | **inchangés** (exception N3) |
 | `\Sn` | sphère $\mathbb{S}$ | `\Sphere` |
 | `\Rp` | $[0,+\infty)$ | `\Rnonneg` |
 | `\Rsp` | $(0,+\infty)$ | `\Rpos` |
@@ -174,7 +178,7 @@ concept** quand elles en ont un.
 | `\GLcal \GL` | automorphismes / groupe linéaire | `\GL` seul |
 | `\Acal` | ensemble atteignable $\Acal(t,x_0)$ | `\Reachable` |
 | `\Dcal \Kcal \Ncal \Ucal \Htrue` | **aucun emploi** dans les trois cours | **à supprimer** |
-| `\B \D \E \F \O \P \U \X \M` | lettres nues | **à supprimer** (P3) |
+| `\B \D \E \F \O \P \U \X \M` | lettres nues | **à supprimer** (N3) |
 | `\Sgot` | groupe symétrique, **aucun emploi** | à supprimer, ou `\SymGroup` s'il ressert |
 | `\ind` | indicatrice $\mathds{1}$ | `\indicator` |
 
@@ -208,13 +212,13 @@ Attention à l'ordre en traduisant les intervalles : `of` (ouvert-fermé) devien
 
 | Actuel | Rendu | Proposé | Motif |
 |---|---|---|---|
-| `\rang` + `\rank` | « rg » / « rank » | **`\rank`**, localisé | doublon (P1) |
+| `\rang` + `\rank` | « rg » / « rank » | **`\rank`**, localisé | doublon (N1) |
 | `\im` | Im | inchangé | — |
 | `\Ker` | Ker | inchangé | — |
-| `\vect` | Vect | `\spanop`, localisé | P1 |
-| `\comatrice` | com | `\cofactor`, localisé | P1 |
-| `\graphe` | graphe | `\graph`, localisé | P1 |
-| `\sh \argsh` | sh, argsh | `\sinh \argsinh` **redéfinis**, localisés | P1 |
+| `\vect` | Vect | `\spanop`, localisé | N1 |
+| `\comatrice` | com | `\cofactor`, localisé | N1 |
+| `\graphe` | graphe | `\graph`, localisé | N1 |
+| `\sh \argsh` | sh, argsh | `\sinh \argsinh` **redéfinis**, localisés | N1 |
 | `\trace \diag \card \supp \sign \codim \id \Hom \GL \Isom \sym \argmax \minimize` | — | inchangés | déjà anglais |
 | `\inv` | inv | inchangé | application d'inversion sur $\Isom_c$ — emploi réel, nom correct |
 | `\comp` | **num** | **à supprimer** | nom et rendu incohérents, aucun emploi |
@@ -317,7 +321,7 @@ Défauts relevés en passant, indépendants des deux chantiers précédents.
 |---|---|---|
 | `ocots-text.sty:38-39` | `\ie` et `\cf` n'ont pas `\xspace` : `\ie foo` donne « i.e.foo ». C'est ce qui oblige à écrire `\ie~` partout dans les cours | ajouter `\xspace` — le paquet est déjà chargé |
 | `ocots-packages.sty` | rien ne fournit de guillemets suivant la langue, d'où `` ``…'' `` — des guillemets **anglais** — dans les trois cours français | charger `csquotes` avec `autostyle=true`, documenter `\enquote{…}` ([C4](communes.md#c4--typographie)) |
-| `ocots-text.sty:38-39` | `\ie` et `\cf` sont figés, alors que d'autres chaînes passent par `\ocotsstring` | les localiser (principe P1) |
+| `ocots-text.sty:38-39` | `\ie` et `\cf` sont figés, alors que d'autres chaînes passent par `\ocotsstring` | les localiser (principe N1) |
 | `doc/commandes.md:117` | annonce que `label=<nom>` pose `\label{ex:<nom>}` — faux, la clé est brute | corrigé par le chantier 1 ; en attendant, aligner la doc sur le code |
 | `ocots-env.sty` | **rien pour l'introduction de chapitre**, alors que la règle [P7](poly.md#p7--ouverture-de-chapitre-et-de-section) en demande une, composée en retrait. Les cours détournent `quote` ou `quotation` — des environnements de *citation* — et le corpus est incohérent : `controle_optimal` emploie les deux, dans le même polycopié | ajouter un environnement `chapterintro` : le retrait voulu, un nom qui dit ce que c'est, et un rendu réglable par le thème |
 

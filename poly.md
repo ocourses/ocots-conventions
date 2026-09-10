@@ -81,20 +81,28 @@ lignes plus haut n'est pas une faute, c'est la règle.
 ## P2 — Pas de blocs isolés ou enchaînés sans texte
 
 - Toujours **au moins une phrase de liaison** entre deux boîtes (définition →
-  remarque, remarque → proposition, proposition → corollaire…). **Jamais deux ou
-  trois boîtes collées sans texte entre elles.**
+  proposition, proposition → corollaire…). **Jamais deux ou trois boîtes collées
+  sans texte entre elles.**
 - Une remarque qui n'ajoute qu'un alias de notation ou une précision mineure
   (« on note aussi… », « ne pas confondre… ») se **fond** dans la définition ou
-  le résultat qui précède, plutôt que de rester une boîte à part.
+  le résultat qui précède, plutôt que de rester une boîte à part — elle échoue
+  au test de [P5](#p5--ce-quest-une-remark).
 
-[P5](#p5--remark--ne-pas-en-empiler) et [P6](#p6--remark-vs-example) sont deux
-cas particuliers de cette règle, et ce sont les plus fréquents.
+### Deux exceptions
 
-### La seule exception : une série d'exercices
+**Une série d'exercices.** `exercise` → `exercise` est légitime : une série en
+fin de chapitre est une **liste**, pas une narration, et n'a pas à être
+commentée entre chaque item.
 
-`exercise` → `exercise` est légitime. Une série d'exercices en fin de chapitre
-est une **liste**, pas une narration ; elle n'a pas à être commentée entre
-chaque item.
+**L'entrée dans une remarque.** Une `remark` peut suivre directement n'importe
+quelle boîte, y compris une autre `remark` : elle se rattache à ce qui précède,
+elle n'a pas à en être détachée par une phrase
+([P5](#p5--ce-quest-une-remark)).
+
+L'exception ne vaut que pour ce qui *entre* dans la remarque. **Ce qui en sort
+reste soumis à la règle** : une `definition` collée après une `remark` se
+retrouve sans amorce dès qu'on saute la remarque — et une remarque, par
+définition, se saute.
 
 Il n'y a **pas** d'exception pour les autres :
 
@@ -114,17 +122,23 @@ détectable exactement :
 
 Relevé sur les quatre polycopiés, à la première passe :
 
-| Polycopié | Enchaînements | État |
-|---|---|---|
-| `automatique` | **8** | passe P2 complète faite |
-| `calcul-differentiel-edo` | 51 | partiellement relu |
-| `controle_optimal` | 82 | non relu |
-| `mesure-integration` | **111** | non relu |
+| Polycopié | Enchaînements | dont entrées en `remark`, tolérées | Reste | État |
+|---|---|---|---|---|
+| `automatique` | 8 | 2 | **6** | passe P2 complète faite |
+| `calcul-differentiel-edo` | 36 | 10 | 26 | partiellement relu |
+| `controle_optimal` | 67 | 26 | 41 | non relu |
+| `mesure-integration` | 106 | 40 | **66** | non relu |
 
-Le seul polycopié ayant reçu la passe est à 8, celui qui n'a rien reçu est à
-111. Le compte suit le travail : il fait une bonne **baseline** au sens de
+Le seul polycopié ayant reçu la passe est à 6, celui qui n'a rien reçu est à 66.
+Le compte suit le travail : il fait une bonne **baseline** au sens de
 [`methode.md`](methode.md), et une salve peut s'annoncer par la baisse qu'elle
 produit.
+
+La colonne du milieu est l'exception de [P5](#p5--ce-quest-une-remark), ajoutée
+après la première rédaction de cette règle : elle absorbe entre un quart et
+**38 %** des enchaînements relevés. Une baseline n'est donc comparable qu'à
+version de conventions égale — d'où
+[l'épinglage](README.md#citer-une-règle--épingler-la-version).
 
 ## P3 — Une phrase d'amorce *motivée* avant chaque boîte
 
@@ -192,6 +206,11 @@ décide :
 | un **contre-exemple** montrant qu'une hypothèse ne se retire pas | une hypothèse a l'air gratuite |
 | le **résultat suivant**, s'il en découle | corollaire, spécialisation |
 
+**Aucune de ces formes ne tient dans une `remark`.** Une remarque est
+optionnelle par définition ([P5](#p5--ce-quest-une-remark)) : ce qu'on peut
+sauter n'exploite rien. Une discussion des hypothèses écrite en remarque laisse
+donc le résultat non exploité — c'est le motif le plus fréquent du corpus.
+
 ### La reprise vient après l'unité, pas après la boîte
 
 `\end{theorem}` suivi de `\begin{proof}` est **le successeur le plus fréquent
@@ -221,17 +240,129 @@ de fin de section : *ce théorème, en a-t-on montré un cas concret ? a-t-on di
 si ses hypothèses peuvent être relâchées ?* Si la réponse est non nulle part,
 il manque quelque chose — que ce soit avant ou après le titre suivant.
 
-## P5 — `remark` : ne pas en empiler
+## P5 — Ce qu'est une `remark`
 
-- Deux ou trois `remark` consécutives → **fusionner** (éventuellement en une
-  `itemize`), **passer en texte courant**, ou **promouvoir en sous-section** si
-  le contenu le justifie.
-- Une `remark` qui n'est qu'une **convention de vocabulaire ou de notation**
-  (« on parle de champ autonome si… », « on note $f(x)$ au lieu de $f(t,x)$ »)
-  n'est pas un vrai aparté : elle va dans le **texte courant**, au fil de
-  l'introduction des objets.
-- La `remark` est réservée aux vrais apartés : mise en garde, cas limite, lien
-  avec un résultat ultérieur, contre-exemple ponctuel.
+> **Une remarque est mise en avant, optionnelle, et souvent tournée vers
+> l'extérieur.**
+
+Les trois propriétés comptent, et c'est la deuxième qui tranche :
+
+- **mise en avant** — si le contenu se lisait aussi bien au fil du texte, il y
+  reste ; la boîte est ce qui l'en sort ;
+- **optionnelle** — *un lecteur qui saute toutes les remarques ne perd rien de
+  ce qu'il lui faut pour suivre le cours et réussir l'examen* ;
+- **tournée vers l'extérieur** — elle relie souvent ce qui précède à autre chose
+  que le cadre courant : un autre résultat, un autre cours, un contexte
+  historique, une ouverture.
+
+### Le test
+
+**Retirer la boîte. Le lecteur a-t-il perdu quelque chose dont il a besoin ?**
+
+- **Non** → c'est une remarque. Elle reste, où qu'elle soit placée.
+- **Oui** → ce n'est pas une remarque, quel que soit le ton. Le contenu est
+  nécessaire, donc il rejoint le fil.
+
+**Il n'y a pas de critère de position.** Une remarque qui commente le résultat
+juste au-dessus est parfaitement légitime — c'est même l'un de ses emplois les
+plus utiles, dès lors qu'elle le met en relation avec autre chose. Ce qui
+disqualifie une remarque, ce n'est pas de parler de la boîte précédente, c'est
+d'être **indispensable**.
+
+### L'optionalité se vérifie dans le corpus
+
+Sur les quatre polycopiés : **176 remarques, pas un seul label.** Personne ne
+cite jamais une remarque — ni le polycopié, ni les TD, ni les examens. Ce qu'on
+met en remarque est de fait retiré de ce qui se cite.
+
+C'est ce qui rend le test tranchant : **un énoncé dont on aura besoin plus loin
+ne peut pas rester dans une remarque**, il y serait incitable.
+
+### Quand ce n'en est pas une
+
+| Contenu | Perdu si on le saute ? | Destination |
+|---|---|---|
+| un **énoncé mathématique** utilisé ou cité plus loin | oui | `proposition` / `corollary` — et il devient citable |
+| **ce qu'il faut retenir** du résultat précédent | oui | texte courant : c'est l'exploitation ([P4](#p4--un-résultat-qui-nest-pas-exploité-na-pas-été-posé)) |
+| une **convention de notation ou de vocabulaire** employée ensuite | oui | texte courant, là où les objets sont introduits |
+| une **instanciation** sur un cas concret | — | `example` ([P6](#p6--remark-vs-example)) |
+| un **rappel supposé acquis**, un lien URL | non, mais il ne faut pas s'arrêter | **note de bas de page** (voir plus bas) |
+| une **mise en garde**, un cas limite, un contre-exemple ponctuel | non | `remark` |
+| un **lien** avec un autre cadre, un autre cours, un résultat ultérieur | non | `remark` |
+| un **point historique**, un renvoi « pour aller plus loin » | non | `remark` |
+
+### Une remarque ne peut pas être l'exploitation d'un résultat
+
+Conséquence directe de l'optionalité. Si la seule chose qui suit un théorème est
+une remarque, le théorème n'a pas été exploité au sens de
+[P4](#p4--un-résultat-qui-nest-pas-exploité-na-pas-été-posé) : la remarque, par
+définition, on peut la sauter.
+
+Le cas typique du corpus est `produits.tex:131` — « On retient que pour des
+fonctions mesurables positives, on peut intervertir l'ordre des intégrations »,
+en remarque juste après Fubini-Tonelli. C'est *le* point à retenir du théorème :
+il va au fil du texte. Ce qui peut rester en remarque, c'est ce qui **ouvre
+ailleurs**.
+
+Même raison pour l'amorce : une remarque ne fait pas la liaison vers la boîte
+suivante. Un `remark` suivi d'une `definition` collée laisse la définition sans
+amorce dès qu'on saute la remarque — c'est
+[P3](#p3--une-phrase-damorce-motivée-avant-chaque-boîte) qui reprend la main.
+
+### Enchaîner des remarques n'est pas une faute
+
+Plusieurs apartés distincts peuvent se rattacher au même résultat, et rien
+n'oblige à les relier par une phrase. Une remarque suit directement une boîte, y
+compris une autre remarque —
+[P2](#p2--pas-de-blocs-isolés-ou-enchaînés-sans-texte) ne s'applique pas à ce
+qui *entre* dans une remarque.
+
+**Trois est la limite ; quatre est un signal.** Pas un signal de ponctuation :
+un signal de contenu. Au-delà de trois, ou bien plusieurs de ces boîtes ont
+échoué au test — le contenu n'était pas optionnel —, ou bien le sujet mérite un
+traitement à lui : un paragraphe de discussion, une sous-section.
+
+Le corpus donne au seuil sa calibration : sur quatre polycopiés, la longueur 4
+n'apparaît que **deux fois**, toutes deux dans `controle_optimal`.
+
+| Chaîne | Ce qu'on y trouve |
+|---|---|
+| `shooting.tex:133` | la fonction de tir, ce que signifie son zéro, le lien avec le hamiltonien vrai — le cœur de la méthode, mis en marge |
+| `calcul-des-variations.tex:2104` | trois affaiblissements successifs des hypothèses de la proposition précédente — une discussion qui appelle un paragraphe |
+
+Aucune des deux n'est optionnelle. Le seuil ne détecte pas un excès de boîtes,
+il détecte **un contenu qui a quitté le fil**.
+
+### `remark` ou note de bas de page
+
+Les deux ne servent pas le même lecteur.
+
+| | Note de bas de page | `remark` |
+|---|---|---|
+| Sert | celui qui a **besoin d'un rappel** | celui qui **veut aller plus loin** |
+| Contenu | une définition venue d'un autre cours et supposée acquise, un lien URL, une référence précise | un lien avec un autre cadre, un point historique, une mise en garde, une ouverture |
+| Le lecteur qui n'en a pas besoin | **ne s'arrête pas** | est **invité** à s'arrêter |
+
+Une note **dépanne sans interrompre** ; une remarque **propose**. D'où les deux
+conséquences :
+
+- un **point historique** ou une **mise en relation** ne vont pas en note de bas
+  de page, même courts — ce sont des choses qu'on offre, donc qu'on montre ;
+- un **rappel supposé acquis** ne va pas en remarque — la boîte lui donnerait un
+  poids qu'il n'a pas.
+
+Le cas reste rare : la note de bas de page est un outil d'appoint, pas une
+destination fréquente pour ce qui est aujourd'hui en remarque.
+
+### Cette règle ne s'outille pas
+
+« Le lecteur en a-t-il besoin ? » relève du jugement de l'auteur, et aucune
+formulation ne le remplace. Le seul indicateur automatisable est la **longueur
+des chaînes**, et il ne dit pas où est la faute — seulement où regarder.
+
+```bash
+./conventions/bin/verifier P5 poly/
+```
 
 ## P6 — `remark` vs `example`
 
@@ -241,7 +372,20 @@ aussi : `example[Contre-exemple]`.
 
 L'exemple est amené par une phrase qui dit **ce qu'il illustre**, **placée avant
 la boîte** (« … cette inclusion est toujours stricte, `\cf` l'exemple
-suivant. »).
+suivant. »). C'est ce qui le sépare de la remarque du point de vue de
+[P2](#p2--pas-de-blocs-isolés-ou-enchaînés-sans-texte) : un `example` s'amorce,
+une `remark` se rattache.
+
+Les deux ne jouent d'ailleurs pas le même rôle. Un exemple **sert la
+compréhension du résultat** : celui qui le saute peut ne pas comprendre
+l'énoncé. Il échoue donc au test de [P5](#p5--ce-quest-une-remark) — ce n'est
+pas un aparté, c'est une pièce du fil, et c'est aussi l'une des formes
+d'exploitation que [P4](#p4--un-résultat-qui-nest-pas-exploité-na-pas-été-posé)
+accepte.
+
+Un contre-exemple qui montre qu'une hypothèse ne se retire pas est dans le même
+cas. Un contre-exemple d'ouverture — « ailleurs, ça se passe autrement » — est
+une remarque.
 
 ## P7 — Ouverture de chapitre et de section
 

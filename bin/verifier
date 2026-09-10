@@ -25,6 +25,14 @@ BOX = (r"(?:my)?(?:definition|theorem|proposition|corollary|lemma|example"
 # Une série d'exercices est une liste, pas une narration (P2).
 CHAINE_TOLEREE = {("exercise", "exercise"), ("exercisecb", "exercisecb")}
 
+# Entrer dans une remarque ne demande pas de phrase de liaison : elle se
+# rattache à ce qui précède (P5). Ce qui en *sort* reste soumis à P2 — une
+# boîte collée après une remarque perd son amorce dès qu'on saute la remarque.
+ENTREE_TOLEREE = "remark"
+
+# P5 — au-delà de trois remarques d'affilée, le contenu a quitté le fil.
+CHAINE_REMARQUES_MAX = 3
+
 RE_CHAINE = re.compile(
     r"\\end\{(" + BOX + r")\}"
     r"((?:[^\S\n]*\n|[^\S\n]*%[^\n]*\n)*)"
@@ -93,9 +101,45 @@ def regle_P2(racines):
         texte = lire(chemin)
         for m in RE_CHAINE.finditer(texte):
             avant, apres = m.group(1), m.group(3)
-            if (avant.replace("my", ""), apres.replace("my", "")) in CHAINE_TOLEREE:
+            nus = (avant.replace("my", ""), apres.replace("my", ""))
+            if nus in CHAINE_TOLEREE or nus[1] == ENTREE_TOLEREE:
                 continue
             yield chemin, ligne_de(texte, m.start()), f"{avant} -> {apres}"
+
+
+RE_BOITE = re.compile(r"\\(begin|end)\{(" + BOX + r")\}")
+
+
+def boites_de_premier_niveau(texte):
+    """Les boîtes non imbriquées, dans l'ordre : (nom, ligne)."""
+    profondeur, suite = 0, []
+    for m in RE_BOITE.finditer(texte):
+        if m.group(1) == "begin":
+            if profondeur == 0:
+                suite.append((m.group(2).replace("my", ""),
+                              ligne_de(texte, m.start())))
+            profondeur += 1
+        else:
+            profondeur -= 1
+    return suite
+
+
+def regle_P5(racines):
+    """P5 — plus de trois remarques d'affilée : le contenu a quitté le fil."""
+    for chemin in sources(racines):
+        texte = lire(chemin)
+        longueur, depart = 0, None
+        for nom, ligne in boites_de_premier_niveau(texte) + [("", 0)]:
+            if nom == "remark":
+                longueur += 1
+                if depart is None:
+                    depart = ligne
+                continue
+            if longueur > CHAINE_REMARQUES_MAX:
+                yield chemin, depart, (
+                    f"{longueur} remarques d'affilée — vérifier qu'elles sont "
+                    f"toutes optionnelles")
+            longueur, depart = 0, None
 
 
 def regle_C4(racines):
@@ -175,7 +219,7 @@ def regle_P3(racines):
                 yield chemin, no + 1, f"phrase qui se jette dans la boîte : « …{montre} »"
 
 
-REGLES = {"P2": regle_P2, "P3": regle_P3, "C4": regle_C4}
+REGLES = {"P2": regle_P2, "P3": regle_P3, "P5": regle_P5, "C4": regle_C4}
 
 
 def main(argv):

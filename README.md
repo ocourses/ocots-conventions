@@ -94,8 +94,9 @@ décide pas.
 
 | Règle | Ce qui est vérifié |
 |---|---|
-| `P2` | enchaînements de boîtes sans texte entre elles (série d'exercices tolérée) |
+| `P2` | enchaînements de boîtes sans texte entre elles (série d'exercices et entrée en `remark` tolérées) |
 | `P3` | amorces passe-partout, phrases qui se jettent dans la boîte (signaux, pas verdicts) |
+| `P5` | plus de trois `remark` d'affilée — un signal, pas une faute |
 | `C4` | `~:` inutiles, guillemets, apostrophes U+2019, renvois en bas de casse, mots composés |
 
 Les contrôles typographiques **masquent le mode mathématique** avant de
@@ -112,7 +113,9 @@ doit pas être « corrigé ».
   *motivée* — il ne repère que deux formes sûres.
 - Il **signale du correct.** Fermer une section sur un théorème
   ([P4](poly.md#p4--un-résultat-qui-nest-pas-exploité-na-pas-été-posé)) est
-  souvent légitime, et une amorce qu'il pointe peut être la bonne.
+  souvent légitime, et une amorce qu'il pointe peut être la bonne. Quatre
+  remarques d'affilée ([P5](poly.md#p5--ce-quest-une-remark)) peuvent être
+  quatre vrais apartés — l'outil dit *où regarder*, pas *quoi corriger*.
 - **Zéro trouvaille ne veut pas dire règle respectée.** Les règles qui portent
   le plus — [P1](poly.md#p1--placement-des-hypothèses),
   [P4](poly.md#p4--un-résultat-qui-nest-pas-exploité-na-pas-été-posé),
@@ -206,7 +209,7 @@ Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 | Fichier | État |
 |---|---|
 | `communes.md` | `C1`–`C6` — relues avec l’auteur |
-| `poly.md` | `P1`–`P14` — éprouvées sur deux cours |
+| `poly.md` | `P1`–`P14` — éprouvées sur deux cours ; `P1`–`P5`, `P7`, `P14` relues avec l’auteur |
 | `methode.md` | v1 |
 | `td.md` | `TD1`–`TD9` — dérivées du rôle `exercise-corrector` de `ocourses/agents` |
 | `slides.md` | `SL1`–`SL8` — SL1 et SL2 arrêtées, le reste **squelette** |
