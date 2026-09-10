@@ -156,3 +156,54 @@ vide n'a pas eu sa passe typographique.
 - **Une figure ne vit pas dans une boîte** `remark` / `example` : elle en casse
   le mode paragraphe (erreur `Not in outer par mode`). Elle est sortie en
   `figure` flottante — et le `\ref` qui la vise vérifié après déplacement.
+
+## 14. Structure du polycopié
+
+Tout polycopié a la même ossature. Référence :
+[`calcul-differentiel-edo-enseignants/poly/main.tex`](https://github.com/ocourses/calcul-differentiel-edo-enseignants/blob/main/poly/main.tex).
+
+| Partie | Contenu | Obligatoire |
+|---|---|---|
+| `\frontmatter` | `\maketitle` · **Avant-propos** · `\tableofcontents` · **Notations** | oui |
+| `\mainmatter` | `\part` / `\chapter`, corrections d'exercices en fin de partie | oui |
+| `\begin{appendix}` | compléments, grands théorèmes | selon le cours |
+| `\backmatter` | **bibliographie** · **`\printindex`** | oui |
+
+### L'avant-propos
+
+Un `\chapter*{Avant-propos}` court, qui dit :
+
+- la **genèse** du document — d'où il vient, sur quel cours antérieur il s'appuie,
+  qui l'a rédigé et quand ;
+- les **contributions** — collègues qui ont assuré le cours, complété des
+  corrigés, relu ;
+- l'**assistance d'un agent conversationnel** quand il y en a eu une, en
+  précisant que les modifications ont fait l'objet d'une relecture et d'une
+  validation humaines ;
+- **comment signaler une erreur** : lien vers les issues du dépôt public, en
+  demandant page et section.
+
+### La page de notations
+
+Un `\chapter*{Notations}` dans `frontmatter/notations.tex`. Elle **fixe le décor
+global** du cours (règle 7) une fois pour toutes, et le corps du document n'y
+revient pas.
+
+- Un paragraphe d'ouverture pose les conventions permanentes (« Sauf mention
+  contraire, $(E,\norm{\cdot}_E)$ et $(F,\norm{\cdot}_F)$ désignent des espaces
+  vectoriels normés sur $\R$… »).
+- Puis des `\paragraph*` thématiques (ensembles de nombres, espaces et
+  topologie, applications linéaires et matrices, différentiabilité…), chacun
+  avec une `longtable` à deux colonnes : la notation, sa description.
+- Les entrées **utilisent les macros du template** (règle
+  [C3](communes.md#c3--macros-du-template-plutôt-que-du-latex-manuel)) : la page
+  de notations est le premier endroit où une notation maison se voit.
+
+Les entrées de cette page ne sont **pas** redéfinies dans le corps (règle
+[C2](communes.md#c2--cohérence-terminologique-et-notationnelle)).
+
+### L'index
+
+`\printindex` en `\backmatter`, alimenté par les `\index{…}` posés à chaque
+première occurrence (règle 11). Un index vide signale une passe typographique
+qui n'a pas eu lieu.
