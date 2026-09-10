@@ -102,6 +102,26 @@ Les contrôles typographiques **masquent le mode mathématique** avant de
 chercher : `~` y est une espace, et `\forall h \in E ~:~ J'(x) \cdot h = 0` ne
 doit pas être « corrigé ».
 
+### Ce que l'outil ne fait pas
+
+**`verifier` aide à l'analyse ; il ne certifie rien.**
+
+- Il **rate des choses.** `P2` ne voit que des boîtes séparées par du blanc :
+  une ligne de `%` ou un `\medskip` entre deux boîtes suffit à la lui cacher,
+  alors que l'infraction est la même. `P3` ne juge pas si une amorce est
+  *motivée* — il ne repère que deux formes sûres.
+- Il **signale du correct.** Fermer une section sur un théorème
+  ([P4](poly.md#p4--un-résultat-qui-nest-pas-exploité-na-pas-été-posé)) est
+  souvent légitime, et une amorce qu'il pointe peut être la bonne.
+- **Zéro trouvaille ne veut pas dire règle respectée.** Les règles qui portent
+  le plus — [P1](poly.md#p1--placement-des-hypothèses),
+  [P4](poly.md#p4--un-résultat-qui-nest-pas-exploité-na-pas-été-posé),
+  [P7](poly.md#p7--ouverture-de-chapitre-et-de-section) — ne sont pas
+  outillables du tout.
+
+Ce à quoi il sert vraiment : **mesurer une ampleur** avant une passe et
+**suivre une baisse** après. Pas remplacer la lecture.
+
 ---
 
 ## Citer une règle : épingler la version

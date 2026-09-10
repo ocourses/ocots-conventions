@@ -176,15 +176,50 @@ mécaniquement. L'outil repère seulement deux formes sûres :
 Là encore, le polycopié qui a reçu la passe (`automatique`) est à **0**, contre
 13 et 14 pour ceux qui ne l'ont pas reçue.
 
-## P4 — Une phrase de reprise *après* la boîte
+## P4 — Un résultat qui n'est pas exploité n'a pas été posé
 
-Après une définition ou un résultat, une phrase **interprète** ce qu'on vient
-d'obtenir et **amène la suite**.
+> **Après un résultat, quelque chose l'exploite. Ce n'est pas forcément une
+> phrase.**
 
-**Proposition/théorème → corollaire** : la liaison dit *ce que la spécialisation
-apporte* (« En prenant $E = \R^n$, on obtient la forme habituelle… », « Le cas
-linéaire homogène en découle immédiatement… »), jamais un simple « On en déduit
-le corollaire suivant. » sans contenu.
+L'exploitation prend plusieurs formes, et c'est la nature du résultat qui
+décide :
+
+| Forme | Quand |
+|---|---|
+| une **phrase** qui interprète ce qu'on vient d'obtenir | le résultat parle de lui-même, il suffit de le situer |
+| un **exemple** qui l'instancie | l'énoncé est abstrait |
+| une **discussion des hypothèses** — peut-on les affaiblir ? | les hypothèses sont nombreuses ou surprenantes |
+| un **contre-exemple** montrant qu'une hypothèse ne se retire pas | une hypothèse a l'air gratuite |
+| le **résultat suivant**, s'il en découle | corollaire, spécialisation |
+
+### La reprise vient après l'unité, pas après la boîte
+
+`\end{theorem}` suivi de `\begin{proof}` est **le successeur le plus fréquent
+d'une boîte** dans le corpus — 147 occurrences — et il est correct. La reprise
+se place après l'**énoncé et sa preuve**, jamais entre les deux.
+
+### Entre deux boîtes, une seule phrase porte les deux rôles
+
+Une phrase placée entre un théorème et son corollaire est **à la fois** la
+reprise du premier et l'amorce du second : P3 et P4 sont deux critères sur la
+**même** phrase, pas deux phrases à écrire.
+
+Elle dit donc *ce que la spécialisation apporte* — « En prenant $E = \R^n$, on
+obtient la forme habituelle du théorème des accroissements finis », « Le cas
+linéaire homogène en découle immédiatement » — et jamais « On en déduit le
+corollaire suivant. », qui annonce sans rien dire (détecté par
+[P3](#p3--une-phrase-damorce-motivée-avant-chaque-boîte)).
+
+### Un signal, pas une infraction
+
+**73 sections du corpus se terminent sur une boîte**, sans rien après. C'est
+détectable, mais ce n'est pas automatiquement une faute : l'ouverture de la
+section suivante peut faire le travail.
+
+La question à se poser est celle de l'exploitation, pas celle de la ponctuation
+de fin de section : *ce théorème, en a-t-on montré un cas concret ? a-t-on dit
+si ses hypothèses peuvent être relâchées ?* Si la réponse est non nulle part,
+il manque quelque chose — que ce soit avant ou après le titre suivant.
 
 ## P5 — `remark` : ne pas en empiler
 
