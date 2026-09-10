@@ -12,12 +12,42 @@ Numérotation stable : `C1`, `C2`, … (voir [`README.md`](README.md#numérotati
 
 ## C1 — Langue et registre
 
-- **Français**, registre académique, phrases complètes.
-- Un seul choix de personne dans tout un document : « on » **ou** « nous », pas
-  les deux en alternance. Vérifier au `grep` avant de trancher (règle C2).
-- Commentaires LaTeX (`%`) : libres, mais en français comme le reste.
-- Pas d'abréviation télégraphique dans un texte suivi (« càd », « ds », « pr ») ;
-  utiliser les macros du template : `\ie`, `\cf`, `\resp`.
+**La langue du cours commande tout.** Elle est déclarée par l'option `lang=` du
+template (`fr` par défaut, `en` pour les rares cours en anglais) et vaut pour le
+texte, les intitulés **et les commentaires LaTeX** (`%`). Un cours en français a
+des commentaires en français.
+
+Registre académique, phrases complètes. Pas d'abréviation télégraphique dans un
+texte suivi (« càd », « ds », « pr ») : utiliser les macros du template `\ie`,
+`\cf`, `\resp`.
+
+### « nous » et « on » : une répartition par rôle
+
+Les deux coexistent, mais **chacun a son emploi** — ce n'est pas une alternance
+au hasard.
+
+| | Emploi | Exemples |
+|---|---|---|
+| **nous** | la voix de l'auteur qui **guide** le lecteur : annonce du programme, transition, renvoi | « **Nous aurons besoin**, dans la suite, de la structure d'espace complet de $\Lcal(E,F)$. » · « **Nous verrons** au chapitre suivant que… » · « **Commençons par** le cas linéaire. » |
+| **on** | l'acteur du **raisonnement et du calcul** | « **On pose** $u = f(x)$. » · « **On en déduit** que… » · « **On applique** le théorème de convergence dominée. » |
+
+Le test : si la phrase pourrait figurer dans une préface ou dans une phrase de
+liaison, c'est « nous » ; si c'est une étape de démonstration, c'est « on ».
+
+En cas de doute, ne pas trancher au jugé : vérifier l'usage dominant du cours au
+`grep` (règle [C2](#c2--cohérence-terminologique-et-notationnelle)).
+
+### Consignes : l'infinitif
+
+Toute consigne adressée à l'étudiant — question de TD, d'examen ou d'exercice de
+polycopié — s'écrit à l'**infinitif** :
+
+> **Montrer** que la suite converge. · **Calculer** $\int_0^1 f$. · **En
+> déduire** que $f$ est mesurable.
+
+Pas d'impératif (« Montrez que… »), pas de futur impersonnel (« On montrera
+que… », qui annonce au lieu de demander). Vaut aussi pour les consignes d'un
+transparent.
 
 ## C2 — Cohérence terminologique et notationnelle
 
@@ -51,6 +81,12 @@ Utiliser systématiquement les macros dédiées : `\norm`, `\abs`, `\prodscal`,
   maths (`\[ \fonction{...} \]`).
 
 ## C4 — Typographie
+
+Les règles ci-dessous sont celles du **français**. Un cours en anglais
+(`lang=en`, règle [C1](#c1--langue-et-registre)) suit la typographie anglaise :
+pas d'espace avant les deux-points, guillemets `` `` … '' `` doubles droits. Les
+lignes « terme défini », « renvois » et « étapes de preuve » valent dans les deux
+langues.
 
 Checklist `grep`-able, à passer sur tout document :
 
