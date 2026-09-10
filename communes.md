@@ -51,18 +51,88 @@ transparent.
 
 ## C2 — Cohérence terminologique et notationnelle
 
-**Avant de trancher entre deux formulations concurrentes** (« sur $U$ » vs
-« dans $U$ », « dérivable » vs « différentiable », « point d'équilibre » vs
-« point de fonctionnement »), **vérifier l'usage dominant** dans tout le cours
-au `grep` — pas décider au jugé — puis **aligner les exceptions minoritaires sur
-la majorité**.
+Devant deux formulations concurrentes (« sur $U$ » vs « dans $U$ »,
+« Lyapunov » vs « Liapounov », `f'` vs `\diff f`), la procédure est en trois
+temps. **Le `grep` mesure, il ne décide pas.**
 
-La cohérence est **inter-supports** : un terme ou une notation fixée dans le
-polycopié se retrouve à l'identique dans les transparents, les TD et les
-examens. Le polycopié fait référence.
+### 1. Mesurer l'ampleur
 
-Ne pas redéfinir dans le corps ce qui est déjà fixé dans la page de notations,
-si le document en a une.
+```bash
+# combien de fois chaque variante, et où
+grep -rn -E "point d'équilibre|point de fonctionnement" --include='*.tex' . \
+  | sed -E "s/.*(point d'équilibre|point de fonctionnement).*/\1/" | sort | uniq -c
+```
+
+Le comptage sert à **ne rien oublier** et à voir ce que coûte un changement. Il
+ne désigne pas le bon terme : une forme minoritaire peut parfaitement être la
+juste.
+
+### 2. Les deux formes sont-elles vraiment équivalentes ?
+
+C'est la question qui vient avant toute autre, et la réponse est souvent non.
+
+> « Point d'équilibre » et « point de fonctionnement » ne sont **pas**
+> synonymes : l'équilibre est celui du système **non contrôlé**.
+
+Deux notions distinctes : on garde les deux mots, et on s'assure que la
+**distinction est posée explicitement** dans le cours. Ce n'est pas un problème
+de cohérence, c'est un point de fond.
+
+### 3. Si elles sont équivalentes : l'auteur tranche, puis on applique partout
+
+La décision revient à l'auteur, pas au comptage. Une fois prise, elle vaut sur
+**tout le corpus** (règle « Portée » ci-dessous) — **sauf exception locale.**
+
+### L'exception locale
+
+**Là où le cours distingue deux notions, la notation doit les distinguer aussi**,
+même si ailleurs les deux formes sont interchangeables. Une passe d'alignement
+aveugle détruit le propos du passage.
+
+Exemple, dans le cours de calcul différentiel
+(`cd-application-differentiable.tex`) : le paragraphe qui compare dérivabilité et
+différentiabilité en dimension 1 emploie **les deux** notations côte à côte —
+$f'(x)$ pour la dérivée (un scalaire), $\diff f(x)$ pour la différentielle (une
+application linéaire) — parce qu'il existe précisément pour poser
+$f'(x) = \diff f(x) \cdot 1$. Remplacer l'une par l'autre viderait le passage de
+son sens.
+
+Une exception de ce genre se **signale par un commentaire LaTeX** à l'endroit
+concerné, pour qu'une passe ultérieure ne la « corrige » pas.
+
+### Noms propres
+
+Translittération anglo-saxonne, pas la francisation phonétique :
+
+| On écrit | Pas |
+|---|---|
+| Lyapunov | Liapounov, Lyapounov |
+| Pontryagin | Pontriaguine |
+| Tchebychev | Chebyshev *(à trancher par cours)* |
+
+```bash
+grep -rn -E "Liapounov|Lyapounov|Pontriaguine" --include='*.tex' .
+```
+
+### Portée : tout le corpus du cours
+
+Un terme ou une notation fixée dans le **polycopié** se retrouve à l'identique
+dans les transparents, les TD et les examens — **le polycopié fait référence**.
+
+- C'est vrai **pour la notation** même quand le **contenu** circule dans l'autre
+  sens : une passe d'harmonisation *slides → poly* remonte des notions absentes
+  du poly, mais ce sont elles qui s'alignent sur les notations du poly, pas
+  l'inverse.
+- Les **annales** sont alignées elles aussi, pour la clarté du corpus.
+- Ne pas redéfinir dans le corps ce qui est déjà fixé dans la page de notations,
+  si le document en a une.
+
+### Consigner la décision
+
+Un arbitrage tranché qui n'est écrit nulle part se repose au cours suivant.
+Chaque décision de terminologie va dans
+`reports/<passe>/06-regles-style-relecture.md` du dépôt de cours (voir
+[`methode.md`](methode.md#ce-que-le-dépôt-de-cours-garde-en-propre)).
 
 ## C3 — Macros du template plutôt que du LaTeX manuel
 
