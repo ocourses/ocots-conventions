@@ -122,6 +122,26 @@ doit pas être « corrigé ».
 Ce à quoi il sert vraiment : **mesurer une ampleur** avant une passe et
 **suivre une baisse** après. Pas remplacer la lecture.
 
+## Corriger
+
+`verifier` **analyse** ; `nettoyer` **modifie**.
+
+```bash
+./conventions/bin/nettoyer C4 poly/              # aperçu, rien n'est écrit
+./conventions/bin/nettoyer C4 poly/ --appliquer  # écrit les fichiers
+```
+
+Il n'automatise que les corrections dont **l'équivalence a été vérifiée**, et
+refuse celles dont le document n'a pas les moyens : sans `csquotes` chargé,
+réécrire les guillemets en `\enquote{…}` rendrait le document incompilable, donc
+il ne le fait pas et le dit.
+
+Éprouvé sur le polycopié de mesure : **183 `~:` retirés, compilation `exit=0`,
+warnings inchangés, et le texte du PDF identique caractère pour caractère.**
+
+Après application : **recompiler, relire le diff, et commiter à part.** Un
+nettoyage mécanique est sa propre salve — il ne se mêle pas à une passe de fond.
+
 ---
 
 ## Citer une règle : épingler la version
