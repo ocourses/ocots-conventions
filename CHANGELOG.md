@@ -47,7 +47,7 @@ Deux règles renvoient désormais au socle plutôt que de répéter son contenu 
   bibliographie.
 - `td.md` (`TD1`–`TD9`), `slides.md` (`SL1`–`SL7`), `exam.md` (`EX1`–`EX7`).
 - `methode.md` — conduite d'une passe.
-- `macros.md` — spec de refonte du nommage des macros du template (proposition).
+- `template.md` — les révisions demandées au template LaTeX (proposition).
 
 ### Corrigé par rapport aux documents d'origine
 

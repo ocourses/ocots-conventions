@@ -32,8 +32,8 @@ versions doivent rester cohérentes.
 3. **[`methode.md`](methode.md)** — comment se déroule une passe de relecture :
    salves, périmètre, compilation, PR, format du rapport.
 
-En annexe, **[`macros.md`](macros.md)** — spec de refonte du nommage des macros
-mathématiques du template. Proposition, pas encore appliquée.
+En annexe, **[`template.md`](template.md)** — les révisions demandées au
+template LaTeX. Proposition, rien n'est encore appliqué.
 
 Le fil conducteur, si on ne devait retenir qu'une phrase :
 
@@ -141,7 +141,7 @@ Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 | `td.md` | `TD1`–`TD9` — dérivées du rôle `exercise-corrector` de `ocourses/agents` |
 | `slides.md` | `SL1`–`SL7` — **squelette**, à affiner |
 | `exam.md` | `EX1`–`EX7` — **squelette**, à affiner |
-| `macros.md` | proposition — refonte du nommage, non appliquée au template |
+| `template.md` | 3 chantiers — **non appliqués** au template |
 
 ---
 

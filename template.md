@@ -1,16 +1,97 @@
 <!-- LTeX: language=fr-FR -->
 
-# Nommage des macros mathématiques
+# Révisions demandées au template
 
-Spec de refonte des modules `tex/math/` de
-[`ocots-latex-template`](https://github.com/ocourses/ocots-latex-template).
-Complète la règle [C3](communes.md#c3--macros-du-template-plutôt-que-du-latex-manuel),
-qui dit d'utiliser les macros ; ce document dit **comment elles s'appellent**.
+Ce que la relecture des conventions a mis au jour dans
+[`ocots-latex-template`](https://github.com/ocourses/ocots-latex-template), et
+qui doit y être corrigé pour que les règles soient applicables.
 
-> **État : proposition.** Rien n'est encore appliqué au template. La migration
-> passera par `ocots-compat.sty`, qui porte déjà les alias dépréciés de la v0.
+> **État : proposition.** **Rien n'est encore appliqué au template.** Ce
+> document est la spec des PR à y faire. Les cours migreront ensuite, à leur
+> rythme, chacun à sa version épinglée du sous-module.
+
+| Chantier | Objet | Règle concernée |
+|---|---|---|
+| **1** | [Signature des environnements et labels](#chantier-1--signature-des-environnements-et-labels) | [C5](communes.md#c5--labels-et-renvois) |
+| **2** | [Nommage des macros mathématiques](#chantier-2--nommage-des-macros-mathématiques) | [C3](communes.md#c3--macros-du-template-plutôt-que-du-latex-manuel) |
+| **3** | [Correctifs divers](#chantier-3--correctifs-divers) | [C1](communes.md#c1--langue-et-registre), [C4](communes.md#c4--typographie) |
+
+Chaque chantier se vérifie par `cd examples && make`, qui **doit rester vert**.
 
 ---
+
+# Chantier 1 — Signature des environnements et labels
+
+## Le problème
+
+Trois mécanismes d'étiquetage coexistent, avec trois comportements différents :
+
+| Environnements | Mécanisme | Où va la clé | Label produit |
+|---|---|---|---|
+| `theorem` `definition` `proposition` `corollary` `conjecture` | `\newtcbtheorem` (`ocots-env.sty:41-50`) | 2ᵉ argument obligatoire | **préfixé** : `thm:clé`, `def:clé`… |
+| `lemma` `example` `remark` | `\newtheorem` (`ocots-env.sty:63-80`) | `\label{}` dans le corps | brut |
+| `exercise` | `tcolorbox`, clé `label=` | clé `label=` | brut |
+
+Trois conséquences fâcheuses :
+
+- **Le double préfixe.** Écrire `\begin{theorem}{}{thm:cauchy}` donne
+  `thm:thm:cauchy` et casse le renvoi. C'est l'erreur qu'a dû réparer la salve 4
+  de la relecture d'`automatique-enseignants`.
+- **Les arguments obligatoires vides.** `\begin{theorem}{}{}` est la forme la
+  plus fréquente dans le corpus : deux accolades vides que l'auteur doit taper
+  sans raison.
+- **La doc ment.** `doc/commandes.md:117` annonce que `label=<nom>` pose
+  `\label{ex:<nom>}`. Faux : la clé est brute. Le préfixe `ex:` n'existe que
+  dans `ocots-compat.sty:50`, pour l'ancienne macro `\myexercisecb`.
+
+## La cible
+
+**Une seule signature, une seule règle** : tout environnement prend une liste
+clé-valeur optionnelle, et `label=` pose le label **tel quel**.
+
+```latex
+\begin{theorem}[title={Théorème de Cauchy-Lipschitz}, label=thm:cauchy]
+\begin{proposition}[label=prop:duhamel]
+\begin{remark}[label=rem:autonome]
+\begin{example}[note={Contre-exemple}, label=exa:non-unicite]
+\begin{exercise}[label=ex:matrices, points=4]
+\begin{definition}                                  % ni titre ni label
+```
+
+Clés communes : `title=`, `label=`, `note=`. Clés propres à `exercise` :
+`points=`, `nosolution`.
+
+Ce que ça règle :
+
+- **plus d'arguments obligatoires vides** — on n'écrit que ce qu'on a ;
+- **plus de double préfixe** — impossible par construction ;
+- **un seul mécanisme** au lieu de trois ;
+- **la doc redevient vraie**, et `ocots-compat.sty:50` n'a plus à inventer `ex:`.
+
+## Points techniques vérifiés
+
+- Le deux-points de `\newtcbtheorem` est **codé en dur** : un préfixe vide
+  produit `:clé`, pas `clé`. Il faut donc abandonner le mécanisme de label de
+  `\newtcbtheorem` au profit de la clé `label=` de `tcolorbox` — celle
+  qu'`exercise` utilise déjà, et qui pose un label brut.
+- `cleveref` aurait aussi supprimé la règle des renvois capitalisés de
+  [C4](communes.md#c4--typographie) (`Théorème~\ref{…}`). **Il ne s'intègre pas**
+  avec `\newtcbtheorem` — testé, 249 erreurs, y compris avec l'ordre de
+  chargement documenté. À réessayer une fois le chantier 1 fait, puisque les
+  boîtes ne passeront plus par `\newtcbtheorem`.
+
+## Migration
+
+`ocots-compat.sty` porte la forme `{titre}{clé}` en alias déprécié, avec le
+préfixe historique, le temps que les cours migrent.
+
+---
+
+# Chantier 2 — Nommage des macros mathématiques
+
+Spec de refonte des modules `tex/math/`. Complète la règle
+[C3](communes.md#c3--macros-du-template-plutôt-que-du-latex-manuel), qui dit
+d'utiliser les macros ; cette partie dit **comment elles s'appellent**.
 
 ## Les six principes
 
@@ -192,16 +273,6 @@ relèvent d'un `\softwarename{…}` unique, ou d'un module à part.
 
 ---
 
-## Correctifs du template, hors nommage
-
-Trois défauts relevés en passant, indépendants du renommage :
-
-| Fichier | Défaut | Correctif |
-|---|---|---|
-| `ocots-text.sty:38-39` | `\ie` et `\cf` n'ont pas `\xspace` : `\ie foo` donne « i.e.foo ». C'est ce qui oblige à écrire `\ie~` partout | ajouter `\xspace` (le paquet est déjà chargé) |
-| `ocots-packages.sty` | rien ne fournit de guillemets suivant la langue, d'où `` ``…'' `` (guillemets **anglais**) dans les cours français | charger `csquotes` avec `autostyle=true` et documenter `\enquote{…}` (voir [`communes.md` C4](communes.md#c4--typographie)) |
-| `ocots-text.sty:38-39` | `\ie` et `\cf` sont figés, alors que d'autres chaînes passent par `\ocotsstring` | les localiser (P1) |
-
 ## Migration
 
 1. **PR sur `ocots-latex-template`** : nouveaux noms ajoutés, anciens conservés
@@ -235,3 +306,20 @@ grep -rn --include='*.tex' '\\Acal\b' . | grep -v '/template/' | wc -l
 `\AT \BT \CT \FT \NT \OT` (module `measure`) — faut-il des noms sémantiques,
 sachant qu'une tribu porte rarement un nom fixe, ou un accès générique aux
 lettres calligraphiques du type `\cal{A}` piloté par `calfont` ?
+
+---
+
+# Chantier 3 — Correctifs divers
+
+Défauts relevés en passant, indépendants des deux chantiers précédents.
+
+| Fichier | Défaut | Correctif |
+|---|---|---|
+| `ocots-text.sty:38-39` | `\ie` et `\cf` n'ont pas `\xspace` : `\ie foo` donne « i.e.foo ». C'est ce qui oblige à écrire `\ie~` partout dans les cours | ajouter `\xspace` — le paquet est déjà chargé |
+| `ocots-packages.sty` | rien ne fournit de guillemets suivant la langue, d'où `` ``…'' `` — des guillemets **anglais** — dans les trois cours français | charger `csquotes` avec `autostyle=true`, documenter `\enquote{…}` ([C4](communes.md#c4--typographie)) |
+| `ocots-text.sty:38-39` | `\ie` et `\cf` sont figés, alors que d'autres chaînes passent par `\ocotsstring` | les localiser (principe P1) |
+| `doc/commandes.md:117` | annonce que `label=<nom>` pose `\label{ex:<nom>}` — faux, la clé est brute | corrigé par le chantier 1 ; en attendant, aligner la doc sur le code |
+
+`\enquote` est vérifié : sous `[french]{babel}` avec `autostyle`, il rend
+« ceci » en français et “this” en anglais, et gère l'imbrication
+(« a “b” » / “a ‘b’ ”).

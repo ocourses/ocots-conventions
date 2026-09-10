@@ -145,7 +145,7 @@ dérivée en temps — mais voir l'exception locale de
 coexistent exprès).
 
 > Le nommage actuel de ces macros est incohérent et une refonte est proposée
-> dans **[`macros.md`](macros.md)**. Les noms ci-dessous sont ceux d'aujourd'hui.
+> dans **[`template.md`](template.md)**. Les noms ci-dessous sont ceux d'aujourd'hui.
 
 ### Vérifier avant de supposer
 
@@ -164,7 +164,7 @@ grep -rn -E '\\(newcommand|DeclareMathOperator)\*?\{\\foo\}' template/tex/math/
 |---|---|
 | `\Im` | **n'existe pas** dans le template. C'est le `\Im` standard de LaTeX = partie imaginaire, rendu **ℑ** en fraktur. Pour l'image d'une application : **`\im`** |
 | `\ker` | le `\ker` standard donne « ker » minuscule ; le template fournit **`\Ker`** |
-| `\rang` / `\rank` | doublon : `\rang` suit `lang=` (« rg » en français), `\rank` est figé en anglais. À terme, un seul (`\rank` localisé, voir [`macros.md`](macros.md)) |
+| `\rang` / `\rank` | doublon : `\rang` suit `lang=` (« rg » en français), `\rank` est figé en anglais. À terme, un seul (`\rank` localisé, voir [`template.md`](template.md)) |
 
 ### Divers
 
@@ -204,7 +204,7 @@ COLLE = 44.37804pt   ESPACE = 44.37804pt   TILDE = 44.37804pt
 
 Le `~` est donc du bruit dans la source, qui laisse croire à une règle
 typographique là où il n'y en a pas. Idem pour `\ie~` et `\cf~`, qui
-contournent un défaut du template (voir [`macros.md`](macros.md)) plutôt qu'une
+contournent un défaut du template (voir [`template.md`](template.md)) plutôt qu'une
 règle de langue.
 
 ### Pourquoi `\enquote{…}`
@@ -224,18 +224,59 @@ impossible : `\begin{quote}` se développe en `\quote`.)
 
 ## C5 — Labels et renvois
 
-- Les boîtes à titre du template prennent **deux arguments obligatoires**,
-  éventuellement vides : `\begin{theorem}{}{}`.
-- **Ne poser un label que si le résultat est cité ailleurs.** Vérifier au `grep`
-  les renvois réels avant d'en ajouter un ; sinon laisser `{}{}`. Ne pas ajouter
-  de labels en masse « au cas où ».
-- Label parlant quand il y en a un : `thm:…`, `prop:…`, `def:…`, `exa:…`,
-  `chap:…`, `ssec:…`, `fig:…`.
-- **Piège** : `\newtcbtheorem` préfixe déjà le compteur. Le label se donne **nu**
-  (`\begin{theorem}{}{cauchy_lipschitz}`), sans re-préfixer — sinon le renvoi ne
-  résout pas.
-- Un document se compile sans aucune référence non résolue ni label
-  multiplement défini. Un `??` dans le PDF est un bug, pas un détail.
+> **La clé qu'on écrit est la clé qu'on référence.**
+
+Une seule règle, valable pour **tout** objet étiquetable — boîte du template,
+figure, tableau, section, équation :
+
+| | |
+|---|---|
+| on déclare | `label=<clé>` (environnements du template) ou `\label{<clé>}` (objets LaTeX) |
+| le label posé est | **exactement** `<clé>` — le template n'ajoute rien |
+| on cite | `\ref{<clé>}` — la même chaîne, caractère pour caractère |
+
+Aucun préfixe automatique : c'est le seul dessin uniforme sur tout un document,
+puisqu'une `figure` ou une `section` ne peut de toute façon pas être préfixée
+par le template.
+
+### Le préfixe fait partie de la clé
+
+Il est écrit par l'auteur, jamais ajouté par la mécanique. **Nommer est une
+convention, pas une mécanique.**
+
+| Objet | Préfixe | Objet | Préfixe |
+|---|---|---|---|
+| théorème | `thm:` | figure | `fig:` |
+| définition | `def:` | tableau | `tab:` |
+| proposition | `prop:` | section | `sec:` |
+| corollaire | `cor:` | sous-section | `ssec:` |
+| lemme | `lem:` | chapitre | `chap:` |
+| exemple | `exa:` | partie | `part:` |
+| remarque | `rem:` | équation | `eq:` |
+| exercice | `ex:` | | |
+
+### Ne poser un label que si l'objet est cité
+
+Vérifier au `grep` les renvois réels avant d'en ajouter un. Ne pas étiqueter en
+masse « au cas où ».
+
+```bash
+grep -rn 'ref{thm:cauchy}' --include='*.tex' .
+```
+
+### Zéro référence non résolue
+
+Un document se compile sans aucune référence non résolue ni label multiplement
+défini. Un `??` dans le PDF est un bug, pas un détail.
+
+Sans préfixe automatique, deux objets peuvent se disputer une clé — LaTeX
+**erreur** alors sur un label dupliqué, ce n'est jamais silencieux.
+
+> **En attendant la révision du template.** Aujourd'hui trois mécanismes
+> coexistent, et les boîtes à titre **préfixent automatiquement** : la clé se
+> donne nue dans le 2ᵉ argument (`\begin{theorem}{Titre}{cauchy}`), le renvoi
+> porte le préfixe (`\ref{thm:cauchy}`). C'est le chantier 1 de
+> [`template.md`](template.md).
 
 ## C6 — Listes et énumérations
 
