@@ -5,8 +5,10 @@
 Support `beamer` + `\usepackage{ocots}` (le support est déduit de la classe).
 Prérequis : [`communes.md`](communes.md).
 
-> **Squelette.** Ces règles sont posées d'après la pratique existante mais
-> n'ont pas encore été éprouvées par une passe de relecture complète. À affiner.
+> **État.** `SL1` et `SL2` sont arrêtées — elles portent la relation entre
+> transparents et polycopié, décidée avec l'auteur. Les suivantes sont posées
+> d'après la pratique existante mais n'ont pas encore été éprouvées par une
+> passe de relecture. À affiner.
 
 Identifiants : `SL1`, `SL2`, … (voir [`README.md`](README.md#citer-une-règle--épingler-la-version)).
 
