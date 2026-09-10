@@ -159,14 +159,27 @@ suivant. »).
 
 L'**introduction de chapitre** dit où l'on va et pourquoi : l'objet qu'on
 cherche à construire, les notions qu'il faudra pour y arriver, dans quel ordre.
-Elle s'adresse à un lecteur qui n'a encore rien lu du chapitre. Le meilleur
-exemple du corpus est l'ouverture du chapitre « Théorie de la mesure » de
-`mesure-integration-enseignants` : elle part de l'intégrale à définir, puis
-introduit tribu, ensemble mesurable, mesure et application mesurable, chacune
-motivée par la précédente.
+Elle s'adresse à un lecteur qui n'a encore rien lu du chapitre, se termine
+souvent par ce que le chapitre établit (« C'est ce que nous faisons dans ce
+chapitre. »), et peut renvoyer aux autres chapitres. Deux modèles :
+
+- `mesure-integration-enseignants`, chapitre « Théorie de la mesure » : part de
+  l'intégrale à définir, puis introduit tribu, ensemble mesurable, mesure et
+  application mesurable, chacune motivée par la précédente ;
+- `controle_optimal`, chapitre « Systèmes dynamiques contrôlés » : enchaîne les
+  notions centrales du chapitre (accessible, contrôlabilité, application
+  entrée/sortie, contrôle singulier) en disant à chaque fois pourquoi elle
+  compte.
+
+Elle est composée **en retrait**, ce qui la distingue du corps du chapitre.
 
 Puis **un saut de page** : l'introduction n'a pas à partager sa page avec la
 première section.
+
+> **En attendant la révision du template.** Le retrait s'obtient aujourd'hui en
+> détournant `quote` ou `quotation`, et le corpus est incohérent —
+> `controle_optimal` emploie les deux, dans le même polycopié. Un environnement
+> dédié est demandé au [chantier 3](template.md#chantier-3--correctifs-divers).
 
 ### La section : trois outils, selon le cadre
 
@@ -191,9 +204,25 @@ F$ désigne une application et $U$ un ouvert de $E$. » Il est surtout utile qua
 une section a **plusieurs sous-sections** qui travaillent sur les mêmes objets.
 
 **Le bloc `assumption`** (environnement du template, étiqueté `H1`, `H2`…) sert
-quand le cadre est trop lourd pour être répété : les énoncés disent alors « sous
-l'hypothèse~\ref{hyp:croissance} ». C'est l'outil le moins fréquent, réservé aux
-cadres vraiment encombrants.
+quand le cadre est trop lourd pour être répété. C'est l'outil le moins fréquent,
+réservé aux cadres vraiment encombrants — 8 emplois dans tout le poly de
+contrôle optimal, contre 24 théorèmes.
+
+Il y porte le cadre complet d'un problème (le système contrôlé, les applications
+lisses, les ouverts, les contraintes), amené par une phrase — « Rappelons les
+hypothèses sur les données du problème. » — et les énoncés s'y réfèrent ensuite :
+
+```latex
+\begin{assumption}[label=hyp:ocp]
+  Soit un système contrôlé non autonome $\dot{x}(t) = f(t,x(t),u(t))$ où $f$ est
+  une application lisse de $\Ical \times \Omega \times \Ucal$ dans $\R^n$…
+\end{assumption}
+
+… sous les Hypothèses~\eqref{hyp:ocp}, …
+```
+
+Le renvoi se fait avec **`\eqref`**, pas `\ref` (règle
+[C5](communes.md#c5--labels-et-renvois)).
 
 ### La phrase d'introduction est un quatrième outil, indépendant
 

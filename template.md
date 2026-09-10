@@ -319,6 +319,7 @@ Défauts relevés en passant, indépendants des deux chantiers précédents.
 | `ocots-packages.sty` | rien ne fournit de guillemets suivant la langue, d'où `` ``…'' `` — des guillemets **anglais** — dans les trois cours français | charger `csquotes` avec `autostyle=true`, documenter `\enquote{…}` ([C4](communes.md#c4--typographie)) |
 | `ocots-text.sty:38-39` | `\ie` et `\cf` sont figés, alors que d'autres chaînes passent par `\ocotsstring` | les localiser (principe P1) |
 | `doc/commandes.md:117` | annonce que `label=<nom>` pose `\label{ex:<nom>}` — faux, la clé est brute | corrigé par le chantier 1 ; en attendant, aligner la doc sur le code |
+| `ocots-env.sty` | **rien pour l'introduction de chapitre**, alors que la règle [P7](poly.md#p7--ouverture-de-chapitre-et-de-section) en demande une, composée en retrait. Les cours détournent `quote` ou `quotation` — des environnements de *citation* — et le corpus est incohérent : `controle_optimal` emploie les deux, dans le même polycopié | ajouter un environnement `chapterintro` : le retrait voulu, un nom qui dit ce que c'est, et un rendu réglable par le thème |
 
 `\enquote` est vérifié : sous `[french]{babel}` avec `autostyle`, il rend
 « ceci » en français et “this” en anglais, et gère l'imbrication

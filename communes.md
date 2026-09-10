@@ -253,7 +253,12 @@ convention, pas une mécanique.**
 | lemme | `lem:` | chapitre | `chap:` |
 | exemple | `exa:` | partie | `part:` |
 | remarque | `rem:` | équation | `eq:` |
-| exercice | `ex:` | | |
+| exercice | `ex:` | hypothèse (`assumption`) | `hyp:` |
+
+**Une hypothèse se cite avec `\eqref`**, pas `\ref` : le template étiquette les
+`assumption` par un compteur `H1`, `H2`…, et `\eqref` les rend entre parenthèses.
+La forme est « sous les Hypothèses~`\eqref{hyp:ocp}` ». C'est l'usage constant du
+poly de contrôle optimal (8 renvois sur 8).
 
 ### Ne poser un label que si l'objet est cité
 
