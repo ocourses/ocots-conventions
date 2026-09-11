@@ -530,6 +530,40 @@ label ([C5](communes.md#c5--labels-et-renvois)) et, dès lors qu'il est cité de
 loin, réénoncer ses hypothèses ([P1](#p1--placement-des-hypothèses)). C'est le
 cas typique où l'on **ajoute** un label plutôt que d'en retirer un.
 
+### Le signal : un même intitulé, deux fois
+
+Une boîte qui reprend le titre d'une boîte antérieure est, presque toujours,
+soit le même résultat redonné, soit une déclinaison redémontrée au lieu
+d'être citée.
+
+```bash
+grep -rhoE '\begin\{(my)?(theorem|proposition|corollary|definition)\}\{[^}]+\}' \
+  --include='*.tex' poly/ | sed -E 's/\\begin\{(my)?[a-z]+\}\{//' \
+  | sort | uniq -c | sort -rn | awk '$1>1'
+```
+
+Un signal, pas un verdict — écarter d'abord les lignes commentées : le corpus
+en garde, en appendice, comme reliquat de brouillon.
+
+### Le corpus illustre les deux issues
+
+`mesure-integration`, `proba.tex` : **quatre boîtes titrées « Mesure image »**.
+La première (`:79`) est le théorème de transfert. Les deux suivantes (`:166`,
+`:192`) en sont des **spécialisations au cas discret**, et toutes deux la
+redémontrent en entier — sans un seul `ef` vers le théorème dont elles ne
+sont qu'un cas particulier. La quatrième (`:245`, cas à densité) fait ce que
+P9 demande : « La preuve est similaire à celle du théorème de la mesure
+image. » Trois boîtes sur quatre ignorent la règle, la dernière la suit — dans
+le même fichier.
+
+`automatique` (passe faite) : le même signal ressort une fois — « Point
+d'équilibre » en deux endroits — mais c'est la **forme correcte**. Le second
+énonce un concept réellement distinct (point d'équilibre du système autonome,
+sans contrôle) et le dit explicitement : « C'est le point d'équilibre du
+système contrôlé sous-jacent (Définition~\ref{def:point_equilibre}) ». Un
+intitulé répété n'est donc pas fautif en soi — il l'est sans le `ef` qui
+dit pourquoi il revient.
+
 ## P10 — Cohérence terminologique et notationnelle
 
 → voir **[`communes.md` C2 et C3](communes.md#c2--cohérence-terminologique-et-notationnelle)**.
