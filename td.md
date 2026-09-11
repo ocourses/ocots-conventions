@@ -73,19 +73,45 @@ sans retouche.
 
 ## TD4 — Progression
 
-Les exercices vont du plus simple au plus complexe, et **chaque exercice a un
-objectif identifiable** (une notion, une méthode). Un exercice qui n'en a pas
-est un exercice à découper ou à retirer.
+**Chaque exercice a un objectif identifiable** (une notion, une méthode). Un
+exercice qui n'en a pas est un exercice à découper ou à retirer.
 
-À l'intérieur d'un exercice, les questions **s'enchaînent** : une question
-prépare la suivante. Une question isolée qui ne sert à rien de ce qui suit se
-signale.
+Le TD **s'ouvre sur quelque chose d'accessible** — une mise en jambe. Au-delà,
+la progression n'est **pas un axe unique** facile → difficile : un TD qui
+couvre plusieurs thèmes (tribu, application mesurable, mesure…) **équilibre
+les thèmes**, plutôt que de grimper une seule pente. Alterner un exercice
+simple sur un thème et un exercice plus dense sur le suivant est légitime,
+et c'est souvent ce qui produit la meilleure séance — voir tous les thèmes
+du chapitre plutôt qu'épuiser le plus facile avant d'attaquer le reste.
+
+`mesure-integration/td1` le fait déjà, sans que la règle ait été écrite :
+ex. 1–2 (applications mesurables), 3–4 (mesures), 5–6 (retour aux ensembles et
+applications), 7 (retour à la tribu de Borel) — les thèmes alternent, la
+difficulté ne grimpe pas en ligne droite.
+
+À l'intérieur d'un exercice, en revanche, la chaîne reste stricte : les
+questions **s'enchaînent**, une question prépare la suivante. Une question
+isolée qui ne sert à rien de ce qui suit se signale — c'est un axe différent
+de celui du TD entier, à l'échelle d'un seul exercice.
 
 ## TD5 — Nommer le résultat du cours mobilisé
 
 Le corrigé **cite** le théorème utilisé (« critère de Kalman », « théorème de
 convergence dominée », « théorème de Cauchy-Lipschitz ») plutôt que de le
 redémontrer. Renvoi `\ref{…}` vers le chapitre du poly s'il porte un label.
+
+### Le corpus
+
+```bash
+grep -rc '\ref{' --include='*.tex' td/ | awk -F: '{s+=$2} END{print s}'
+```
+
+`mesure-integration` : **zéro** `\ref` dans tout `td/`. La moitié de la règle
+est déjà suivie — `td2.tex:148` cite bien « le théorème de convergence
+monotone » — mais sans renvoi, alors que le poly porte **deux** théorèmes
+labellisés sous ce nom (`thm:Beppo-Levi-v0`, `thm:Beppo-Levi-pp`,
+`theorems-limites.tex:173`). Nommer sans citer laisse un lecteur qui voudrait
+vérifier l'énoncé sans moyen d'y aller directement.
 
 ## TD6 — Corrigés : synthétiques, pour les intervenants
 
@@ -97,6 +123,19 @@ Donc : la démarche, les étapes-clés, le résultat. **Pas un cours.**
 - Résultats numériques ou matriciels : **valeur finale explicite**.
 - Notations **identiques à l'énoncé** (mêmes symboles, mêmes noms).
 - Ton direct — on s'adresse à un collègue. Ne pas recopier l'énoncé.
+
+### Le corpus
+
+Trois corrections de `mesure-integration` dépassent 25 lignes
+(`td1.tex:108`, `td3.tex:51` — 39 lignes —, `td4.tex:34`). La longueur seule
+n'est pas la faute : TD6 tolère un calcul long réduit à ses étapes-clés. La
+plus longue (`td3.tex:51`) ne l'est pas pour cette raison — elle **enseigne** :
+deux apartés « Remarque » y proposent des méthodes alternatives (« On peut
+aussi utiliser les résultats du chapitre 4… », « On pouvait aussi utiliser
+directement le TCD… »), avec des justifications pédagogiques (« pour alléger
+les notations »). C'est écrit pour un étudiant qui découvre, pas pour un
+collègue qui enseigne — la distinction que pose la règle. Même exercice, même
+théorème cité sans `\ref` qu'en [TD5](#td5--nommer-le-résultat-du-cours-mobilisé).
 
 ## TD7 — Où va le corrigé
 
