@@ -707,7 +707,7 @@ Tout polycopié a la même ossature. Référence :
 | Partie | Contenu | Obligatoire |
 |---|---|---|
 | `\frontmatter` | `\maketitle` · **Avant-propos** · `\tableofcontents` · **Notations** | oui |
-| `\mainmatter` | `\part` / `\chapter`, corrections d'exercices en fin de partie | oui |
+| `\mainmatter` | `\part` / `\chapter`, corrections d'exercices en fin de partie (ou de document, si pas de `\part`) | oui |
 | `\begin{appendix}` | compléments, grands théorèmes | selon le cours |
 | `\backmatter` | **bibliographie** · **`\printindex`** | oui |
 
@@ -749,3 +749,12 @@ Les entrées de cette page ne sont **pas** redéfinies dans le corps (règle
 `\printindex` en `\backmatter`, alimenté par les `\index{…}` posés à chaque
 première occurrence (règle [P11](#p11--conventions-typographiques)). Un index
 vide signale une passe typographique qui n'a pas eu lieu.
+
+### Le cas du poly de mesure
+
+Confronté à ce chapitre, `mesure-integration` manque trois pièces marquées
+obligatoires : **avant-propos, page de notations, `\printindex`** (ce dernier
+déjà relevé sous [P11](#p11--conventions-typographiques) — le poly ne compte
+aucun `\keyword`/`\index`). L'absence de `\part` n'est pas une infraction :
+six chapitres tiennent en structure plate, et la correction unique en fin de
+document en est la conséquence cohérente, pas un défaut.
