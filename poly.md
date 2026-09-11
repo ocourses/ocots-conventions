@@ -628,6 +628,36 @@ si le résultat est cité ailleurs — ce qui est exactement le critère de
 deux règles se lisent ensemble : *poser un label, c'est déclarer que le résultat
 sera lu isolément, donc s'engager à le rendre autonome.*
 
+**Aucune exception pour un résultat classique non cité** — Peano, Riesz,
+Lyapunov. Ce n'est pas le nom qui décide, c'est l'usage, comme pour P1. Le
+label se pose le jour où un renvoi en a besoin ; en attendant, il n'ajoute
+qu'une clé à maintenir pour rien.
+
+### Le corpus
+
+Labels de résultats jamais `\ref`-encés **nulle part dans le cours** — poly,
+td, slides, exam :
+
+```bash
+./conventions/bin/verifier P12 poly/        # à écrire : nécessite de croiser
+                                             # les labels du poly avec les \ref
+                                             # de tout le cours, pas seulement du poly
+```
+
+| Cours | Labels de résultats | Jamais cités | Part |
+|---|---|---|---|
+| `mesure-integration` | 39 | **2** | **5 %** |
+| `controle_optimal` | 65 | 15 | 23 % |
+| `calcul-differentiel-edo` | 53 | 15 | 28 % |
+| `automatique` (P2/P3 faites) | 13 | 6 | **46 %** |
+
+`mesure-integration`, qui n'a reçu aucune passe sur cette règle, est le mieux
+tenu des quatre — mieux que `automatique`, dont les labels orphelins incluent
+`thm:lyapunov_stable`, `prop:duhamel`, `prop:peano`, `def:maximale`,
+`thm:lyapunov_global`, `def:lyapunov`. Ce n'est pas la règle qui produit ce
+résultat, c'est une pratique déjà disciplinée — la preuve que le critère
+strict n'est pas artificiellement exigeant.
+
 ## P13 — Figures
 
 - Une figure est **annoncée et référencée dans le texte avant** d'apparaître
