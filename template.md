@@ -17,6 +17,7 @@ qui doit y être corrigé pour que les règles soient applicables.
 | **3** | [Correctifs divers](#chantier-3--correctifs-divers) | [C1](communes.md#c1--langue-et-registre), [C4](communes.md#c4--typographie) |
 | **4** | [Champs d'examen et barème calculé](#chantier-4--champs-dexamen-et-barème-calculé) | [EX2](exam.md#ex2--conditions-annoncées-en-tête), [EX3](exam.md#ex3--barème-par-les-clés-pas-à-la-main) |
 | **5** | [Logo dans l'en-tête, pas au-dessus du titre](#chantier-5--logo-dans-len-tête-pas-au-dessus-du-titre) | td.md, exam.md |
+| **6** | [Un seul environnement de diapositive, titre optionnel](#chantier-6--un-seul-environnement-de-diapositive-titre-optionnel) | [SL4](slides.md#sl4--le-transparent-nest-pas-le-polycopié) |
 
 Chaque chantier se vérifie par `cd examples && make`, qui **doit rester vert**.
 
@@ -512,3 +513,52 @@ titre » qui garde le chapeau actuel.
 Chantier local à `ocots-carrier-article.sty` (td/exam) — aucun effet sur
 `ocots-carrier-book.sty` (poly) ni `ocots-carrier-slides.sty`, qui gardent
 leur page de titre actuelle.
+
+
+---
+
+# Chantier 6 — Un seul environnement de diapositive, titre optionnel
+
+## Le problème
+
+`ocots-carrier-slides.sty` fournit **deux mécanismes** pour une diapositive de
+contenu :
+
+- `\begin{slide}{titre}` — la forme titrée : barre de titre, filet, compteur ;
+- `\begin{frame}` nu — la forme sans titre, directement du `beamer`, sans
+  aucun des habillages du thème.
+
+Décidé avec l'auteur : `frame` nu n'est pas un oubli, c'est l'outil pour les
+diapositives de transition et les pages de titre — sur `mesure-integration`,
+**176 `slide` contre 62 `frame`**, un usage cohérent, pas une inconsistance.
+Le problème n'est donc pas la pratique, c'est que la classe fait porter cette
+distinction par **deux mécanismes différents** au lieu d'une seule signature —
+exactement ce que corrige déjà le [chantier 1](#chantier-1--signature-des-environnements-et-labels)
+pour `theorem`/`example`/`exercise`.
+
+## La cible
+
+**Un seul environnement, titre optionnel** :
+
+```latex
+\begin{slide}{Le but de ce chapitre}
+  ...
+\end{slide}
+
+\begin{slide}
+  ...
+\end{slide}
+```
+
+Sans titre, le rendu est celui d'aujourd'hui pour `frame` nu — pas de barre,
+pas de filet. Avec titre, le rendu est celui d'aujourd'hui pour `slide`. Le
+compteur (`\slidecounter`) et l'option de couleur (`\slidecolor`,
+[SL8](slides.md#sl8--le-thème-est-un-réglage-global)) restent disponibles
+dans les deux cas — c'est l'habillage du titre, pas la numérotation, qui
+devient conditionnel.
+
+## Migration
+
+`\begin{frame}` reste un alias valide (c'est du `beamer` natif, rien à
+déprécier) ; les cours migrent leurs `frame` nus vers `slide` sans titre à
+leur rythme, sans urgence — le rendu ne change pas.

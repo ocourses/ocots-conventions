@@ -29,7 +29,7 @@ Les notations et le vocabulaire suivent le poly (règle
 
 | Retiré | Gardé |
 |---|---|
-| les **preuves** longues (règle [SL5](#sl5--pas-de-preuve-longue-en-transparent)) | tout **énoncé** |
+| les **preuves**, si le cours choisit de les renvoyer au poly (règle [SL5](#sl5--preuves-en-transparent--un-choix-de-cours-une-seule-bonne-façon)) | tout **énoncé** |
 | les **corrigés** d'exercices | les **définitions** |
 | les développements secondaires | la **progression** du cours |
 
@@ -71,13 +71,42 @@ pas** ici — c'est l'enseignant qui fait la liaison.
 En revanche, la règle
 [P2](poly.md#p2--pas-de-blocs-isolés-ou-enchaînés-sans-texte) survit sous une
 autre forme : **une suite de boîtes sans titre ni fil visible** reste illisible
-en projection. Le fil passe par les titres de diapositives.
+en projection. Le fil passe par les titres de diapositives — l'environnement
+`slide{titre}` (pas `frame` nu) est ce qui les porte.
 
-## SL5 — Pas de preuve longue en transparent
+### Le corpus
 
-Une preuve de plus d'une diapositive : garder **l'idée** et renvoyer au
-polycopié. Les preuves fractionnées existent quand c'est vraiment nécessaire
-(`proofbegin` / `proofmiddle` / `proofend`), mais c'est l'exception.
+Mesuré sur `mesure-integration` : **176 `slide` titrées contre 62 `frame`
+nues** (74 %). Les `frame` nues ne sont pas des titres oubliés — toutes
+partagent le même profil (`\vfill`, `\large`, `\vspace` en ouverture) : ce
+sont les pages de titre et les diapositives de transition (« Le but de ce
+chapitre est de… »), une catégorie à part qui n'a pas vocation à porter de
+titre au sens de cette règle.
+
+> **En attendant la révision du template.** Porter cette distinction par
+> deux mécanismes (`slide` / `frame` nu) plutôt que par un seul avec titre
+> optionnel est demandé au
+> [chantier 6](template.md#chantier-6--un-seul-environnement-de-diapositive-titre-optionnel).
+
+## SL5 — Preuves en transparent : un choix de cours, une seule bonne façon
+
+**Inclure les preuves en slides ou non dépend du cours.** Certains renvoient
+au polycopié et gardent l'idée ; d'autres — c'est le choix de
+`mesure-integration` — veulent les preuves présentes, complètes. Cette règle
+ne tranche pas ce choix, elle porte sur **ce qu'on fait une fois le choix
+pris**.
+
+**Une preuve qui tient sur une diapositive** : elle y va. **Une preuve qui
+déborde** : elle se **fractionne** (`proofbegin` / `proofmiddle` / `proofend`),
+jamais compressée en corps 7 pour tenir sur une seule — c'est le cas
+particulier de [SL3](#sl3--une-idée-par-diapositive) appliqué à la preuve.
+
+### Le corpus
+
+`mesure-integration` fractionne largement : **40 preuves sur ~111** (36 %)
+utilisent `proofbegin`/`proofmiddle`/`proofend`. Cohérent avec le choix du
+cours — préuves gardées en entier, réparties sur autant de diapositives que
+nécessaire plutôt que raccourcies.
 
 ## SL6 — `\pause` : progression, pas décoration
 
