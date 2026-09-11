@@ -505,6 +505,19 @@ conséquences dans un même exemple ou une même preuve, la poser **une seule
 fois**, à l'endroit qui couvre toutes ses conséquences — jamais répétée à chaque
 usage.
 
+C'est le **décor** de [P7](#p7--ouverture-de-chapitre-et-de-section) à l'échelle
+d'une preuve plutôt que d'une section : une hypothèse partagée se pose à
+l'endroit qui couvre tout ce qu'elle sert, une seule fois. `\newstep` est
+l'outil qui sépare les étapes d'une preuve (existence, unicité, cas i)/ii)…)
+sans dupliquer leur cadre commun — voir aussi
+[P1](#p1--placement-des-hypothèses) pour le même arbitrage à l'échelle d'un
+résultat cité.
+
+> **Sans prise dans le corpus.** Aucune violation nette trouvée sur les quatre
+> polycopiés — ce qui s'y approche est toujours un cas distinct (i)/ii)/iii),
+> Existence/Unicité), pas la même hypothèse redite. La règle reste posée pour
+> le jour où le cas se présente, sans outillage : rien à `grep`.
+
 ## P9 — Ne pas re-dériver un cas particulier d'un résultat déjà écrit
 
 Si un second énoncé n'est que la **restriction** ou un **cas particulier** d'un
