@@ -6,9 +6,9 @@ Classe `ocots-exam`. Prérequis : [`communes.md`](communes.md) et
 [`td.md`](td.md) (un sujet d'examen partage l'essentiel de la mécanique d'un TD :
 `exercise`, `question`, `subquestion`, `\solution`).
 
-> **État.** `EX1`–`EX3` sont éprouvées sur le corpus (14 sujets de
-> `mesure-integration`, 2019–2025). `EX4`–`EX7` restent posées d'après la
-> pratique existante, non encore mesurées.
+> **État.** `EX1`–`EX7` sont éprouvées sur le corpus (14 sujets de
+> `mesure-integration`, 2019–2025). `EX5` reste sans prise mécanique — un
+> jugement de relecture, comme TD2/TD4 avant révision.
 
 Identifiants : `EX1`, `EX2`, … (voir [`README.md`](README.md#citer-une-règle--épingler-la-version)).
 
@@ -90,6 +90,14 @@ Une question ratée ne doit pas bloquer tout le sujet. Structurer en `docpart`
 À l'intérieur d'une partie, une question qui dépend d'un résultat non obtenu se
 formule pour rester traitable (« On admet désormais que… »).
 
+### Le corpus
+
+`docpart` : 13/14 sujets structurés, seul `exam2019_session2.tex` (le plus
+ancien) reste plat. Indépendance annoncée dans 10/14 ; les 4 absences
+(`exam2019.tex`, `exam2019_session2.tex`, `exam2021_1bis.tex`,
+`exam2021_2.tex`) suivent le même schéma de maturation que la durée
+([EX2](#ex2--conditions-annoncées-en-tête)) — concentrées dans les débuts.
+
 ## EX5 — Calibrage
 
 Le sujet est calibré pour la durée annoncée. Les repères pratiques du cours
@@ -98,6 +106,11 @@ consignent dans le dépôt de cours — ils dépendent de la promotion.
 
 Un exercice repris d'un TD ou d'une annale se **signale en relecture** : c'est
 une décision pédagogique, pas un détail.
+
+> **Sans prise mécanique.** Ni label partagé ni contenu dupliqué détecté entre
+> `exams/` et `td/` sur `mesure-integration` — mais une reprise ne se voit pas
+> forcément à un label commun. Reste un jugement de relecture, comme
+> [TD2](td.md#td2--un-énoncé-se-colle-tel-quel-du-td-au-polycopié).
 
 ## EX6 — Corrigé et barème détaillé
 
@@ -110,8 +123,32 @@ Spécifique à l'examen : le corrigé porte la **répartition des points à
 l'intérieur de l'exercice** — c'est ce qui rend la correction reproductible
 entre correcteurs.
 
+### Le corpus
+
+**Zéro `\solution`, zéro `\begin{correction}`** dans les 59 exercices des 14
+sujets — aucun corrigé écrit, pour aucune année. Différent du cas
+[TD7](td.md#td7--où-va-le-corrigé) : là un corrigé existait mais par le
+mauvais mécanisme ; ici il n'existe simplement pas encore dans le dépôt.
+
 ## EX7 — Notations identiques au cours
 
 Règle [C2](communes.md#c2--cohérence-terminologique-et-notationnelle), appliquée
 avec sévérité : un symbole qui change de sens entre le cours et l'examen est une
 faute de sujet, pas une variante.
+
+### Le corpus
+
+Le même macro-diff qu'en [TD1](td.md#td1--le-polycopié-fait-référence),
+appliqué à `exams/` vs `poly/` :
+
+- **`\defeqq`** — redéfinie localement dans **quatre** sujets distincts (2021,
+  2022-s2, 2023-s1, 2023-s2), chacun avec son propre
+  `\newcommand{\defeqq}{\overset{\mathrm{def}}{=}}`. Le jumeau exact du `\eqdef`
+  trouvé en TD1 — même geste, nom différent, même divergence avec `\coloneqq`
+  du poly (171 emplois).
+- **`\Acal`** — tribu générique dans `exam2019.tex` et `exam2021_2.tex`
+  (« La famille $\Acal = \ldots$ »), quand le poly nomme sa tribu générique
+  `\AT` dans ses 280 emplois. Deux noms pour le même rôle structurel.
+
+Deux occurrences indépendantes du même geste (réinventer « défini comme »)
+suggèrent un manque réel de visibilité de `\coloneqq`, pas un accident isolé.
