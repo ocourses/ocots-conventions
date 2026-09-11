@@ -24,15 +24,15 @@ Chaque chantier se vérifie par `cd examples && make`, qui **doit rester vert**.
 
 ## Le problème
 
-Trois mécanismes d'étiquetage coexistent, avec trois comportements différents :
+Trois mécanismes d'étiquetage coexistent, avec des comportements différents :
 
-| Environnements | Mécanisme | Où va la clé | Label produit |
-|---|---|---|---|
-| `theorem` `definition` `proposition` `corollary` `conjecture` | `\newtcbtheorem` (`ocots-env.sty:41-50`) | 2ᵉ argument obligatoire | **préfixé** : `thm:clé`, `def:clé`… |
-| `lemma` `example` `remark` | `\newtheorem` (`ocots-env.sty:63-80`) | `\label{}` dans le corps | brut |
-| `exercise` | `tcolorbox`, clé `label=` | clé `label=` | brut |
+| Environnements | Mécanisme | Où va la clé | Label produit | Compteur |
+|---|---|---|---|---|
+| `theorem` `definition` `proposition` `corollary` `conjecture` | `\newtcbtheorem` (`ocots-env.sty:41-50`) | 2ᵉ argument obligatoire | **préfixé** : `thm:clé`, `def:clé`… | **partagé** |
+| `lemma` `example` `remark` | `\newtheorem` (`ocots-env.sty:63-81`) | `\label{}` dans le corps | brut | **un chacun** |
+| `exercise` | `tcolorbox`, clé `label=` | clé `label=` | brut | propre |
 
-Trois conséquences fâcheuses :
+Quatre conséquences fâcheuses :
 
 - **Le double préfixe.** Écrire `\begin{theorem}{}{thm:cauchy}` donne
   `thm:thm:cauchy` et casse le renvoi. C'est l'erreur qu'a dû réparer la salve 4
@@ -43,6 +43,21 @@ Trois conséquences fâcheuses :
 - **La doc ment.** `doc/commandes.md:117` annonce que `label=<nom>` pose
   `\label{ex:<nom>}`. Faux : la clé est brute. Le préfixe `ex:` n'existe que
   dans `ocots-compat.sty:50`, pour l'ancienne macro `\myexercisecb`.
+- **Un numéro ne désigne pas un objet.** Le commentaire du template annonce
+  qu'« un théorème et une définition ne portent jamais le même numéro ». C'est
+  vrai de la première famille seulement : `lemma`, `example` et `remark` ont
+  chacun leur compteur, et les séquences s'entrelacent.
+
+  ```text
+  Définition 2.1.1 – Tribu
+  Exemple 2.1.1. Les familles suivantes sont des tribus…
+  Remarque 2.1.1. Les éléments de la tribu sont appelés…
+  Définition 2.1.2 – Espace mesurable
+  ```
+
+  Relevé dans les PDF compilés : **56 numéros sur 91 désignent plus d'un objet**
+  dans `mesure-integration`, **44 sur 82** dans `calcul-differentiel-edo`. Ce
+  n'est pas un choix éditorial, c'est la conséquence d'avoir deux mécanismes.
 
 ## La cible
 
@@ -61,12 +76,38 @@ clé-valeur optionnelle, et `label=` pose le label **tel quel**.
 Clés communes : `title=`, `label=`, `note=`. Clés propres à `exercise` :
 `points=`, `nosolution`.
 
+**Et un seul compteur.** `theorem`, `definition`, `proposition`, `corollary`,
+`conjecture`, `lemma`, `example`, `remark` partagent la même séquence, par
+section — décidé avec l'auteur. Un numéro désigne alors un objet, sans
+exception : une remarque garde son numéro (elle n'est pas dégradée en
+`remark*`), c'est le compteur qui cesse d'être privé.
+
+```latex
+\newtcbtheorem[number within=section]%
+  {theorem}{\ocotsstring{theorem}}{\ocotsboxstyle{theorem}}{thm}
+\newtcbtheorem[use counter from=theorem]%
+  {definition}{\ocotsstring{definition}}{\ocotsboxstyle{definition}}{def}
+\newtheorem{lemma}[theorem]{\ocotsstring{lemma}}
+\newtheorem{example}[theorem]{\ocotsstring{example}}
+\newtheorem{remark}[theorem]{\ocotsstring{remark}}
+```
+
+`[theorem]` remplace `[section]` : le compteur suit celui de `theorem` au lieu
+d'en ouvrir un à lui, exactement le mécanisme que `\newtcbtheorem` utilise déjà
+entre `definition` et `theorem` (`use counter from=theorem`). `exercise`,
+`assumption`, `openquestion`, `difficulty` gardent leur séquence propre : ce
+sont des objets d'une autre nature (H1, Q1, D1 sont déjà un espace de noms à
+part), pas des résultats numérotés dans le même fil.
+
 Ce que ça règle :
 
 - **plus d'arguments obligatoires vides** — on n'écrit que ce qu'on a ;
 - **plus de double préfixe** — impossible par construction ;
 - **un seul mécanisme** au lieu de trois ;
-- **la doc redevient vraie**, et `ocots-compat.sty:50` n'a plus à inventer `ex:`.
+- **la doc redevient vraie**, et `ocots-compat.sty:50` n'a plus à inventer `ex:` ;
+- **un numéro désigne un objet** — les 56 ambiguïtés relevées dans
+  `mesure-integration` disparaissent, et la numérotation devient comparable
+  entre poly et transparents ([SL2](slides.md#sl2--viser-une-numérotation-identique-au-polycopié)).
 
 ## Points techniques vérifiés
 
@@ -84,6 +125,23 @@ Ce que ça règle :
 
 `ocots-compat.sty` porte la forme `{titre}{clé}` en alias déprécié, avec le
 préfixe historique, le temps que les cours migrent.
+
+Le compteur partagé, lui, **ne se déprécie pas en douceur** : dès que le
+template change, toute la numérotation du poly se décale à la recompilation —
+« Exemple 2.1.1 » peut devenir « Exemple 2.1.4 ». Les `\ref` se recalculent
+seuls ; ce qui casse en silence, ce sont les numéros écrits en dur hors du
+poly. Le corpus en compte quatre, tous dans des TD
+(`td/td1/td1.tex:93`, `td/td4/td4.tex:171,307,331`) — déjà fragiles, puisque
+[TD5](td.md#td5--nommer-le-résultat-du-cours-mobilisé) demande de nommer un
+résultat plutôt que de le numéroter. Une passe de migration les **grep** avant
+de migrer :
+
+```bash
+grep -rnE '(Théorème|Définition|Proposition|Corollaire|Lemme|Exemple|Remarque)~?[ ]?[0-9]+\.[0-9]+' \
+  --include='*.tex' td/ slides/ exam/
+```
+
+et remplace le numéro par un `\ref` ou par le nom du résultat.
 
 ---
 
