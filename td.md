@@ -20,12 +20,38 @@ qu'on suit.
 Une divergence énoncé / cours (notation, hypothèse) se **signale** en relecture,
 elle ne se corrige pas en silence.
 
+### Le signal : un macro-diff entre `td/` et `poly/`
+
+Une macro utilisée dans les TD mais jamais dans le poly est un candidat direct :
+
+```bash
+comm -23 <(grep -rhoE '\\[A-Za-z]{2,}' --include='*.tex' td | sort -u) \
+         <(grep -rhoE '\\[A-Za-z]{2,}' --include='*.tex' poly | sort -u)
+```
+
+Sur `mesure-integration`, ce diff remonte deux cas réels :
+
+- **`\eqdef`** — redéfinie localement, en double (`td3.tex:7` et `td4.tex:9`,
+  chacune avec son propre `\newcommand{\eqdef}{\overset{\text{def}}{=}}`), et
+  rend visuellement différemment de `\coloneqq` du poly (171 emplois). Ce n'est
+  pas la même convention pour « défini comme ».
+- **`\norme{}`** — plus subtil : le commentaire de `td4.tex:7` affirme qu'elle
+  est « fournie par le template ». Vrai, mais c'est l'alias déprécié de
+  `ocots-compat.sty:100` pour `\norm{}` (177 emplois dans le poly, zéro
+  `\norme`) — le rendu ne change pas, mais le TD pointe sans le savoir vers la
+  voie de compatibilité plutôt que vers la macro actuelle.
+
 ## TD2 — Un énoncé se colle tel quel du TD au polycopié
 
 C'est la promesse du template : `exercise`, `question`, `subquestion` sont les
 mêmes environnements des deux côtés. **Ne pas réécrire un énoncé pour le
 déplacer** — un exercice de TD promu en exercice de poly (ou l'inverse) se copie
 sans retouche.
+
+> **Sans prise dans le corpus.** `mesure-integration` ne partage aujourd'hui
+> aucun exercice entre `td/` et `poly/` — pas de label commun, pas d'`\input`
+> croisé. La règle reste un garde-fou correct pour le jour où un exercice migre
+> d'un support à l'autre ; rien à mesurer pour l'instant.
 
 ## TD3 — Questions : les environnements, pas la numérotation manuelle
 
