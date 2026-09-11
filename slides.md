@@ -5,10 +5,8 @@
 Support `beamer` + `\usepackage{ocots}` (le support est déduit de la classe).
 Prérequis : [`communes.md`](communes.md).
 
-> **État.** `SL1` et `SL2` sont arrêtées — elles portent la relation entre
-> transparents et polycopié, décidée avec l'auteur. Les suivantes sont posées
-> d'après la pratique existante mais n'ont pas encore été éprouvées par une
-> passe de relecture. À affiner.
+> **État.** `SL1`–`SL8` sont toutes relues avec l'auteur et éprouvées sur
+> `mesure-integration`.
 
 Identifiants : `SL1`, `SL2`, … (voir [`README.md`](README.md#citer-une-règle--épingler-la-version)).
 
@@ -105,7 +103,7 @@ particulier de [SL3](#sl3--une-idée-par-diapositive) appliqué à la preuve.
 
 `mesure-integration` fractionne largement : **40 preuves sur ~111** (36 %)
 utilisent `proofbegin`/`proofmiddle`/`proofend`. Cohérent avec le choix du
-cours — préuves gardées en entier, réparties sur autant de diapositives que
+cours — preuves gardées en entier, réparties sur autant de diapositives que
 nécessaire plutôt que raccourcies.
 
 ## SL6 — `\pause` : progression, pas décoration
@@ -117,6 +115,11 @@ pas de `\pause` sur une liste que l'on lit intégralement.
 La remise à zéro des compteurs entre deux `\pause` est gérée par le support du
 template — ne pas la bricoler dans le document.
 
+> **Sans prise dans le corpus.** Zéro `\pause` sur `mesure-integration`, les 8
+> chapitres. La règle n'a rien à quoi s'appliquer ici — sans prise, comme
+> [TD7](td.md#td7--où-va-le-corrigé)/[TD8](td.md#td8--ne-pas-rouvrir-question-dans-un-solution)
+> avant leur cas.
+
 ## SL7 — Figures lisibles en projection
 
 Une figure de transparent n'est pas une figure de polycopié rétrécie :
@@ -126,6 +129,13 @@ projection**. Vérifier en plein écran, pas dans l'aperçu.
 Les figures des transparents vivent dans le dossier du chapitre
 (`slides/chapitreN/figures/`) — une figure partagée avec le poly se **copie**,
 elle ne se référence pas par un chemin relatif qui traverse les dossiers.
+
+### Le corpus
+
+Clean sur `mesure-integration` : tous les chemins de `\includegraphics` sont
+des noms de fichiers simples, aucune traversée de dossier. `figures/` existe
+dans les chapitres qui ont des images (1, 2, 3, 4, 8) ; 5, 6, 7 n'en ont
+aucune — cohérent, pas une absence à corriger.
 
 ## SL8 — Le thème est un réglage global
 
