@@ -103,7 +103,9 @@ question suivante quand le corrigé est rédigé à part.)
 ## TD9 — Flottants dans un exercice
 
 `\begin{figure}` ou `\begin{table}` **dans** un `exercise` ou une `question`
-donne `Not in outer par mode` — ce sont des boîtes. Sortir le flottant de la
+donne `! LaTeX Error: Float(s) lost.` (vérifié par compilation, y compris pour
+une figure dans un `question` imbriqué dans un `exercise` — c'est la boîte
+`exercise` qui décide, pas la présence du `question`). Sortir le flottant de la
 boîte, ou le passer en non-flottant :
 
 ```latex
@@ -112,4 +114,6 @@ boîte, ou le passer en non-flottant :
 
 Puis vérifier que le `\label` / `\ref` qui le vise pointe toujours (règle
 [C5](communes.md#c5--labels-et-renvois)). Même contrainte dans le polycopié,
-[P13](poly.md#p13--figures), où elle vaut aussi pour `remark` et `example`.
+[P13](poly.md#p13--figures), qui donne la liste complète des environnements
+concernés — tout ce qui porte une décoration `tcolorbox`, `example` et `lemma`
+exceptés.

@@ -664,14 +664,40 @@ strict n'est pas artificiellement exigeant.
   (« … `\cf` l'illustration Figure~\ref{…} »).
 - Légende **courte et descriptive**.
 - Placement `[ht!]` par défaut.
-- **Une figure ne vit pas dans une boîte** `remark` / `example` : elle en casse
-  le mode paragraphe (erreur `Not in outer par mode`). Elle est sortie en
-  `figure` flottante — et le `\ref` qui la vise vérifié après déplacement. Même
+- **Une figure ne vit pas dans une boîte décorée** : elle en casse la mise en
+  page (`! LaTeX Error: Float(s) lost.`). Elle est sortie en `figure`
+  flottante — et le `\ref` qui la vise vérifié après déplacement. Même
   contrainte dans un exercice, [TD9](td.md#td9--flottants-dans-un-exercice).
+
+> **Vérifié par compilation, pas déduit.** Une version antérieure de cette
+> règle citait `Not in outer par mode` et visait `remark`/`example`. Les deux
+> sont inexacts : compilé en isolé, le message réel est `Float(s) lost.`, et
+> ce qui casse n'est pas `remark`/`example` en tant que tels, c'est **tout
+> environnement décoré** (`tcolorbox` ou `\newtcbtheorem`) — `remark` en fait
+> partie, `example` non.
+>
+> | Cassent (`Float(s) lost.`) | Tolèrent une figure |
+> |---|---|
+> | `theorem` `definition` `proposition` `corollary` `conjecture` | `example` |
+> | `remark` `assumption` `openquestion` `difficulty` `exercise` | `lemma` |
+>
+> Le critère : **décoré → casse**, **nu → passe**. `example` et `lemma` sont
+> les deux seuls environnements de la famille `\newtheorem` sans habillage
+> `tcolorbox`.
 
 Une figure peut être **l'exploitation** d'un résultat au sens de
 [P4](#p4--un-résultat-qui-nest-pas-exploité-na-pas-été-posé) : montrer ce que le
 théorème signifie vaut souvent mieux qu'une phrase qui le paraphrase.
+
+### Le cas du poly de mesure
+
+Deux figures seulement, toutes deux en `[ht!]` :
+
+- `theorie-mesure.tex:1132` (fonction de répartition de $\delta_0$) — annoncée
+  par « voici… » mais **sans `\label`** : elle ne pourra jamais être `\ref`-encée ;
+- `fonctions-positives.tex:266` (approximation par fonctions étagées) — le
+  modèle exact de la règle : `Figure~\ref{fig:limite_etagees}` en amont, la
+  figure ensuite.
 
 ## P14 — Structure du polycopié
 
