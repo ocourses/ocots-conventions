@@ -94,11 +94,34 @@ questions **s'enchaînent**, une question prépare la suivante. Une question
 isolée qui ne sert à rien de ce qui suit se signale — c'est un axe différent
 de celui du TD entier, à l'échelle d'un seul exercice.
 
-## TD5 — Nommer le résultat du cours mobilisé
+## TD5 — Citer le résultat du cours mobilisé, pas le redémontrer
 
-Le corrigé **cite** le théorème utilisé (« critère de Kalman », « théorème de
-convergence dominée », « théorème de Cauchy-Lipschitz ») plutôt que de le
-redémontrer. Renvoi `\ref{…}` vers le chapitre du poly s'il porte un label.
+**La base, c'est le `\ref`**, pas le nom : « D'après la
+Proposition~\ref{prop:xxx} » suffit, même quand le résultat n'a pas de titre.
+Si le résultat cité n'a pas encore de label, [P9](poly.md#p9--ne-pas-re-dériver-un-cas-particulier-dun-résultat-déjà-écrit)
+et [P12](poly.md#p12--labels-ref-ables-uniquement-si-le-résultat-est-cité) le
+disent déjà : on **ajoute** le label au poly, on ne réécrit rien.
+
+**Le nom est un bonus, pas une obligation à fabriquer.** Quand le résultat a
+un nom reconnu — « critère de Kalman », « théorème de convergence dominée »,
+« théorème de Cauchy-Lipschitz » — l'utiliser rend le corrigé plus lisible que
+« Théorème 4.4.6 ». Mais la **majorité** des résultats d'un poly n'ont pas de
+nom (ce sont des étapes techniques, pas des résultats fondateurs) : ne pas en
+inventer un. **Ne pas ajouter de titre à une boîte du poly dans le seul but de
+pouvoir la nommer en TD** — un `\ref` sans nom reste conforme à la règle.
+
+### Le corpus
+
+```bash
+grep -rc '\ref{' --include='*.tex' td/ | awk -F: '{s+=$2} END{print s}'
+```
+
+`mesure-integration` : **zéro** `\ref` dans tout `td/`. La moitié de la règle
+est déjà suivie — `td2.tex:148` cite bien « le théorème de convergence
+monotone » — mais sans renvoi, alors que le poly porte **deux** théorèmes
+labellisés sous ce nom (`thm:Beppo-Levi-v0`, `thm:Beppo-Levi-pp`,
+`theorems-limites.tex:173`). Rien à ajouter au poly ici : les labels existent
+déjà, il manque le `\ref` côté TD.
 
 ### Le corpus
 
@@ -135,7 +158,7 @@ aussi utiliser les résultats du chapitre 4… », « On pouvait aussi utiliser
 directement le TCD… »), avec des justifications pédagogiques (« pour alléger
 les notations »). C'est écrit pour un étudiant qui découvre, pas pour un
 collègue qui enseigne — la distinction que pose la règle. Même exercice, même
-théorème cité sans `\ref` qu'en [TD5](#td5--nommer-le-résultat-du-cours-mobilisé).
+théorème cité sans `\ref` qu'en [TD5](#td5--citer-le-résultat-du-cours-mobilisé-pas-le-redémontrer).
 
 ## TD7 — Où va le corrigé
 

@@ -25,7 +25,7 @@ c'est un autre document, le renvoi ne résout donc pas — et
 [C5](communes.md#c5--labels-et-renvois) exige zéro référence non résolue.
 
 C'est la différence avec un TD, qui lui **cite** le cours
-([TD5](td.md#td5--nommer-le-résultat-du-cours-mobilisé)) : en TD le polycopié est
+([TD5](td.md#td5--citer-le-résultat-du-cours-mobilisé-pas-le-redémontrer)) : en TD le polycopié est
 à portée de main, à l'examen non.
 
 ## EX2 — Conditions annoncées en tête

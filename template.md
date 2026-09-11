@@ -132,9 +132,9 @@ template change, toute la numérotation du poly se décale à la recompilation �
 seuls ; ce qui casse en silence, ce sont les numéros écrits en dur hors du
 poly. Le corpus en compte quatre, tous dans des TD
 (`td/td1/td1.tex:93`, `td/td4/td4.tex:171,307,331`) — déjà fragiles, puisque
-[TD5](td.md#td5--nommer-le-résultat-du-cours-mobilisé) demande de nommer un
-résultat plutôt que de le numéroter. Une passe de migration les **grep** avant
-de migrer :
+[TD5](td.md#td5--citer-le-résultat-du-cours-mobilisé-pas-le-redémontrer) demande un `\ref{…}`
+(qui se recalcule) plutôt qu'un numéro tapé à la main. Une passe de migration
+les **grep** avant de migrer :
 
 ```bash
 grep -rnE '(Théorème|Définition|Proposition|Corollaire|Lemme|Exemple|Remarque)~?[ ]?[0-9]+\.[0-9]+' \
