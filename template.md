@@ -18,6 +18,7 @@ qui doit y être corrigé pour que les règles soient applicables.
 | **4** | [Champs d'examen et barème calculé](#chantier-4--champs-dexamen-et-barème-calculé) | [EX2](exam.md#ex2--conditions-annoncées-en-tête), [EX3](exam.md#ex3--barème-par-les-clés-pas-à-la-main) |
 | **5** | [Logo dans l'en-tête, pas au-dessus du titre](#chantier-5--logo-dans-len-tête-pas-au-dessus-du-titre) | td.md, exam.md |
 | **6** | [Un seul environnement de diapositive, titre optionnel](#chantier-6--un-seul-environnement-de-diapositive-titre-optionnel) | [SL4](slides.md#sl4--le-transparent-nest-pas-le-polycopié) |
+| **7** | [Un hook dans `\slidetitlepage`](#chantier-7--un-hook-dans-slidetitlepage) | [SL8](slides.md#sl8--le-thème-est-un-réglage-global) |
 
 Chaque chantier se vérifie par `cd examples && make`, qui **doit rester vert**.
 
@@ -562,3 +563,60 @@ devient conditionnel.
 `\begin{frame}` reste un alias valide (c'est du `beamer` natif, rien à
 déprécier) ; les cours migrent leurs `frame` nus vers `slide` sans titre à
 leur rythme, sans urgence — le rendu ne change pas.
+
+
+---
+
+# Chantier 7 — Un hook dans `\slidetitlepage`
+
+## Le problème
+
+`\slidetitlepage` (`ocots-carrier-slides.sty:123`) est déclarée sans
+argument :
+
+```latex
+\newcommand{\slidetitlepage}{%
+  \begin{frame}
+    \vspace{2em}
+    \begin{titlebox}...\end{titlebox}
+    \vspace{1em}
+    \begin{center}
+      {\large\insertauthor}\par
+      \vspace{1em}\insertdate\par
+      \vspace{2em}\ocotslogos[2.5em]
+    \end{center}
+  \end{frame}}
+```
+
+Rien n'y accueille du contenu propre à un cours. Sur `mesure-integration`,
+**6 chapitres sur 8** l'utilisent tel quel ; **`chapitre1` et `chapitre4`
+refont toute la page à la main** — `titlebox` recopiée, logo en
+`\includegraphics{Logo-toulouse-inp-N7.png}` codé en dur au lieu de
+`\ocotslogos`. `chapitre1` a une vraie raison : il ajoute un QR code
+(`qr-code-cours.pdf`) dans une troisième colonne, que `\slidetitlepage` ne
+sait pas accueillir. `chapitre4` copie ce contournement **sans en avoir
+besoin** — sa version manuelle ne produit rien de plus que ce que
+`\slidetitlepage` donnerait seul.
+
+Les deux perdent au passage `\ocotslogos` : si l'établissement change, ces
+deux pages ne suivront pas, contrairement aux six autres.
+
+## La cible
+
+Un argument optionnel, pour du contenu additionnel sous le bloc
+auteur/date/logo :
+
+```latex
+\slidetitlepage[\includegraphics[height=5em]{qr-code-cours.pdf}]
+```
+
+Vide par défaut — les 6 chapitres qui appellent déjà `\slidetitlepage` sans
+argument n'ont rien à changer. `chapitre1` migre en gardant son QR code, sans
+plus recopier `titlebox` ni contourner `\ocotslogos`. `chapitre4` migre vers
+l'appel simple, sans argument — rien ne justifiait sa version manuelle.
+
+## Migration
+
+Chantier local à `\slidetitlepage`. Chaque chapitre qui la contournait
+migre indépendamment, à son rythme — l'ajout de l'argument optionnel ne
+casse aucun appel existant.

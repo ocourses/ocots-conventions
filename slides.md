@@ -133,3 +133,23 @@ elle ne se référence pas par un chemin relatif qui traverse les dossiers.
 Le choix se fait **au préambule**, une fois. Pas de couleur posée à la main dans
 le corps d'une diapositive (`\slidecolor` existe pour changer la couleur
 d'en-tête d'une série).
+
+**Même principe pour la page de titre** : `\slidetitlepage` fournit le
+mécanisme (logo via `\ocotslogos`, mis à jour si l'établissement change), on
+ne le recompose pas à la main.
+
+### Le corpus
+
+Couleurs : clean — zéro `\textcolor`/`\color` posé à la main dans le corps
+des diapositives, `theme=ocots` partout.
+
+Page de titre : **6 chapitres sur 8** appellent `\slidetitlepage`.
+`chapitre1` et `chapitre4` la recomposent entièrement, logo en dur
+(`\includegraphics{Logo-toulouse-inp-N7.png}`) au lieu de `\ocotslogos` — si
+l'établissement change, ces deux pages ne suivront pas. `chapitre1` a une
+raison réelle (un QR code que `\slidetitlepage` ne sait pas accueillir) ;
+`chapitre4` copie ce contournement sans en avoir besoin.
+
+> **En attendant la révision du template.** L'absence de point d'extension
+> dans `\slidetitlepage` est demandée au
+> [chantier 7](template.md#chantier-7--un-hook-dans-slidetitlepage).
