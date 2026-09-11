@@ -461,7 +461,8 @@ lisses, les ouverts, les contraintes), amené par une phrase — « Rappelons le
 hypothèses sur les données du problème. » — et les énoncés s'y réfèrent ensuite :
 
 ```latex
-\begin{assumption}[label=hyp:ocp]
+\begin{assumption}%
+  \label{hyp:ocp}
   Soit un système contrôlé non autonome $\dot{x}(t) = f(t,x(t),u(t))$ où $f$ est
   une application lisse de $\Ical \times \Omega \times \Ucal$ dans $\R^n$…
 \end{assumption}
@@ -471,6 +472,12 @@ hypothèses sur les données du problème. » — et les énoncés s'y réfèren
 
 Le renvoi se fait avec **`\eqref`**, pas `\ref` (règle
 [C5](communes.md#c5--labels-et-renvois)).
+
+> **Forme actuelle du label.** `assumption` est bâti sur `\newtheorem`, comme
+> `lemma`, `example` et `remark` : le label se pose par `\label{…}` dans le
+> corps, pas par une clé. La forme `[label=hyp:ocp]` est la **cible** du
+> [chantier 1](template.md#chantier-1--signature-des-environnements-et-labels),
+> pas la syntaxe d'aujourd'hui.
 
 ### La phrase d'introduction est un quatrième outil, indépendant
 
