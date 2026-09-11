@@ -171,6 +171,32 @@ théorème cité sans `\ref` qu'en [TD5](#td5--citer-le-résultat-du-cours-mobil
 - Hors boîte (remarque de séance, indication) : `\begin{correction}`.
 - Exercice sans corrigé à fournir : `\begin{exercise}[nosolution]`.
 
+### Le corpus
+
+```bash
+echo "exercises : $(grep -rc 'begin{exercise}' --include='*.tex' td/ | awk -F: '{s+=$2}END{print s}')"
+echo "\solution : $(grep -rc '\\solution' --include='*.tex' td/ | awk -F: '{s+=$2}END{print s}')"
+echo "correction : $(grep -rc 'begin{correction}' --include='*.tex' td/ | awk -F: '{s+=$2}END{print s}')"
+```
+
+| Cours | Exercices | `\solution` | `\begin{correction}` |
+|---|---|---|---|
+| `automatique` | 7 | **7** | 0 |
+| `mesure-integration` | 22 | **0** | 30 |
+
+`automatique` suit le mécanisme du template exactement : un `\solution` par
+exercice. `mesure-integration` ne l'utilise **jamais** — chaque `exercise` se
+ferme, puis une ou plusieurs `\begin{correction}` séparées suivent, le
+mécanisme documenté pour l'usage inverse (« hors boîte, où l'énoncé n'est pas
+encadré »). Conséquence vérifiée : `solutions=none/inline/end` ne pilote **pas**
+ces corrigés — le préambule de `mesure-integration` a beau dire
+`solutions=none`, les corrections s'affichent quand même.
+
+Ces TD datent d'avant le template ocots (`% Olivier Cots, 13/10/2019` en
+première ligne) : c'est un reliquat de migration, pas une exception voulue —
+la classe `ocots-td` et les environnements `exercise`/`question` ont déjà
+migré, seul le corrigé ne suit pas encore le mécanisme actuel.
+
 ## TD8 — Ne pas rouvrir `question` dans un `\solution`
 
 Le compteur `question` **continue** celui de l'énoncé : le corrigé de la Q1
