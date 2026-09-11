@@ -209,12 +209,12 @@ Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 | Fichier | État |
 |---|---|
 | `communes.md` | `C1`–`C6` — relues avec l’auteur |
-| `poly.md` | `P1`–`P14` — éprouvées sur deux cours ; `P1`–`P9`, `P14` relues avec l’auteur |
+| `poly.md` | `P1`–`P14` — toutes relues avec l’auteur, éprouvées sur deux cours |
 | `methode.md` | v1 |
-| `td.md` | `TD1`–`TD9` — dérivées du rôle `exercise-corrector` de `ocourses/agents` |
+| `td.md` | `TD1`–`TD9` — toutes relues avec l’auteur |
 | `slides.md` | `SL1`–`SL8` — SL1 et SL2 arrêtées, le reste **squelette** |
-| `exam.md` | `EX1`–`EX7` — **squelette**, à affiner |
-| `template.md` | 3 chantiers — **non appliqués** au template |
+| `exam.md` | `EX1`–`EX3` relues avec l’auteur ; `EX4`–`EX7` **squelette** |
+| `template.md` | 4 chantiers — **non appliqués** au template |
 
 ---
 

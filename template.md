@@ -15,6 +15,7 @@ qui doit y être corrigé pour que les règles soient applicables.
 | **1** | [Signature des environnements et labels](#chantier-1--signature-des-environnements-et-labels) | [C5](communes.md#c5--labels-et-renvois) |
 | **2** | [Nommage des macros mathématiques](#chantier-2--nommage-des-macros-mathématiques) | [C3](communes.md#c3--macros-du-template-plutôt-que-du-latex-manuel) |
 | **3** | [Correctifs divers](#chantier-3--correctifs-divers) | [C1](communes.md#c1--langue-et-registre), [C4](communes.md#c4--typographie) |
+| **4** | [Champs d'examen et barème calculé](#chantier-4--champs-dexamen-et-barème-calculé) | [EX2](exam.md#ex2--conditions-annoncées-en-tête), [EX3](exam.md#ex3--barème-par-les-clés-pas-à-la-main) |
 
 Chaque chantier se vérifie par `cd examples && make`, qui **doit rester vert**.
 
@@ -386,3 +387,58 @@ Défauts relevés en passant, indépendants des deux chantiers précédents.
 `\enquote` est vérifié : sous `[french]{babel}` avec `autostyle`, il rend
 « ceci » en français et “this” en anglais, et gère l'imbrication
 (« a “b” » / “a ‘b’ ”).
+
+
+---
+
+# Chantier 4 — Champs d'examen et barème calculé
+
+## Le problème
+
+Le en-tête d'un sujet ([EX2](exam.md#ex2--conditions-annoncées-en-tête)) est
+un `itemize` écrit à la main dans `instructions`, sans structure ni ordre fixe.
+Sur les 14 sujets de `mesure-integration` (2019–2025) :
+
+- **la durée manque dans 5 sur 14** — tous les plus anciens (2019-2020 ×2,
+  2020-2021 ×3). Devenue systématique depuis 2021, mais rien ne force sa
+  présence : un sujet qui l'omet compile sans se plaindre ;
+- **`points=` (règle [EX3](exam.md#ex3--barème-par-les-clés-pas-à-la-main))
+  est adopté puis abandonné**, d'une session à l'autre, par le même auteur —
+  100 % en 2020-2021, 0 % en 2021-2022, 100 % puis 0 % en 2022-2023 et
+  2023-2024. Le barème, lui, reste écrit en prose libre dans `instructions`
+  (« barème prévisionnel : 8 points ») — **totalement déconnecté** des clés
+  `points=`, quand elles existent. Les deux peuvent diverger sans qu'aucune
+  compilation ne le signale.
+
+## La cible
+
+Le même patron que `\title`/`\author`/`\date` + `\maketitle`, pour les champs
+d'en-tête :
+
+```latex
+\duree{1h30}
+\documents{2 feuilles A4 recto-verso manuscrites}
+\calculatrice{interdite}
+```
+
+suivis d'un `\printinstructions` (ou intégré à `\maketitle` pour la classe
+`ocots-exam`), qui assemble ce qui a été renseigné, **dans un ordre fixe**, et
+dans la langue de `lang=` — un champ non renseigné ne laisse pas de ligne
+vide, il n'apparaît simplement pas. Un hook libre absorbe ce qui ne rentre
+dans aucun champ standard (une remarque de notation, une consigne propre à un
+sujet), sur le modèle de `note=` du [chantier 1](#chantier-1--signature-des-environnements-et-labels).
+
+**Le barème se calcule, il ne se recopie pas.** Chaque `\begin{exercise}[points=N]`
+alimente un compteur par `docpart` (et un total pour le sujet), affiché
+automatiquement — « Partie 1 : noté sur 8 points ». **Pas de contrainte à 20** :
+le total est ce que la somme donne, affiché tel quel. C'est ce qui fait de
+« Barème par les clés » ([EX3](exam.md#ex3--barème-par-les-clés-pas-à-la-main))
+une propriété garantie par construction plutôt qu'une case à cocher en
+relecture — l'auteur voit le total se former au fil des `points=`, au lieu de
+le retaper à la main dans `instructions` et risquer l'écart.
+
+## Migration
+
+`instructions` reste un environnement valide — un sujet qui n'adopte pas les
+nouveaux champs continue de compiler avec son `itemize` écrit à la main. La
+migration se fait sujet par sujet, pas en bloc.
