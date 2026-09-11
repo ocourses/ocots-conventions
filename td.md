@@ -214,6 +214,12 @@ Renvoi ponctuel à une question de l'énoncé : `\ref{…}` si elle porte un lab
 sinon le numéro en clair. (`\newquestion` existe pour forcer le passage à la
 question suivante quand le corrigé est rédigé à part.)
 
+`automatique` suit ce patron à la lettre (`td1.tex:152`, `td2.tex:73` :
+`\solution` puis `\begin{description}`, numéros repris à la main). Pas de
+signal côté `mesure-integration` : sans `\solution` ([TD7](#td7--où-va-le-corrigé)),
+le cas que cette règle vise ne peut pas se produire dans ce cours pour
+l'instant.
+
 ## TD9 — Flottants dans un exercice
 
 `\begin{figure}` ou `\begin{table}` **dans** un `exercise` ou une `question`
