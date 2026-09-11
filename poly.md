@@ -550,7 +550,8 @@ en garde, en appendice, comme reliquat de brouillon.
 `mesure-integration`, `proba.tex` : **quatre boîtes titrées « Mesure image »**.
 La première (`:79`) est le théorème de transfert. Les deux suivantes (`:166`,
 `:192`) en sont des **spécialisations au cas discret**, et toutes deux la
-redémontrent en entier — sans un seul `ef` vers le théorème dont elles ne
+redémontrent en entier — sans un seul `
+ef` vers le théorème dont elles ne
 sont qu'un cas particulier. La quatrième (`:245`, cas à densité) fait ce que
 P9 demande : « La preuve est similaire à celle du théorème de la mesure
 image. » Trois boîtes sur quatre ignorent la règle, la dernière la suit — dans
@@ -561,7 +562,8 @@ d'équilibre » en deux endroits — mais c'est la **forme correcte**. Le second
 énonce un concept réellement distinct (point d'équilibre du système autonome,
 sans contrôle) et le dit explicitement : « C'est le point d'équilibre du
 système contrôlé sous-jacent (Définition~\ref{def:point_equilibre}) ». Un
-intitulé répété n'est donc pas fautif en soi — il l'est sans le `ef` qui
+intitulé répété n'est donc pas fautif en soi — il l'est sans le `
+ef` qui
 dit pourquoi il revient.
 
 ## P10 — Cohérence terminologique et notationnelle
@@ -590,9 +592,30 @@ Les deux se corrigent mécaniquement :
 ./conventions/bin/nettoyer C4 poly/            # aperçu
 ```
 
+```bash
+./conventions/bin/verifier C4 poly/ 2>&1 >/dev/null
+```
+
+| Polycopié | C4 (toutes formes) |
+|---|---|
+| `automatique` | 96 |
+| `mesure-integration` | 210 |
+| `calcul-differentiel-edo` | 327 |
+| `controle_optimal` | 454 |
+
+**C4 est une passe à part**, indépendante de P2/P3 : `automatique` a sa passe
+d'enchaînement faite (P2 à 6, P3 à 0) mais garde 96 infractions
+typographiques — ce n'est pas la même salve.
+
 Spécifique au polycopié : la paire `\keyword{terme}` + `\index{terme}` à la
 première occurrence est ce qui **peuple l'index** ([P14](#p14--structure-du-polycopié)).
 Un polycopié dont l'index est vide n'a pas eu sa passe typographique.
+
+> **Le cas de `mesure-integration`.** Le poly compte **zéro** `\keyword` et
+> **zéro** `\index`, et ne charge même pas `\printindex` en `\backmatter` — ce
+> n'est pas un index vide, c'est un index qui n'existe pas encore comme
+> fonctionnalité du document. C'est la structure de P14 à compléter avant que
+> la passe typographique ait un index où écrire.
 
 ## P12 — Labels `\ref`-ables uniquement si le résultat est cité
 

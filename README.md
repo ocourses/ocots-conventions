@@ -209,7 +209,7 @@ Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 | Fichier | État |
 |---|---|
 | `communes.md` | `C1`–`C6` — relues avec l’auteur |
-| `poly.md` | `P1`–`P14` — éprouvées sur deux cours ; `P1`–`P5`, `P7`, `P14` relues avec l’auteur |
+| `poly.md` | `P1`–`P14` — éprouvées sur deux cours ; `P1`–`P9`, `P14` relues avec l’auteur |
 | `methode.md` | v1 |
 | `td.md` | `TD1`–`TD9` — dérivées du rôle `exercise-corrector` de `ocourses/agents` |
 | `slides.md` | `SL1`–`SL8` — SL1 et SL2 arrêtées, le reste **squelette** |
