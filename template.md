@@ -16,6 +16,7 @@ qui doit y être corrigé pour que les règles soient applicables.
 | **2** | [Nommage des macros mathématiques](#chantier-2--nommage-des-macros-mathématiques) | [C3](communes.md#c3--macros-du-template-plutôt-que-du-latex-manuel) |
 | **3** | [Correctifs divers](#chantier-3--correctifs-divers) | [C1](communes.md#c1--langue-et-registre), [C4](communes.md#c4--typographie) |
 | **4** | [Champs d'examen et barème calculé](#chantier-4--champs-dexamen-et-barème-calculé) | [EX2](exam.md#ex2--conditions-annoncées-en-tête), [EX3](exam.md#ex3--barème-par-les-clés-pas-à-la-main) |
+| **5** | [Logo dans l'en-tête, pas au-dessus du titre](#chantier-5--logo-dans-len-tête-pas-au-dessus-du-titre) | td.md, exam.md |
 
 Chaque chantier se vérifie par `cd examples && make`, qui **doit rester vert**.
 
@@ -442,3 +443,72 @@ le retaper à la main dans `instructions` et risquer l'écart.
 `instructions` reste un environnement valide — un sujet qui n'adopte pas les
 nouveaux champs continue de compiler avec son `itemize` écrit à la main. La
 migration se fait sujet par sujet, pas en bloc.
+
+
+---
+
+# Chantier 5 — Logo dans l'en-tête, pas au-dessus du titre
+
+## Le problème
+
+Sur `td`/`exam` (`ocots-carrier-article.sty`), `\maketitle` centre le logo
+**pleine largeur, au-dessus du titre** :
+
+```latex
+\renewcommand{\maketitle}{%
+  \begin{center}
+    \ocotslogos[1.2cm]\par
+    \vspace*{1.0em}
+    {\LARGE\bfseries\@title\par}
+  \end{center}%
+  \thispagestyle{plain}%
+  \addvspace{2em}}
+```
+
+Vérifié par compilation (source `n7` seul, comme dans les TD et examens de
+`mesure-integration`) : ce bloc — logo, espacement, puis titre — repousse le
+premier exercice à mi-hauteur de la page. Sur un TD ou un examen, où chaque
+ligne compte, c'est un coût récurrent, à chaque document.
+
+## La cible
+
+Le support `article` charge déjà `fancyhdr` pour les en-têtes ; le style
+`plain` (première page) a trois emplacements et n'en occupe que deux —
+`L` (promotion/discipline) et `R` (date/numéro), `C` est libre :
+
+```latex
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyhead[L]{\ocotslogos[0.9cm]}%
+  \fancyhead[C]{{\scriptsize\emph{\ocots@promotion}\\[-2pt]\textsc{\ocots@discipline}}}%
+  \fancyhead[R]{{\scriptsize\@date\\[-2pt]\ocots@numero}}%
+  \fancyfoot[C]{\textrm{\thepage}}}
+\renewcommand{\maketitle}{%
+  \begin{center}{\LARGE\bfseries\@title\par}\end{center}%
+  \thispagestyle{plain}%
+  \addvspace{1.5em}}
+```
+
+Logo en coin, promotion/discipline glissée au centre, titre juste en dessous
+— testé, compile, rend correctement. Scope : **première page seulement**
+(`plain`) — les pages suivantes (`pagestyle{fancy}`) n'ont jamais porté de
+logo, rien n'y change. Le titre du poly/transparents (page de titre à part,
+pas un en-tête) n'est pas concerné — ce chantier ne touche que
+`ocots-carrier-article.sty`.
+
+**Le cas multi-établissement.** `\ocotslogos` traite aujourd'hui `uftmp`
+comme un chapeau : logo à double hauteur à gauche, les autres logos empilés
+en colonne à sa droite (`ocots-institution.sty`, pensé pour la page de titre
+du poly). **Dans un en-tête, ce traitement ne convient pas** — décidé avec
+l'auteur : tous les logos, `uftmp` compris, se rangent **côte à côte, à une
+hauteur fixe commune**, jamais doublée ni empilée. `\ocotslogos` a déjà cette
+disposition — c'est sa branche `else`, prise quand aucun `uftmp` n'est
+demandé. Il faut une variante qui l'impose **toujours**, y compris avec
+`uftmp` dans la liste : un mode « en-tête », par opposition au mode « page de
+titre » qui garde le chapeau actuel.
+
+## Migration
+
+Chantier local à `ocots-carrier-article.sty` (td/exam) — aucun effet sur
+`ocots-carrier-book.sty` (poly) ni `ocots-carrier-slides.sty`, qui gardent
+leur page de titre actuelle.
