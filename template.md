@@ -6,19 +6,26 @@ Ce que la relecture des conventions a mis au jour dans
 [`ocots-latex-template`](https://github.com/ocourses/ocots-latex-template), et
 qui doit y être corrigé pour que les règles soient applicables.
 
-> **État : proposition.** **Rien n'est encore appliqué au template.** Ce
-> document est la spec des PR à y faire. Les cours migreront ensuite, à leur
-> rythme, chacun à sa version épinglée du sous-module.
+> **État.** L'état se lit chantier par chantier, colonne **État** — pas sur
+> un bandeau global unique : un état commun à sept chantiers redate dès que
+> l'un d'eux avance, ce que ce document a longtemps affiché à tort. « Appliqué »
+> porte sur le template lui-même ; la migration de chaque cours vers les
+> nouveautés reste indépendante, à son rythme, chacun à sa version épinglée
+> du sous-module (voir la section Migration de chaque chantier).
 
-| Chantier | Objet | Règle concernée |
-|---|---|---|
-| **1** | [Signature des environnements et labels](#chantier-1--signature-des-environnements-et-labels) | [C5](communes.md#c5--labels-et-renvois) |
-| **2** | [Nommage des macros mathématiques](#chantier-2--nommage-des-macros-mathématiques) | [C3](communes.md#c3--macros-du-template-plutôt-que-du-latex-manuel) |
-| **3** | [Correctifs divers](#chantier-3--correctifs-divers) | [C1](communes.md#c1--langue-et-registre), [C4](communes.md#c4--typographie) |
-| **4** | [Champs d'examen et barème calculé](#chantier-4--champs-dexamen-et-barème-calculé) | [EX2](exam.md#ex2--conditions-annoncées-en-tête), [EX3](exam.md#ex3--barème-par-les-clés-pas-à-la-main) |
-| **5** | [Logo dans l'en-tête, pas au-dessus du titre](#chantier-5--logo-dans-len-tête-pas-au-dessus-du-titre) | td.md, exam.md |
-| **6** | [Un seul environnement de diapositive, titre optionnel](#chantier-6--un-seul-environnement-de-diapositive-titre-optionnel) | [SL4](slides.md#sl4--le-transparent-nest-pas-le-polycopié) |
-| **7** | [Un hook dans `\slidetitlepage`](#chantier-7--un-hook-dans-slidetitlepage) | [SL8](slides.md#sl8--le-thème-est-un-réglage-global) |
+| Chantier | Objet | État | Règle concernée |
+|---|---|---|---|
+| **1** | [Signature des environnements et labels](#chantier-1--signature-des-environnements-et-labels) | appliqué | [C5](communes.md#c5--labels-et-renvois) |
+| **2** | [Nommage des macros mathématiques](#chantier-2--nommage-des-macros-mathématiques) | appliqué | [C3](communes.md#c3--macros-du-template-plutôt-que-du-latex-manuel) |
+| **3** | [Correctifs divers](#chantier-3--correctifs-divers) | appliqué | [C1](communes.md#c1--langue-et-registre), [C4](communes.md#c4--typographie) |
+| **4** | [Champs d'examen et barème calculé](#chantier-4--champs-dexamen-et-barème-calculé) | appliqué | [EX2](exam.md#ex2--conditions-annoncées-en-tête), [EX3](exam.md#ex3--barème-par-les-clés-pas-à-la-main) |
+| **5** | [Logo dans l'en-tête, pas au-dessus du titre](#chantier-5--logo-dans-len-tête-pas-au-dessus-du-titre) | appliqué | td.md, exam.md |
+| **6** | [Un seul environnement de diapositive, titre optionnel](#chantier-6--un-seul-environnement-de-diapositive-titre-optionnel) | appliqué | [SL4](slides.md#sl4--le-transparent-nest-pas-le-polycopié) |
+| **7** | [Un hook dans `\slidetitlepage`](#chantier-7--un-hook-dans-slidetitlepage) | appliqué | [SL8](slides.md#sl8--le-thème-est-un-réglage-global) |
+
+Vérifié contre `ocots-latex-template` à `803e9bf9` (2026-09-15, `main`) : les
+sept chantiers sont appliqués. Cette colonne redatera comme tout le reste —
+revérifier au moment de la lecture plutôt que de s'y fier telle quelle.
 
 Chaque chantier se vérifie par `cd examples && make`, qui **doit rester vert**.
 
