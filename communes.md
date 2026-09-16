@@ -92,9 +92,9 @@ aveugle détruit le propos du passage.
 Exemple, dans le cours de calcul différentiel
 (`cd-application-differentiable.tex`) : le paragraphe qui compare dérivabilité et
 différentiabilité en dimension 1 emploie **les deux** notations côte à côte —
-$f'(x)$ pour la dérivée (un scalaire), $\diff f(x)$ pour la différentielle (une
+$f'(x)$ pour la dérivée (un scalaire), $\dif f(x)$ pour la différentielle (une
 application linéaire) — parce qu'il existe précisément pour poser
-$f'(x) = \diff f(x) \cdot 1$. Remplacer l'une par l'autre viderait le passage de
+$f'(x) = \dif f(x) \cdot 1$. Remplacer l'une par l'autre viderait le passage de
 son sens.
 
 Une exception de ce genre se **signale par un commentaire LaTeX** à l'endroit
