@@ -92,9 +92,9 @@ aveugle détruit le propos du passage.
 Exemple, dans le cours de calcul différentiel
 (`cd-application-differentiable.tex`) : le paragraphe qui compare dérivabilité et
 différentiabilité en dimension 1 emploie **les deux** notations côte à côte —
-$f'(x)$ pour la dérivée (un scalaire), $\diff f(x)$ pour la différentielle (une
+$f'(x)$ pour la dérivée (un scalaire), $\dif f(x)$ pour la différentielle (une
 application linéaire) — parce qu'il existe précisément pour poser
-$f'(x) = \diff f(x) \cdot 1$. Remplacer l'une par l'autre viderait le passage de
+$f'(x) = \dif f(x) \cdot 1$. Remplacer l'une par l'autre viderait le passage de
 son sens.
 
 Une exception de ce genre se **signale par un commentaire LaTeX** à l'endroit
@@ -164,7 +164,7 @@ grep -rn -E '\\(newcommand|DeclareMathOperator)\*?\{\\foo\}' template/tex/math/
 |---|---|
 | `\Im` | **n'existe pas** dans le template. C'est le `\Im` standard de LaTeX = partie imaginaire, rendu **ℑ** en fraktur. Pour l'image d'une application : **`\im`** |
 | `\ker` | le `\ker` standard donne « ker » minuscule ; le template fournit **`\Ker`** |
-| `\rang` / `\rank` | doublon : `\rang` suit `lang=` (« rg » en français), `\rank` est figé en anglais. À terme, un seul (`\rank` localisé, voir [`template.md`](template.md)) |
+| `\rang` / `\rank` | résolu (chantier 2) : seul `\rank` existe, localisé par `lang=` (« rg » en français, « rank » en anglais). `\rang` est un alias déprécié, conservé pour compatibilité |
 
 ### Divers
 
@@ -276,12 +276,6 @@ défini. Un `??` dans le PDF est un bug, pas un détail.
 
 Sans préfixe automatique, deux objets peuvent se disputer une clé — LaTeX
 **erreur** alors sur un label dupliqué, ce n'est jamais silencieux.
-
-> **En attendant la révision du template.** Aujourd'hui trois mécanismes
-> coexistent, et les boîtes à titre **préfixent automatiquement** : la clé se
-> donne nue dans le 2ᵉ argument (`\begin{theorem}{Titre}{cauchy}`), le renvoi
-> porte le préfixe (`\ref{thm:cauchy}`). C'est le chantier 1 de
-> [`template.md`](template.md).
 
 ## C6 — Listes et énumérations
 
