@@ -277,12 +277,6 @@ défini. Un `??` dans le PDF est un bug, pas un détail.
 Sans préfixe automatique, deux objets peuvent se disputer une clé — LaTeX
 **erreur** alors sur un label dupliqué, ce n'est jamais silencieux.
 
-> **En attendant la révision du template.** Aujourd'hui trois mécanismes
-> coexistent, et les boîtes à titre **préfixent automatiquement** : la clé se
-> donne nue dans le 2ᵉ argument (`\begin{theorem}{Titre}{cauchy}`), le renvoi
-> porte le préfixe (`\ref{thm:cauchy}`). C'est le chantier 1 de
-> [`template.md`](template.md).
-
 ## C6 — Listes et énumérations
 
 **Jamais de numérotation saisie à la main.** Pas de « 1) 2) 3) » ni de
