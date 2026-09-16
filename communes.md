@@ -164,7 +164,7 @@ grep -rn -E '\\(newcommand|DeclareMathOperator)\*?\{\\foo\}' template/tex/math/
 |---|---|
 | `\Im` | **n'existe pas** dans le template. C'est le `\Im` standard de LaTeX = partie imaginaire, rendu **ℑ** en fraktur. Pour l'image d'une application : **`\im`** |
 | `\ker` | le `\ker` standard donne « ker » minuscule ; le template fournit **`\Ker`** |
-| `\rang` / `\rank` | doublon : `\rang` suit `lang=` (« rg » en français), `\rank` est figé en anglais. À terme, un seul (`\rank` localisé, voir [`template.md`](template.md)) |
+| `\rang` / `\rank` | résolu (chantier 2) : seul `\rank` existe, localisé par `lang=` (« rg » en français, « rank » en anglais). `\rang` est un alias déprécié, conservé pour compatibilité |
 
 ### Divers
 
