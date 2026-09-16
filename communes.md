@@ -136,16 +136,17 @@ Chaque décision de terminologie va dans
 
 ## C3 — Macros du template plutôt que du LaTeX manuel
 
-Utiliser systématiquement les macros dédiées plutôt que le LaTeX manuel
-équivalent : `\norm`, `\abs`, `\prodscal`, `\enstq{}{}`, `\grandO{}` /
-`\petito{}`, `\intervalleff{}{}` / `\intervalleoo{}{}`, `\fonction`, `\diff` /
-`\xdif`, `\diag`, `\trace`, `\im`, `\Ker`, `\dot{x}` (**jamais** `x'` pour une
-dérivée en temps — mais voir l'exception locale de
-[C2](#c2--cohérence-terminologique-et-notationnelle), où `f'` et `\diff f`
-coexistent exprès).
+Utiliser systématiquement les macros dédiées du template plutôt que le LaTeX
+manuel équivalent (normes, valeurs absolues, produit scalaire, notations de
+Landau, intervalles, définition d'application, différentielle, opérateurs
+usuels...), et `\dot{x}` (**jamais** `x'` pour une dérivée en temps — mais voir
+l'exception locale de [C2](#c2--cohérence-terminologique-et-notationnelle), où
+`f'` et `\dif f` coexistent exprès).
 
-> Le nommage actuel de ces macros est incohérent et une refonte est proposée
-> dans **[`template.md`](template.md)**. Les noms ci-dessous sont ceux d'aujourd'hui.
+> Les noms de ces macros sont ceux du template, pas fixés ici : la liste à
+> jour est **`template/doc/notations.md`**, référence vivante qui suit le
+> template au fil de ses chantiers de renommage. Ne pas la dupliquer dans ce
+> document — elle redaterait dès le prochain chantier.
 
 ### Vérifier avant de supposer
 
@@ -172,8 +173,8 @@ grep -rn -E '\\(newcommand|DeclareMathOperator)\*?\{\\foo\}' template/tex/math/
   dans le préambule, signalée en relecture. Exemple existant :
   `\renewcommand{\M}{\mathcal M}`, parce que le template définit `\M` comme un M
   **gras**.
-- `\fonction` du template produit un `array` **nu** : ne s'utilise qu'en mode
-  maths (`\[ \fonction{...} \]`).
+- `\functiondef` du template produit un `array` **nu** : ne s'utilise qu'en mode
+  maths (`\[ \functiondef{...} \]`).
 
 ## C4 — Typographie
 
