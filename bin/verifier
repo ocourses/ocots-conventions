@@ -61,6 +61,14 @@ def sources(racines):
                     yield os.path.join(dossier, f)
 
 
+def est_transparent(chemin):
+    """Vrai si le fichier vit sous un dossier `slides/` — le support
+    « transparent » où slides.md#sl4 dispense explicitement des règles
+    d'amorce et de reprise du polycopié (P3, P4) : le texte y est
+    télégraphique, c'est l'enseignant qui fait la liaison à l'oral."""
+    return "slides" in os.path.normpath(chemin).split(os.sep)[:-1]
+
+
 def lire(chemin):
     with open(chemin, encoding="utf-8", errors="replace") as fh:
         return fh.read()
@@ -208,6 +216,8 @@ def nettoyer(ligne):
 def regle_P3(racines):
     """P3 — amorces passe-partout et phrases qui se jettent dans la boîte."""
     for chemin in sources(racines):
+        if est_transparent(chemin):
+            continue  # slides.md#sl4 : P3 ne s'applique pas aux transparents
         brut = lire(chemin)
         texte = hors_math(brut)               # détection hors mode maths…
         lignes, lignes_brutes = texte.split("\n"), brut.split("\n")
