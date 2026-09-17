@@ -103,6 +103,11 @@ Les contrôles typographiques **masquent le mode mathématique** avant de
 chercher : `~` y est une espace, et `\forall h \in E ~:~ J'(x) \cdot h = 0` ne
 doit pas être « corrigé ».
 
+`P3` **ne s'applique pas** aux fichiers d'un dossier `slides/` :
+[`slides.md#sl4`](slides.md#sl4--le-transparent-nest-pas-le-polycopié) exempte
+explicitement le support transparent des règles d'amorce du polycopié — le
+texte y est télégraphique, c'est l'enseignant qui fait la liaison à l'oral.
+
 ### Ce que l'outil ne fait pas
 
 **`verifier` aide à l'analyse ; il ne certifie rien.**
