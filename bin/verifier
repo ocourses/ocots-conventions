@@ -66,6 +66,23 @@ def lire(chemin):
         return fh.read()
 
 
+# Un `%` non échappé ouvre un commentaire LaTeX jusqu'à fin de ligne : jamais
+# compilé, jamais rendu. Sans ce masque, P2/P5/C4 lisaient le texte brut et
+# pouvaient signaler du contenu mort — un `~:` dans une légende commentée
+# (C4), ou un `\end{définition}`/`\begin{définition}` commenté qui referme ou
+# ouvre une fausse chaîne P2/P5. Trouvé en pratique sur
+# mesure-integration-enseignants/slides/chapitre2 : 4 `~:` dans des blocs
+# entièrement commentés, signalés à tort avant ce correctif.
+RE_COMMENTAIRE = re.compile(r"(?<!\\)%.*$", re.M)
+
+
+def sans_commentaires(texte):
+    """Blanchit les commentaires LaTeX (même contrat que hors_math : longueur
+    et retours à la ligne conservés, pour ne pas décaler les numéros de
+    ligne)."""
+    return RE_COMMENTAIRE.sub(lambda m: " " * len(m.group(0)), texte)
+
+
 # Zones où « ~ » est une espace mathématique et non une décoration : les
 # masquer avant tout contrôle de typographie, sinon on propose de « corriger »
 # des formules. Le masque garde longueur et retours à la ligne, pour que les
@@ -98,7 +115,7 @@ def ligne_de(texte, position):
 def regle_P2(racines):
     """P2 — enchaînements de boîtes sans texte entre elles."""
     for chemin in sources(racines):
-        texte = lire(chemin)
+        texte = sans_commentaires(lire(chemin))
         for m in RE_CHAINE.finditer(texte):
             avant, apres = m.group(1), m.group(3)
             nus = (avant.replace("my", ""), apres.replace("my", ""))
@@ -127,7 +144,7 @@ def boites_de_premier_niveau(texte):
 def regle_P5(racines):
     """P5 — plus de trois remarques d'affilée : le contenu a quitté le fil."""
     for chemin in sources(racines):
-        texte = lire(chemin)
+        texte = sans_commentaires(lire(chemin))
         longueur, depart = 0, None
         for nom, ligne in boites_de_premier_niveau(texte) + [("", 0)]:
             if nom == "remark":
@@ -152,7 +169,10 @@ def regle_C4(racines):
         (RE_SOUS, "mot composé — trait d'union"),
     )
     for chemin in sources(racines):
-        texte = hors_math(lire(chemin))
+        # Commentaires retirés avant le masque maths : un `$` seul dans un
+        # commentaire (ex. « % coût : $5 ») déparierait sinon tout le
+        # masquage des vraies formules qui suivent dans le fichier.
+        texte = hors_math(sans_commentaires(lire(chemin)))
         for motif, message in controles:
             for m in motif.finditer(texte):
                 yield chemin, ligne_de(texte, m.start()), message
