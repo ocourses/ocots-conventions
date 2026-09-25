@@ -249,7 +249,127 @@ def regle_P3(racines):
                 yield chemin, no + 1, f"phrase qui se jette dans la boîte : « …{montre} »"
 
 
-REGLES = {"P2": regle_P2, "P3": regle_P3, "P5": regle_P5, "C4": regle_C4}
+# C6 — le symbole de fin d'une preuve ou d'un exemple est posé à \end{…}. Si
+# la boîte se termine par une liste ou une équation hors texte, il passe seul
+# sur une nouvelle ligne, sauf \qedhere à l'endroit voulu. Le défaut est
+# silencieux (compilation sans avertissement) : il se lit dans la source.
+RE_BOITE_QED = re.compile(
+    r"\\begin\{(proof|proofend|example\*?)\}(.*?)\\end\{\1\}", re.S)
+
+# Fins de boîte qui rejettent le symbole, et l'ouverture correspondante : le
+# \qedhere doit se trouver entre la dernière ouverture et la fin.
+FINS_QED = (
+    (re.compile(r"\\end\{(?:itemize|enumerate|description)\}\s*$"),
+     re.compile(r"\\item\b"), "liste"),
+    (re.compile(r"\\\]\s*$"), re.compile(r"\\\["), "équation hors texte"),
+    (re.compile(r"\\end\{(align|gather|multline|equation|flalign)\*?\}\s*$"),
+     re.compile(r"\\begin\{(?:align|gather|multline|equation|flalign)\*?\}"),
+     "équation hors texte"),
+)
+
+
+def fin_sans_qedhere(corps):
+    """Le genre de fin (« liste »…) si la boîte finit sans \\qedhere, sinon None."""
+    corps = corps.rstrip()
+    for fin, ouverture, genre in FINS_QED:
+        if not fin.search(corps):
+            continue
+        debuts = list(ouverture.finditer(corps))
+        dernier = corps[debuts[-1].start():] if debuts else corps
+        return None if "\\qedhere" in dernier else genre
+    return None
+
+
+def accolades(texte, i):
+    """Position qui suit le groupe {…} ouvert en texte[i], ou -1."""
+    profondeur, j = 0, i
+    while j < len(texte):
+        c = texte[j]
+        if c == "\\":
+            j += 2                            # \{ et \} ne comptent pas
+            continue
+        if c == "{":
+            profondeur += 1
+        elif c == "}":
+            profondeur -= 1
+            if profondeur == 0:
+                return j + 1
+        j += 1
+    return -1
+
+
+RE_FOOTNOTETEXT = re.compile(r"\\footnotetext(?:\[[^\]]*\])?\{")
+RE_ESPACE_MANUEL = re.compile(r"\\vspace\*?\{[^}]*\}|\\(?:small|med|big)skip\b")
+
+
+def regle_C6(racines):
+    """C6 — \\qedhere manquant en fin de liste ou d'équation ; \\vspace qui compense un \\footnotetext."""
+    for chemin in sources(racines):
+        texte = sans_commentaires(lire(chemin))
+        for m in RE_BOITE_QED.finditer(texte):
+            genre = fin_sans_qedhere(m.group(2))
+            if genre:
+                yield chemin, ligne_de(texte, m.end()), (
+                    f"{m.group(1)} finie par une {genre} sans \\qedhere — "
+                    f"le symbole de fin passe seul sur sa ligne")
+        # Depuis ocots-latex-template#51, un \footnotetext entre deux boîtes
+        # ne double plus l'espace : un \vspace collé à lui compense un défaut
+        # disparu, et resserre désormais la page.
+        for m in RE_FOOTNOTETEXT.finditer(texte):
+            fin = accolades(texte, m.end() - 1)
+            if fin < 0:
+                continue
+            avant = texte[:m.start()].rstrip()
+            apres = texte[fin:].lstrip()
+            if RE_ESPACE_MANUEL.match(apres) or re.search(
+                    r"(?:" + RE_ESPACE_MANUEL.pattern + r")$", avant):
+                yield chemin, ligne_de(texte, m.start()), (
+                    "espace manuel collé à un \\footnotetext — à retirer "
+                    "(ocots-latex-template#51)")
+
+
+REGLES = {"P2": regle_P2, "P3": regle_P3, "P5": regle_P5, "C4": regle_C4,
+          "C6": regle_C6}
+
+
+# ---------------------------------------------------------------------------
+# Mesures — `verifier --mesure`
+#
+# Des motifs sûrs, mais trop répandus aujourd'hui pour bloquer : on les compte
+# pour suivre leur baisse au fil des relectures, sans faire échouer la CI. Une
+# mesure devient une règle quand le corpus est propre.
+MESURES = (
+    ("C3", re.compile(r"\\begin\{(?:definition|theorem|proposition|corollary"
+                      r"|lemma|conjecture)\}\{"),
+     "ancienne syntaxe {titre}{label} — [title=…, label=…]", False),
+    ("C3", re.compile(r"\\emph\{\\textbf\{"),
+     "\\emph{\\textbf{…}} — \\keyword{…}", False),
+    ("C3", re.compile(r"\{\{[^{}\\$\n]+\}\}"),
+     "accolades doublées {{…}}, reste de migration", True),
+    ("C4", re.compile(r"^[^\S\n]*\(?(?:i|ii|iii|iv|v|vi)\)[^\S\n]", re.M),
+     "étape numérotée à la main — \\newstep[Point i)]", False),
+    ("C1", re.compile(r"\bt\.q\."),
+     "abréviation « t.q. » — « tel que »", False),
+    ("C6", RE_ESPACE_MANUEL,
+     "espace vertical manuel", False),
+)
+
+
+def mesurer(racines):
+    comptes = {}
+    for chemin in sources(racines):
+        brut = sans_commentaires(lire(chemin))
+        texte_hors_math = hors_math(brut)
+        for regle, motif, message, hors_maths in MESURES:
+            texte = texte_hors_math if hors_maths else brut
+            for m in motif.finditer(texte):
+                print(f"{os.path.relpath(chemin)}:{ligne_de(texte, m.start())}: "
+                      f"[mesure {regle}] {message}")
+                comptes[(regle, message)] = comptes.get((regle, message), 0) + 1
+    for regle, _, message, _ in MESURES:
+        print(f"mesure {regle} : {comptes.get((regle, message), 0):4d}  {message}",
+              file=sys.stderr)
+    return 0
 
 
 def main(argv):
@@ -257,7 +377,14 @@ def main(argv):
         print("Règles implémentées :")
         for nom, fn in sorted(REGLES.items()):
             print(f"  {nom}  {fn.__doc__.splitlines()[0]}")
+        print("Mesures (--mesure, jamais bloquantes) :")
+        for regle, _, message, _ in MESURES:
+            print(f"  {regle}  {message}")
         return 0
+
+    if "--mesure" in argv:
+        racines = [a for a in argv if not a.startswith("-")] or ["."]
+        return mesurer(racines)
 
     noms = [a for a in argv if a in REGLES]
     racines = [a for a in argv if a not in REGLES and not a.startswith("-")] or ["."]

@@ -321,6 +321,39 @@ Si un réglage manque, il se corrige **dans le support**, pas dans le cours.
 grep -rn -E '\\(setlist|vspace)|itemsep|topsep|parsep' --include='*.tex' .
 ```
 
+`./conventions/bin/verifier --mesure` compte ces espaces manuels (avec
+`\smallskip`, `\medskip`, `\bigskip`) sans bloquer : il y en a trop dans le
+corpus pour en faire une règle aujourd'hui.
+
+### Finir une preuve sur une liste ou une équation : `\qedhere`
+
+Le symbole de fin (■ pour `proof`, □ pour `example`) est posé à `\end{…}`. Si
+la boîte se termine par une liste ou une équation hors texte, il passe **seul
+sur une nouvelle ligne**. On écrit `\qedhere` là où il doit apparaître : dans
+le dernier `\item`, ou dans l'équation. **Jamais de `\vspace` négatif** pour
+le remonter.
+
+```latex
+\begin{proof}
+    \begin{enumerate}
+        \item premier point ;
+        \item second point. \qedhere
+    \end{enumerate}
+\end{proof}
+```
+
+Vérifié par `verifier C6`, qui lit la source. Il ne voit pas le cas d'une
+dernière ligne de texte **pleine**, qui rejette aussi le symbole : pour
+celui-là, `template/examples/check-qed.sh main.pdf` lit le PDF rendu.
+
+### Note de bas de page dans un énoncé : pas de compensation
+
+Dans une boîte, la note s'appelle par `\footnotemark` et son texte se pose par
+`\footnotetext` **juste après la boîte**, même si une preuve suit. Le template
+ne laisse plus d'écart en trop (ocots-latex-template#51) : un `\vspace` collé à
+un `\footnotetext` compense un défaut disparu et resserre désormais la page.
+Vérifié par `verifier C6`.
+
 ### Pourquoi les listes ne suivent pas la typographie française
 
 `ocots-lang-fr.def:22` pose `\frenchbsetup{StandardLists=true}`, qui
