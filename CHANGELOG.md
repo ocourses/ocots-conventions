@@ -13,6 +13,25 @@ git -C conventions describe --tags --always
 
 ---
 
+## Non publié
+
+### `verifier`
+
+- **Nouvelle règle `C6`** (bloquante) :
+  - une `proof` ou un `example` qui se termine par une liste ou une équation hors texte sans `\qedhere` ;
+  - un `\vspace` ou un `\medskip` collé à un `\footnotetext`, qui compense un écart que le template ne produit plus (ocots-latex-template#51).
+- **Nouvelle option `--mesure`** : elle compte, sans jamais échouer, des motifs sûrs mais encore trop répandus pour bloquer :
+  - C3 : ancienne syntaxe `{titre}{label}`, `\emph{\textbf{…}}`, `{{…}}` ;
+  - C4 : étapes numérotées à la main ;
+  - C1 : « t.q. » ;
+  - C6 : espaces verticaux manuels.
+
+### `communes.md`
+
+- `C6` : deux nouvelles sous-sections, sur `\qedhere` en fin de liste ou d'équation et sur la note de bas de page dans un énoncé.
+
+---
+
 ## v1.0.0
 
 Première version. Rassemble des règles jusque-là dupliquées à la main dans

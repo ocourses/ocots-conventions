@@ -80,6 +80,7 @@ faite par la couche mécanique, pas par l'agent — il n'a ni `webfetch` ni
 ./conventions/bin/verifier            # toutes les règles mécaniques, sur le dépôt
 ./conventions/bin/verifier P2 poly/   # une règle, un périmètre
 ./conventions/bin/verifier --list     # ce qui est implémenté
+./conventions/bin/verifier --mesure   # compte des motifs non bloquants
 ```
 
 Sortie `1` s'il y a au moins une infraction — utilisable en CI.
@@ -98,6 +99,18 @@ décide pas.
 | `P3` | amorces passe-partout, phrases qui se jettent dans la boîte (signaux, pas verdicts) |
 | `P5` | plus de trois `remark` d'affilée — un signal, pas une faute |
 | `C4` | `~:` inutiles, guillemets, apostrophes U+2019, renvois en bas de casse, mots composés |
+| `C6` | preuve ou exemple fini par une liste ou une équation sans `\qedhere` ; `\vspace` collé à un `\footnotetext` |
+
+Certains motifs sont sûrs mais encore trop répandus pour bloquer : ancienne
+syntaxe `{titre}{label}` des boîtes et `\emph{\textbf{…}}` (C3), étapes
+numérotées à la main « i) » au lieu de `\newstep` (C4), « t.q. » (C1), espaces
+verticaux manuels (C6). `--mesure` les **compte** sans jamais échouer, pour
+suivre leur baisse d'une relecture à l'autre ; une mesure deviendra une règle
+quand le corpus sera propre.
+
+```bash
+./conventions/bin/verifier --mesure poly/ 2>&1 >/dev/null   # les comptes seuls
+```
 
 Les contrôles typographiques **masquent le mode mathématique** avant de
 chercher : `~` y est une espace, et `\forall h \in E ~:~ J'(x) \cdot h = 0` ne
