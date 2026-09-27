@@ -26,6 +26,10 @@ git -C conventions describe --tags --always
   - C1 : « t.q. » ;
   - C6 : espaces verticaux manuels.
 
+### `poly.md`
+
+- `P7` : l'introduction de chapitre s'écrit dans `chapterintro` (la note « en attendant la révision du template » est retirée, le chantier 3 étant appliqué). Le saut de page après l'introduction n'est plus systématique : il ne se met que si la première section commencerait sinon sur la page de titre du chapitre.
+
 ### `communes.md`
 
 - `C6` : deux nouvelles sous-sections, sur `\qedhere` en fin de liste ou d'équation et sur la note de bas de page dans un énoncé.

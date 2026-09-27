@@ -396,9 +396,10 @@ une remarque.
 \label{chap:theorie-mesure}%
 \minitoc%
 
-<introduction du chapitre>
+\begin{chapterintro}
+    <introduction du chapitre>
+\end{chapterintro}
 
-\clearpage
 \section{Espaces mesurables}
 ```
 
@@ -419,15 +420,29 @@ chapitre. »), et peut renvoyer aux autres chapitres. Deux modèles :
   entrée/sortie, contrôle singulier) en disant à chaque fois pourquoi elle
   compte.
 
-Elle est composée **en retrait**, ce qui la distingue du corps du chapitre.
+Elle est composée **en retrait**, ce qui la distingue du corps du chapitre,
+dans l'environnement `chapterintro` du template
+([chantier 3](template.md#chantier-3--correctifs-divers)) — jamais en
+détournant `quote` ou `quotation`, qui sont des environnements de citation.
 
-Puis **un saut de page** : l'introduction n'a pas à partager sa page avec la
-première section.
+### Le saut de page : seulement si l'introduction est courte
 
-> **En attendant la révision du template.** Le retrait s'obtient aujourd'hui en
-> détournant `quote` ou `quotation`, et le corpus est incohérent —
-> `controle_optimal` emploie les deux, dans le même polycopié. Un environnement
-> dédié est demandé au [chantier 3](template.md#chantier-3--correctifs-divers).
+`chapterintro` ne pose pas de saut de page, et il n'en faut pas en général.
+**Un `\clearpage` après l'introduction ne se met que si elle est assez courte
+pour que la première section commence sur la page de titre du chapitre.** Une
+introduction qui remplit la page ou déborde sur la suivante enchaîne
+directement sur la première section : un saut de page y laisserait un grand
+blanc.
+
+Le critère se lit sur le PDF compilé, pas dans la source : comparer la page du
+chapitre et celle de sa première section dans la table des matières.
+
+```bash
+# sans \clearpage : même page pour 3 et 3.1 → en ajouter un
+grep -E 'numberline \{3(\.1)?\}' build/main.toc
+```
+
+À revérifier quand l'introduction change de longueur.
 
 ### La section : trois outils, selon le cadre
 
