@@ -17,6 +17,18 @@ git -C conventions describe --tags --always
 
 ---
 
+## v2.3.1 — 2026-09-28
+
+Version corrective : les règles ne changent pas.
+
+- `ocots-lint` passe à
+  [`v0.4.1`](https://github.com/ocourses/ocots-lint/releases/tag/v0.4.1) :
+  `synchroniser` ne recrée plus une issue fermée tant qu'une PR ouverte la
+  cite (PR de correction ou d'exemptions d'un agent, en attente de
+  relecture).
+
+---
+
 ## v2.3.0 — 2026-09-28
 
 Version mineure : les outils changent, pas les identifiants de règle.
