@@ -58,10 +58,12 @@ template/       ← comment ça se compose   (ocots-latex-template)
 conventions/    ← comment ça se rédige    (ocots-conventions)
 ```
 
-**Rien à configurer** : ce dépôt ne contient que du Markdown. Pas de
-`TEXINPUTS`, pas d'impact sur `latexmk` ni sur la CI LaTeX.
+**Rien à configurer** : pas de `TEXINPUTS`, pas d'impact sur `latexmk` ni sur
+la CI LaTeX. Seuls les outils de `bin/` demandent
+[`uv`](https://docs.astral.sh/uv/) (voir [Vérifier](#vérifier)).
 
-Mise à jour : `git -C conventions pull` puis un commit du pointeur.
+Mise à jour : épingler un tag, `git -C conventions checkout vX.Y.Z`, puis un
+commit du pointeur (voir [Versions](#versions)).
 
 ### Pour un agent `ocourses/agents`
 
@@ -84,6 +86,17 @@ faite par la couche mécanique, pas par l'agent — il n'a ni `webfetch` ni
 ```
 
 Sortie `1` s'il y a au moins une infraction — utilisable en CI.
+
+**`bin/verifier` et `bin/nettoyer` sont des relais** vers
+[`ocots-lint`](https://github.com/ocourses/ocots-lint), où l'outil est
+développé, testé et publié. Chaque version des conventions épingle la version
+d'`ocots-lint` qui connaît ses règles. Prérequis : `uv` ; sans lui, sortie `2`.
+
+`ocots-lint` va plus loin que ces relais : garantie déclarée par règle
+(`ocots-lint couverture`), exemptions justifiées dans la source
+(`% ocots-lint: ignore P5 — raison`), sorties pour la CI
+(`--format github|json|sarif`), et ses limites connues écrites comme tests.
+Voir son [README](https://github.com/ocourses/ocots-lint#readme).
 
 **Seules les règles *mécaniques* sont outillées**, celles qui se tranchent sans
 jugement. Une règle qui demande de l'interprétation

@@ -1,0 +1,23 @@
+name: Relais
+
+# bin/verifier et bin/nettoyer relaient vers ocots-lint (uvx) : on vérifie
+# qu'ils répondent, sur la version épinglée.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  relais:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: bin/verifier --list
+      - run: bin/nettoyer --list
+      - name: Une infraction sort 1
+        run: |
+          printf '\\end{theorem}\n\n\\begin{proposition}\n' > /tmp/a.tex
+          set +e; bin/verifier P2 /tmp/a.tex; rc=$?; set -e
+          test "$rc" = 1
