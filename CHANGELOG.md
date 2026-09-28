@@ -17,6 +17,19 @@ git -C conventions describe --tags --always
 
 ---
 
+## v2.3.0 — 2026-09-28
+
+Version mineure : les outils changent, pas les identifiants de règle.
+
+- `ocots-lint` passe à
+  [`v0.4.0`](https://github.com/ocourses/ocots-lint/releases/tag/v0.4.0) :
+  `synchroniser` ouvre une issue `[nettoyer] <fichier>` (label
+  `conventions-mecanique`) pour ce que `nettoyer` sait corriger ; la file
+  des agents la traite sans modèle (`ocourses/agents#31`). Un cours qui
+  monte à cette version doit avoir le workflow `agent-nettoyer.yml`.
+
+---
+
 ## v2.2.0 — 2026-09-28
 
 Version mineure : les outils changent, pas les identifiants de règle.
