@@ -5,7 +5,7 @@
 Support `beamer` + `\usepackage{ocots}` (le support est déduit de la classe).
 Prérequis : [`communes.md`](communes.md).
 
-> **État.** `SL1`–`SL9` sont toutes relues avec l'auteur et éprouvées sur
+> **État.** `SL1`–`SL10` sont toutes relues avec l'auteur et éprouvées sur
 > `mesure-integration`.
 
 Identifiants : `SL1`, `SL2`, … (voir [`README.md`](README.md#citer-une-règle--épingler-la-version)).
@@ -138,6 +138,10 @@ pas de `\pause` sur une liste que l'on lit intégralement.
 [SL3](#une-idée-nest-pas-une-boîte). On commente le premier, puis on découvre
 le second, qui s'appuie sur lui ou le prolonge.
 
+**Autre emploi type : la réponse d'un temps de manipulation**
+([SL10](#sl10--un-temps-de-manipulation-par-section)). L'invite reste seule le
+temps de la réflexion, la réponse vient ensuite.
+
 La remise à zéro des compteurs entre deux `\pause` est gérée par le support du
 template — ne pas la bricoler dans le document. Vérifier dans le PDF que la
 numérotation des boîtes est la même sur chaque étape de la diapositive.
@@ -206,3 +210,45 @@ polycopié. On **aère les mathématiques** :
 Aérer n'est pas rallonger : le texte reste télégraphique
 ([SL4](#sl4--le-transparent-nest-pas-le-polycopié)). On change la disposition,
 pas le contenu.
+
+## SL10 — Un temps de manipulation par section
+
+Chaque section propose **au moins un** moment où les étudiants manipulent
+eux-mêmes une définition que l'on vient de poser. Deux formes :
+
+- **« Exercice : le démontrer. »** Une preuve courte, **une seule idée**,
+  faisable en quelques minutes pendant le cours : vérifier les axiomes d'une
+  tribu ou d'une mesure, déduire une propriété d'une définition.
+- **« Qu'allons-nous montrer ? »** L'énoncé demande une stratégie plutôt qu'un
+  calcul. Les étudiants ne font pas la preuve : ils réfléchissent une trentaine
+  de secondes à *ce qu'il faut montrer*, souvent en appliquant une méthode du
+  cours.
+
+La réponse vient **après** le temps de réflexion, sur la même diapositive :
+après un `\pause`, ou en remplaçant l'invite (`\only<1>` pour l'invite,
+`\only<2>` pour la réponse). L'invite est bien visible (centrée, en gros), pour
+marquer l'arrêt.
+
+### Choisir l'exercice
+
+On le prend dans le poly (résultat, exemple ou exercice) : un énoncé qui se
+démontre en **manipulant directement** une définition, ou en appliquant **une**
+méthode du cours. Ce qui demande plusieurs idées, un calcul long ou une astuce
+reste au TD.
+
+Les exemples types, pris dans `mesure-integration` (chapitre 2) :
+
+| Invite | Énoncé | Ce qu'on attend |
+|---|---|---|
+| Qu'allons-nous montrer ? | $\sigma(\mathcal{C}) = \mathcal{B}(\mathbb{R})$, $\mathcal{C}$ les intervalles ouverts | $\mathcal{C} \subset \sigma(\mathcal{O})$ et $\mathcal{O} \subset \sigma(\mathcal{C})$ |
+| Exercice : faire la preuve. | l'image réciproque d'une tribu est une tribu | vérifier les trois axiomes (formules de Hausdorff) |
+| Exercice : le démontrer. | une application continue est borélienne | $f^{-1}(\mathcal{O}_2) \subset \mathcal{O}_1 \subset \sigma(\mathcal{O}_1)$ |
+| Exercice : le démontrer. | $\mu \in \{0, 1\}$ sur la tribu des parties dénombrables ou co-dénombrables | $\mu(\emptyset) = 0$ et $\sigma$-additivité |
+
+### Ce qu'il ne faut pas faire
+
+Un temps de manipulation ne se remplace pas par « Laissée en exercice. Voir
+TD. » ni par une idée de preuve déjà rédigée sous l'énoncé : dans les deux cas,
+l'étudiant n'a plus rien à chercher en séance. C'est ce qui se perd le plus
+facilement lors d'une réécriture des transparents — la relecture vérifie qu'il
+en reste au moins un par section.

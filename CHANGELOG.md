@@ -35,6 +35,7 @@ git -C conventions describe --tags --always
 - `SL3` : l'unité est l'idée, pas la boîte. Deux objets courts qui forment une même idée (une définition et celle qui s'en sert, deux exemples du même phénomène) vont sur la même diapositive, séparés par un `\pause`, s'ils tiennent sans compression (#14).
 - `SL6` : le second objet d'une paire de `SL3` devient l'emploi type de `\pause` ; vérifier la numérotation des boîtes sur chaque étape.
 - **Nouvelle règle `SL9`** : aérer les mathématiques quand la diapositive a de la place (formules en display, étapes sur des lignes distinctes), sans rallonger le texte. Aucun renumérotage.
+- **Nouvelle règle `SL10`** : au moins un temps de manipulation par section (« Exercice : le démontrer. » ou « Qu'allons-nous montrer ? »), une seule idée, réponse après un temps de réflexion ; `SL6` le cite comme second emploi type de `\pause`.
 
 ### `communes.md`
 
