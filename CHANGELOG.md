@@ -15,8 +15,12 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
-Prochaine version : **v2.0.0** — les identifiants `SL2` à `SL7` ont changé de
-sens (voir [Versions](README.md#versions)).
+---
+
+## v2.0.0 — 2026-09-28
+
+Version majeure : les identifiants `SL2` à `SL7` ont changé de sens (voir
+[Versions](README.md#versions)).
 
 ### Rupture : renumérotation des transparents
 
