@@ -15,7 +15,53 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
-### `verifier`
+Prochaine version : **v2.0.0** — les identifiants `SL2` à `SL7` ont changé de
+sens (voir [Versions](README.md#versions)).
+
+### Rupture : renumérotation des transparents
+
+Un `SL2` a été intercalé le soir même du tag `v1.0.0` (`d690b45`), sans être
+consigné ici. Une trace qui cite `SL2` à `SL7` sous `v1.0.0` se lit avec
+cette table :
+
+| `v1.0.0` | Depuis |
+|---|---|
+| `SL1` — le polycopié est la référence | `SL1` (inchangé) |
+| — | **`SL2`** — viser une numérotation identique au polycopié (nouvelle) |
+| `SL2` — une idée par diapositive | `SL3` |
+| `SL3` — le transparent n'est pas le polycopié | `SL4` |
+| `SL4` — pas de preuve longue en transparent | `SL5` — preuves en transparent : un choix de cours, une seule bonne façon |
+| `SL5` — `\pause` : progression, pas décoration | `SL6` |
+| `SL6` — figures lisibles en projection | `SL7` |
+| `SL7` — le thème est un réglage global | `SL8` |
+
+Même identifiant, titre et portée revus (pas de renumérotation) :
+
+| Identifiant | `v1.0.0` | Depuis |
+|---|---|---|
+| `P4` | une phrase de reprise *après* la boîte | un résultat qui n'est pas exploité n'a pas été posé |
+| `P5` | `remark` : ne pas en empiler | ce qu'est une `remark` |
+| `P7` | décor de section | ouverture de chapitre et de section |
+| `TD5` | nommer le résultat du cours mobilisé | citer le résultat du cours mobilisé, pas le redémontrer |
+
+Dans `template.md`, les principes de nommage passent de `P1`–`P6` à `N1`–`N6`,
+pour ne plus entrer en collision avec les identifiants du polycopié.
+
+### Outils
+
+- **`bin/verifier`** (nouveau) : règles mécaniques `P2`, `P3`, `P5`, `C4`,
+  `C6`, sortie `1` en cas d'infraction. Les commentaires LaTeX sont masqués
+  avant `P2`, `P5` et `C4` ; `P3` ne s'applique pas aux fichiers `slides/`.
+  Il est porté à l'identique dans
+  [`ocots-lint`](https://github.com/ocourses/ocots-lint) `v0.1.0`, qui en
+  reprend le développement.
+- **`bin/nettoyer`** (nouveau) : corrections mécaniques dont l'équivalence est
+  vérifiée (`~:`, guillemets), aperçu par défaut, refus si le document n'a pas
+  les prérequis.
+- **`bin/liens`** (nouveau) : contrôle les renvois internes entre fichiers
+  Markdown.
+
+### `verifier` : `C6` et `--mesure`
 
 - **Nouvelle règle `C6`** (bloquante) :
   - une `proof` ou un `example` qui se termine par une liste ou une équation hors texte sans `\qedhere` ;
@@ -28,10 +74,26 @@ git -C conventions describe --tags --always
 
 ### `poly.md`
 
+- `P1` : un critère unique — un résultat cité de loin réénonce ses hypothèses.
+- `P3` : table de cinq questions auxquelles l'amorce peut répondre ; ce qui est
+  fautif est la phrase qui s'arrête à l'annonce.
+- `P4` : réécrite autour de l'exploitation d'un résultat (exemple,
+  discussion des hypothèses, contre-exemple), après l'unité énoncé + preuve.
+- `P5` : réécrite autour de ce qu'est une remarque (mise en avant,
+  optionnelle) ; quatre remarques d'affilée sont un signal.
+- `P2` : exceptions pour une série d'exercices et pour l'entrée en remarque.
+- `P7` : ossature de chapitre, outils d'ouverture de section, préfixe `hyp:`.
+- `P8`, `P9`, `P11` à `P14` : rattachements, signaux mesurables et cas
+  concrets mesurés sur les cours ; `P12` tranche pour le critère strict.
+- `P13` : table des environnements où un flottant casse la compilation.
 - `P7` : l'introduction de chapitre s'écrit dans `chapterintro` (la note « en attendant la révision du template » est retirée, le chantier 3 étant appliqué). Le saut de page après l'introduction n'est plus systématique : il ne se met que si la première section commencerait sinon sur la page de titre du chapitre.
 
 ### `slides.md`
 
+- `SL1` : table de ce que les transparents peuvent retirer (preuves,
+  corrigés) sans décaler la numérotation.
+- `SL4`, `SL5` : grep corrigé, `SL5` reformulée sur le choix de cours ;
+  `SL6` à `SL8` confirmées.
 - `SL3` : l'unité est l'idée, pas la boîte. Deux objets courts qui forment une même idée (une définition et celle qui s'en sert, deux exemples du même phénomène) vont sur la même diapositive, séparés par un `\pause`, s'ils tiennent sans compression (#14).
 - `SL6` : le second objet d'une paire de `SL3` devient l'emploi type de `\pause` ; vérifier la numérotation des boîtes sur chaque étape.
 - **Nouvelle règle `SL9`** : aérer les mathématiques quand la diapositive a de la place (formules en display, étapes sur des lignes distinctes), sans rallonger le texte. Aucun renumérotage.
@@ -39,7 +101,23 @@ git -C conventions describe --tags --always
 
 ### `communes.md`
 
+- `C2` : `\diff` devient `\dif`, nom actuel du template.
+- `C3` : renvoie vers `notations.md` du template plutôt que lister les noms.
+- `C5` : une règle unique — la clé qu'on écrit est la clé qu'on référence ;
+  table des préfixes.
+- `C6` : table de choix des listes, espacement réservé au support.
 - `C6` : deux nouvelles sous-sections, sur `\qedhere` en fin de liste ou d'équation et sur la note de bas de page dans un énoncé.
+
+### `td.md`, `exam.md`
+
+- `TD1` à `TD9` : relues, cas concrets mesurés ; `TD4` revue sur l'équilibre
+  entre thèmes ; `TD5` sépare le `\ref` (base) du nom (bonus).
+- `EX1` à `EX7` : mesurées sur quatorze sujets.
+
+### `template.md`
+
+- Chantiers 4, 5 et 7 proposés ; compteur partagé décidé pour le chantier 1 ;
+  un état par chantier.
 
 ---
 
