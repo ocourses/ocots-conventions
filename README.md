@@ -204,6 +204,28 @@ sait quelles règles étaient en vigueur, et on peut les retrouver exactement.
 Le pointeur de sous-module l'enregistre déjà dans l'historique du cours ;
 l'écrire dans le suivi le rend lisible sans fouiller le `git log`.
 
+### Versions
+
+Les conventions suivent [SemVer](https://semver.org/lang/fr/). L'interface
+publique, ce sont les **identifiants de règle** : ce qu'une trace de relecture
+cite.
+
+| | Ce qui la fait monter |
+|---|---|
+| **majeur** | un identifiant change de sens : règle renumérotée, fusionnée, scindée, retirée |
+| **mineur** | règle ajoutée, durcie ou assouplie ; identifiants inchangés |
+| **correctif** | reformulation, exemples, cas concrets, coquilles |
+
+Tout changement majeur porte sa **table de correspondance** dans
+[`CHANGELOG.md`](CHANGELOG.md), pour qu'une trace ancienne reste lisible.
+
+Publier une version :
+
+1. la section « Non publié » du CHANGELOG devient `## vX.Y.Z — date` ;
+2. `git tag -a vX.Y.Z -m "…"` puis `git push origin vX.Y.Z` ;
+3. la release GitHub est créée par la CI, avec la section du CHANGELOG pour
+   notes. Elle échoue si la section manque.
+
 ---
 
 ## Ce qui reste dans le dépôt de cours
@@ -230,7 +252,7 @@ Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 | `poly.md` | `P1`–`P14` — toutes relues avec l’auteur, éprouvées sur deux cours |
 | `methode.md` | v1 |
 | `td.md` | `TD1`–`TD9` — toutes relues avec l’auteur |
-| `slides.md` | `SL1`–`SL8` — toutes relues avec l’auteur |
+| `slides.md` | `SL1`–`SL10` — toutes relues avec l’auteur |
 | `exam.md` | `EX1`–`EX7` — toutes relues avec l’auteur |
 | `template.md` | 7 chantiers — **non appliqués** au template |
 

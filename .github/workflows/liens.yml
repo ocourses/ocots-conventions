@@ -1,0 +1,16 @@
+name: Liens
+
+# Les règles se citent par ancres : renommer un titre casse les renvois en
+# silence. bin/liens sort 1 si un lien interne est mort.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  liens:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bin/liens
