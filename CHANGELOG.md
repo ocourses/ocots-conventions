@@ -30,6 +30,12 @@ git -C conventions describe --tags --always
 
 - `P7` : l'introduction de chapitre s'écrit dans `chapterintro` (la note « en attendant la révision du template » est retirée, le chantier 3 étant appliqué). Le saut de page après l'introduction n'est plus systématique : il ne se met que si la première section commencerait sinon sur la page de titre du chapitre.
 
+### `slides.md`
+
+- `SL3` : l'unité est l'idée, pas la boîte. Deux objets courts qui forment une même idée (une définition et celle qui s'en sert, deux exemples du même phénomène) vont sur la même diapositive, séparés par un `\pause`, s'ils tiennent sans compression (#14).
+- `SL6` : le second objet d'une paire de `SL3` devient l'emploi type de `\pause` ; vérifier la numérotation des boîtes sur chaque étape.
+- **Nouvelle règle `SL9`** : aérer les mathématiques quand la diapositive a de la place (formules en display, étapes sur des lignes distinctes), sans rallonger le texte. Aucun renumérotage.
+
 ### `communes.md`
 
 - `C6` : deux nouvelles sous-sections, sur `\qedhere` en fin de liste ou d'équation et sur la note de bas de page dans un énoncé.
