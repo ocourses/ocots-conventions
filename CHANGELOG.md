@@ -15,6 +15,15 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+### Outils
+
+- **`bin/verifier` et `bin/nettoyer` deviennent des relais** vers
+  [`ocots-lint`](https://github.com/ocourses/ocots-lint) `v0.2.0`, lancé par
+  `uvx`. Sorties identiques à l'ancien script sur un cours réel ; prérequis :
+  `uv` (sortie `2` sans lui). `OCOTS_LINT` remplace la commande (clone
+  local). Le code Python d'origine vit désormais dans `ocots-lint`.
+- CI : les relais sont testés à chaque PR.
+
 ---
 
 ## v2.0.0 — 2026-09-28
