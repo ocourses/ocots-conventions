@@ -17,6 +17,24 @@ git -C conventions describe --tags --always
 
 ---
 
+## v2.2.0 — 2026-09-28
+
+Version mineure : les outils changent, pas les identifiants de règle.
+
+### Outils
+
+- **Nouveau relais générique `bin/ocots-lint`**, seul endroit où la version
+  d'`ocots-lint` est épinglée : `./conventions/bin/ocots-lint <commande>`
+  donne accès à `synchroniser`, `exempter`, `comparer`… `bin/verifier` et
+  `bin/nettoyer` passent par lui.
+- `ocots-lint` passe de `v0.2.0` à
+  [`v0.3.0`](https://github.com/ocourses/ocots-lint/releases/tag/v0.3.0) :
+  empreintes, contrat JSON, exemptions posées par `exempter`, issues par
+  `synchroniser`, `--nouvelles`, `comparer`. Sortie texte de `verifier`
+  inchangée.
+
+---
+
 ## v2.1.0 — 2026-09-28
 
 Version mineure : les outils changent, pas les identifiants de règle.

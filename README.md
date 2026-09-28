@@ -87,10 +87,13 @@ faite par la couche mécanique, pas par l'agent — il n'a ni `webfetch` ni
 
 Sortie `1` s'il y a au moins une infraction — utilisable en CI.
 
-**`bin/verifier` et `bin/nettoyer` sont des relais** vers
+**`bin/ocots-lint`, `bin/verifier` et `bin/nettoyer` sont des relais** vers
 [`ocots-lint`](https://github.com/ocourses/ocots-lint), où l'outil est
-développé, testé et publié. Chaque version des conventions épingle la version
-d'`ocots-lint` qui connaît ses règles. Prérequis : `uv` ; sans lui, sortie `2`.
+développé, testé et publié. Chaque version des conventions épingle, dans
+`bin/ocots-lint` seulement, la version d'`ocots-lint` qui connaît ses règles.
+`./conventions/bin/ocots-lint <commande>` donne accès à toutes les commandes
+(`synchroniser`, `exempter`, `comparer`…). Prérequis : `uv` ; sans lui,
+sortie `2`.
 
 `ocots-lint` va plus loin que ces relais : garantie déclarée par règle
 (`ocots-lint couverture`), exemptions justifiées dans la source

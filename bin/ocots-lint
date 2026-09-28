@@ -1,0 +1,28 @@
+#!/bin/sh
+# Relais vers ocots-lint — l'outil de vérification est développé dans
+# https://github.com/ocourses/ocots-lint (tests, garanties, releases).
+#
+#     ./conventions/bin/ocots-lint <commande> [arguments]
+#     ./conventions/bin/ocots-lint synchroniser --dry-run
+#
+# C'est le SEUL endroit où la version d'ocots-lint est épinglée : un cours qui
+# épingle une version des conventions obtient l'outil qui connaît ses règles.
+# bin/verifier et bin/nettoyer passent par ce relais.
+#
+# OCOTS_LINT remplace la commande, par exemple pour un clone local :
+#     OCOTS_LINT="uv run --project ~/ocots-lint ocots-lint" ./conventions/bin/ocots-lint verifier
+#
+# Prérequis : uv (https://docs.astral.sh/uv/). Sans lui, sortie 2.
+
+OCOTS_LINT_VERSION=v0.3.0
+
+if [ -n "${OCOTS_LINT:-}" ]; then
+  exec $OCOTS_LINT "$@"
+fi
+if command -v uvx >/dev/null 2>&1; then
+  exec uvx --quiet --from "git+https://github.com/ocourses/ocots-lint@$OCOTS_LINT_VERSION" \
+    ocots-lint "$@"
+fi
+echo "ocots-lint : uv est requis (relais vers ocots-lint $OCOTS_LINT_VERSION)." >&2
+echo "  Installer : https://docs.astral.sh/uv/getting-started/installation/" >&2
+exit 2
