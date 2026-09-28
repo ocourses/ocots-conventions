@@ -205,7 +205,7 @@ Le fichier de suivi (`reports/<passe>/00-suivi.md`, ou le fichier de run d'un
 agent) porte, en tête :
 
 ```text
-Conventions : ocots-conventions v2.0.0 (commit 1a2b3c4)
+Conventions : ocots-conventions v2.1.0 (commit 1a2b3c4)
 ```
 
 ```bash
