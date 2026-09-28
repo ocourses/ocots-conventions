@@ -5,7 +5,7 @@
 Support `beamer` + `\usepackage{ocots}` (le support est déduit de la classe).
 Prérequis : [`communes.md`](communes.md).
 
-> **État.** `SL1`–`SL8` sont toutes relues avec l'auteur et éprouvées sur
+> **État.** `SL1`–`SL9` sont toutes relues avec l'auteur et éprouvées sur
 > `mesure-integration`.
 
 Identifiants : `SL1`, `SL2`, … (voir [`README.md`](README.md#citer-une-règle--épingler-la-version)).
@@ -54,9 +54,31 @@ le combler.
 
 ## SL3 — Une idée par diapositive
 
-Une diapositive porte **un** énoncé, **un** exemple, **une** étape de
+Une diapositive porte **une** idée : un énoncé, un exemple, une étape de
 raisonnement. Deux idées → deux diapositives. Un `slide` qui déborde est un
 `slide` à couper, pas à réduire en corps 7.
+
+### Une idée n'est pas une boîte
+
+Deux objets **courts** qui forment une même idée vont sur la **même**
+diapositive, séparés par un `\pause`
+(règle [SL6](#sl6--pause--progression-pas-décoration)) :
+
+- **une définition et celle qui s'en sert** aussitôt : *subdivision*, puis
+  *fonction en escalier*. La seconde se lit mieux avec la première sous les
+  yeux ;
+- **deux exemples du même phénomène** : deux échecs du passage à la limite
+  sous l'intégrale, l'un corrigé par Lebesgue, l'autre non.
+
+La condition : les deux tiennent **sans compression**. S'il faut réduire la
+police ou tasser les formules, on revient à la règle générale et on coupe.
+
+À l'inverse, deux objets indépendants qui se suivent dans le poly ne se
+regroupent pas pour remplir une diapositive : le lien doit être dans le
+contenu, pas dans la mise en page.
+
+La règle symétrique, pour une diapositive qui a trop de place, est
+[SL9](#sl9--aérer-quand-la-place-le-permet).
 
 ## SL4 — Le transparent n'est pas le polycopié
 
@@ -112,13 +134,17 @@ On découvre progressivement ce qui doit être **commenté** au fur et à mesure
 ce dont la surprise sert (un contre-exemple, un résultat inattendu). On ne met
 pas de `\pause` sur une liste que l'on lit intégralement.
 
-La remise à zéro des compteurs entre deux `\pause` est gérée par le support du
-template — ne pas la bricoler dans le document.
+**L'emploi type : le second objet d'une paire** regroupée par
+[SL3](#une-idée-nest-pas-une-boîte). On commente le premier, puis on découvre
+le second, qui s'appuie sur lui ou le prolonge.
 
-> **Sans prise dans le corpus.** Zéro `\pause` sur `mesure-integration`, les 8
-> chapitres. La règle n'a rien à quoi s'appliquer ici — sans prise, comme
-> [TD7](td.md#td7--où-va-le-corrigé)/[TD8](td.md#td8--ne-pas-rouvrir-question-dans-un-solution)
-> avant leur cas.
+La remise à zéro des compteurs entre deux `\pause` est gérée par le support du
+template — ne pas la bricoler dans le document. Vérifier dans le PDF que la
+numérotation des boîtes est la même sur chaque étape de la diapositive.
+
+> **Peu de prise dans le corpus.** Zéro `\pause` sur `mesure-integration`, les
+> 8 chapitres, avant la relecture du chapitre 1 (2026-09), qui introduit les
+> premières paires de SL3.
 
 ## SL7 — Figures lisibles en projection
 
@@ -163,3 +189,20 @@ raison réelle (un QR code que `\slidetitlepage` ne sait pas accueillir) ;
 > **En attendant la révision du template.** L'absence de point d'extension
 > dans `\slidetitlepage` est demandée au
 > [chantier 7](template.md#chantier-7--un-hook-dans-slidetitlepage).
+
+## SL9 — Aérer quand la place le permet
+
+Symétrique de [SL3](#sl3--une-idée-par-diapositive) : on ne tasse pas ce qui a
+de la place. Une diapositive qui ne porte qu'un objet court (une remarque, un
+petit exemple) n'a pas à garder la mise en page compacte d'un paragraphe de
+polycopié. On **aère les mathématiques** :
+
+- une formule sur laquelle on s'arrête sort du texte, **en display** ;
+- les étapes d'un calcul ou d'une chaîne d'arguments vont sur des **lignes
+  distinctes** ;
+- les phrases qui portent des idées différentes sont **séparées** par un
+  espace vertical.
+
+Aérer n'est pas rallonger : le texte reste télégraphique
+([SL4](#sl4--le-transparent-nest-pas-le-polycopié)). On change la disposition,
+pas le contenu.
