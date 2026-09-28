@@ -15,6 +15,12 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+---
+
+## v2.1.0 — 2026-09-28
+
+Version mineure : les outils changent, pas les identifiants de règle.
+
 ### Outils
 
 - **`bin/verifier` et `bin/nettoyer` deviennent des relais** vers
