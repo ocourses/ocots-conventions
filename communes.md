@@ -342,7 +342,7 @@ le remonter.
 \end{proof}
 ```
 
-Vérifié par `verifier C6`, qui lit la source. Il ne voit pas le cas d'une
+Signalé par l'outil (C6), qui lit la source. Il ne voit pas le cas d'une
 dernière ligne de texte **pleine**, qui rejette aussi le symbole : pour
 celui-là, `template/examples/check-qed.sh main.pdf` lit le PDF rendu.
 
@@ -352,7 +352,7 @@ Dans une boîte, la note s'appelle par `\footnotemark` et son texte se pose par
 `\footnotetext` **juste après la boîte**, même si une preuve suit. Le template
 ne laisse plus d'écart en trop (ocots-latex-template#51) : un `\vspace` collé à
 un `\footnotetext` compense un défaut disparu et resserre désormais la page.
-Vérifié par `verifier C6`.
+Signalé par l'outil (C6).
 
 ### Pourquoi les listes ne suivent pas la typographie française
 

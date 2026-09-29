@@ -60,7 +60,7 @@ conventions/    ← comment ça se rédige    (ocots-conventions)
 
 **Rien à configurer** : pas de `TEXINPUTS`, pas d'impact sur `latexmk` ni sur
 la CI LaTeX. Seuls les outils de `bin/` demandent
-[`uv`](https://docs.astral.sh/uv/) (voir [Vérifier](#vérifier)).
+[`uv`](https://docs.astral.sh/uv/) (voir [Vérifier et corriger](#vérifier-et-corriger)).
 
 Mise à jour : épingler un tag, `git -C conventions checkout vX.Y.Z`, puis un
 commit du pointeur (voir [Versions](#versions)).
@@ -76,110 +76,39 @@ faite par la couche mécanique, pas par l'agent — il n'a ni `webfetch` ni
 
 ---
 
-## Vérifier
+## Vérifier et corriger
+
+Trois relais, depuis la racine du cours :
 
 ```bash
-./conventions/bin/verifier            # toutes les règles mécaniques, sur le dépôt
-./conventions/bin/verifier P2 poly/   # une règle, un périmètre
-./conventions/bin/verifier --list     # ce qui est implémenté
-./conventions/bin/verifier --mesure   # compte des motifs non bloquants
+./conventions/bin/verifier    # ≡ ocots-lint verifier
+./conventions/bin/nettoyer    # ≡ ocots-lint nettoyer
+./conventions/bin/ocots-lint  # toutes les commandes d'ocots-lint
 ```
 
-Sortie `1` s'il y a au moins une infraction — utilisable en CI.
+L'outil est [`ocots-lint`](https://github.com/ocourses/ocots-lint) : il y est
+développé, testé et publié, et **son README est la seule documentation** de
+ses commandes, options, garanties et limites connues. Chaque version des
+conventions épingle, dans `bin/ocots-lint` seulement, la version
+d'`ocots-lint` qui connaît ses règles. Prérequis : `uv` ; sans lui, sortie
+`2`.
 
-**`bin/ocots-lint`, `bin/verifier` et `bin/nettoyer` sont des relais** vers
-[`ocots-lint`](https://github.com/ocourses/ocots-lint), où l'outil est
-développé, testé et publié. Chaque version des conventions épingle, dans
-`bin/ocots-lint` seulement, la version d'`ocots-lint` qui connaît ses règles.
-`./conventions/bin/ocots-lint <commande>` donne accès à toutes les commandes
-(`synchroniser`, `exempter`, `comparer`…). Prérequis : `uv` ; sans lui,
-sortie `2`.
+- **Quand et comment vérifier pendant une passe** :
+  [`methode.md`](methode.md#la-vérification-suit-chaque-salve).
+- **Quelles règles sont outillées, avec quelle garantie** :
+  `./conventions/bin/ocots-lint couverture`, calculé à partir de l'outil
+  lui-même — cette liste n'est recopiée nulle part.
 
-`ocots-lint` va plus loin que ces relais : garantie déclarée par règle
-(`ocots-lint couverture`), exemptions justifiées dans la source
-(`% ocots-lint: ignore P5 — raison`), sorties pour la CI
-(`--format github|json|sarif`), et ses limites connues écrites comme tests.
-Voir son [README](https://github.com/ocourses/ocots-lint#readme).
-
-**Seules les règles *mécaniques* sont outillées**, celles qui se tranchent sans
-jugement. Une règle qui demande de l'interprétation
+**L'outil aide à l'analyse ; il ne certifie rien.** Seules les règles
+*mécaniques* sont outillées. Une règle qui demande de l'interprétation
 ([C2](communes.md#c2--cohérence-terminologique-et-notationnelle),
+[P1](poly.md#p1--placement-des-hypothèses)…) porte à la place une commande
+`grep` dans sa section : elle **mesure** l'ampleur, elle ne décide pas. Et les
+règles qui portent le plus —
 [P1](poly.md#p1--placement-des-hypothèses),
-[P3](poly.md#p3--une-phrase-damorce-motivée-avant-chaque-boîte)…) porte à la
-place une commande `grep` dans sa section : elle **mesure** l'ampleur, elle ne
-décide pas.
-
-| Règle | Ce qui est vérifié |
-|---|---|
-| `P2` | enchaînements de boîtes sans texte entre elles (série d'exercices et entrée en `remark` tolérées) |
-| `P3` | amorces passe-partout, phrases qui se jettent dans la boîte (signaux, pas verdicts) |
-| `P5` | plus de trois `remark` d'affilée — un signal, pas une faute |
-| `C4` | `~:` inutiles, guillemets, apostrophes U+2019, renvois en bas de casse, mots composés |
-| `C6` | preuve ou exemple fini par une liste ou une équation sans `\qedhere` ; `\vspace` collé à un `\footnotetext` |
-
-Certains motifs sont sûrs mais encore trop répandus pour bloquer : ancienne
-syntaxe `{titre}{label}` des boîtes et `\emph{\textbf{…}}` (C3), étapes
-numérotées à la main « i) » au lieu de `\newstep` (C4), « t.q. » (C1), espaces
-verticaux manuels (C6). `--mesure` les **compte** sans jamais échouer, pour
-suivre leur baisse d'une relecture à l'autre ; une mesure deviendra une règle
-quand le corpus sera propre.
-
-```bash
-./conventions/bin/verifier --mesure poly/ 2>&1 >/dev/null   # les comptes seuls
-```
-
-Les contrôles typographiques **masquent le mode mathématique** avant de
-chercher : `~` y est une espace, et `\forall h \in E ~:~ J'(x) \cdot h = 0` ne
-doit pas être « corrigé ».
-
-`P3` **ne s'applique pas** aux fichiers d'un dossier `slides/` :
-[`slides.md#sl4`](slides.md#sl4--le-transparent-nest-pas-le-polycopié) exempte
-explicitement le support transparent des règles d'amorce du polycopié — le
-texte y est télégraphique, c'est l'enseignant qui fait la liaison à l'oral.
-
-### Ce que l'outil ne fait pas
-
-**`verifier` aide à l'analyse ; il ne certifie rien.**
-
-- Il **rate des choses.** `P2` ne voit que des boîtes séparées par du blanc :
-  une ligne de `%` ou un `\medskip` entre deux boîtes suffit à la lui cacher,
-  alors que l'infraction est la même. `P3` ne juge pas si une amorce est
-  *motivée* — il ne repère que deux formes sûres.
-- Il **signale du correct.** Fermer une section sur un théorème
-  ([P4](poly.md#p4--un-résultat-qui-nest-pas-exploité-na-pas-été-posé)) est
-  souvent légitime, et une amorce qu'il pointe peut être la bonne. Quatre
-  remarques d'affilée ([P5](poly.md#p5--ce-quest-une-remark)) peuvent être
-  quatre vrais apartés — l'outil dit *où regarder*, pas *quoi corriger*.
-- **Zéro trouvaille ne veut pas dire règle respectée.** Les règles qui portent
-  le plus — [P1](poly.md#p1--placement-des-hypothèses),
-  [P4](poly.md#p4--un-résultat-qui-nest-pas-exploité-na-pas-été-posé),
-  [P7](poly.md#p7--ouverture-de-chapitre-et-de-section) — ne sont pas
-  outillables du tout.
-
-Ce à quoi il sert vraiment : **mesurer une ampleur** avant une passe et
-**suivre une baisse** après. Pas remplacer la lecture.
-
-## Corriger
-
-`verifier` **analyse** ; `nettoyer` **modifie**.
-
-```bash
-./conventions/bin/nettoyer C4 poly/              # aperçu, rien n'est écrit
-./conventions/bin/nettoyer C4 poly/ --appliquer  # écrit les fichiers
-```
-
-Il n'automatise que les corrections dont **l'équivalence a été vérifiée**, et
-refuse celles dont le document n'a pas les moyens : sans `csquotes` chargé,
-réécrire les guillemets en `\enquote{…}` rendrait le document incompilable, donc
-il ne le fait pas et le dit.
-
-Éprouvé sur le polycopié de mesure : **183 `~:` retirés, compilation `exit=0`,
-warnings inchangés, et le texte du PDF identique caractère pour caractère.**
-
-Après application : **recompiler, relire le diff, et commiter à part.** Un
-nettoyage mécanique est sa propre salve — il ne se mêle pas à une passe de fond.
-
----
+[P4](poly.md#p4--un-résultat-qui-nest-pas-exploité-na-pas-été-posé),
+[P7](poly.md#p7--ouverture-de-chapitre-et-de-section) — ne sont pas
+outillables du tout : zéro trouvaille ne veut pas dire règle respectée.
 
 ## Citer une règle : épingler la version
 

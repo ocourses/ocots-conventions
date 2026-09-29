@@ -17,6 +17,31 @@ git -C conventions describe --tags --always
 
 ---
 
+## v2.4.0 — 2026-09-29
+
+Version mineure : la méthode et les outils changent, pas les identifiants de
+règle.
+
+- `ocots-lint` passe à
+  [`v0.5.0`](https://github.com/ocourses/ocots-lint/releases/tag/v0.5.0) :
+  C4, P2 et P3 lus sur un arbre syntaxique, seulement dans la prose. P2
+  voit deux boîtes séparées seulement par un espacement ou une figure ; P3
+  ne signale plus une phrase finie par une formule ponctuée ; C4 ignore
+  `\url`, `\verb`, `\ensuremath` et les verbatims. Les trouvailles
+  existantes gardent leur empreinte et leur message. Dans un cours, la PR
+  de montée montre ce qui change (`ocots-lint comparer`).
+- **`methode.md` : « La vérification suit chaque salve »**, procédure
+  unique pour tous les cours : compiler, puis
+  `ocots-lint verifier --nouvelles origin/main <périmètre>` — seulement les
+  trouvailles que la salve a introduites —, relire le diff. L'`AGENTS.md`
+  d'un cours y renvoie au lieu de recopier sa propre procédure.
+- README : la section « Vérifier » ne recopie plus les commandes, options,
+  règles outillées et limites d'`ocots-lint` (elles avaient divergé : la
+  limite de P2 qu'elle décrivait est levée par `v0.5.0`). Elle renvoie à son
+  README, à `ocots-lint couverture` et à `methode.md`.
+
+---
+
 ## v2.3.1 — 2026-09-28
 
 Version corrective : les règles ne changent pas.
