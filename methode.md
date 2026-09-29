@@ -26,8 +26,8 @@ Une salve = un fichier, ou un groupe cohérent de points. Pour chacune :
 1. présenter l'analyse et **une proposition de diff concrète**, attendre
    confirmation avant d'éditer (pour une relecture pilotée par l'auteur) ;
 2. éditer ;
-3. **recompiler** (`latexmk`) : exit 0, et le log **sans** référence non
-   résolue ni label multiplement défini ;
+3. **vérifier** : recompiler, puis les trouvailles de la salve seule (voir
+   [plus bas](#la-vérification-suit-chaque-salve)) ;
 4. commiter la **source lisible** ;
 5. en fin de salve seulement, un commit `build: recompilation` si le PDF est
    suivi par git.
@@ -53,7 +53,7 @@ inchangés ou résorbés, compte de règle en baisse. La dernière salve vise **
 warning**.
 
 Les comptes ne certifient rien — l'outil rate des choses et en signale d'autres
-à tort (voir [`README.md`](README.md#ce-que-loutil-ne-fait-pas)). Ils mesurent
+à tort (voir [`README.md`](README.md#vérifier-et-corriger)). Ils mesurent
 une ampleur et suivent une tendance.
 
 ## Un nettoyage mécanique est sa propre salve
@@ -70,6 +70,31 @@ après**. Un nettoyage typographique ne doit rien changer au rendu.
 ```bash
 pdftotext avant.pdf avant.txt && pdftotext apres.pdf apres.txt && diff avant.txt apres.txt
 ```
+
+## La vérification suit chaque salve
+
+Après chaque salve, avant de la commiter :
+
+1. **compiler** avec `latexmk` : exit 0, et le log **sans** référence non
+   résolue ni label multiplement défini, warnings comparés à la baseline ;
+2. **vérifier les trouvailles que la salve a introduites**, et elles
+   seules :
+
+   ```bash
+   ./conventions/bin/ocots-lint verifier --nouvelles origin/main <périmètre>
+   ```
+
+   Les trouvailles déjà présentes sur `origin/main` ne sont pas celles de la
+   salve : elles relèvent de leur propre passe (ou d'une issue
+   `[conventions]`). Une trouvaille nouvelle se corrige, ou, si elle est
+   jugée correcte, s'exempte dans la source avec sa raison (README
+   d'`ocots-lint`, « Exempter une trouvaille justifiée ») ;
+3. **relire le diff** et ne garder que les changements demandés ;
+4. ne pas ajouter d'artefact de compilation (`*.aux`, `build/`…).
+
+Zéro trouvaille nouvelle ne veut pas dire règle respectée : l'outil ne
+couvre qu'une partie des règles (`./conventions/bin/ocots-lint couverture`),
+le reste se relit.
 
 ## Le suivi est le plan, le journal et le bilan
 
