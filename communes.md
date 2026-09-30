@@ -247,14 +247,20 @@ convention, pas une mécanique.**
 
 | Objet | Préfixe | Objet | Préfixe |
 |---|---|---|---|
-| théorème | `thm:` | figure | `fig:` |
-| définition | `def:` | tableau | `tab:` |
-| proposition | `prop:` | section | `sec:` |
-| corollaire | `cor:` | sous-section | `ssec:` |
-| lemme | `lem:` | chapitre | `chap:` |
-| exemple | `exa:` | partie | `part:` |
-| remarque | `rem:` | équation | `eq:` |
-| exercice | `ex:` | hypothèse (`assumption`) | `hyp:` |
+| théorème (`theorem`) | `thm:` | figure (`figure`) | `fig:` |
+| définition (`definition`) | `def:` | tableau (`table`) | `tab:` |
+| proposition (`proposition`) | `prop:` | section (`\section`) | `sec:` |
+| corollaire (`corollary`) | `cor:` | sous-section (`\subsection`) | `ssec:` |
+| lemme (`lemma`) | `lem:` | chapitre (`\chapter`) | `chap:` |
+| exemple (`example`) | `exa:` | partie (`\part`) | `part:` |
+| remarque (`remark`) | `rem:` | équation (`equation`, `align`, `gather`, `multline`) | `eq:` |
+| exercice (`exercise`) | `ex:` | hypothèse (`assumption`) | `hyp:` |
+| conjecture (`conjecture`) | `conj:` | | |
+
+Entre parenthèses, le nom LaTeX de l'objet : `ocots-lint` lit cette table
+pour vérifier qu'un label porte le préfixe de ce qu'il étiquette (les alias
+du template, `mytheorem`…, suivent leur cible). Un label posé dans un
+objet absent de la table n'est pas vérifié.
 
 **Une hypothèse se cite avec `\eqref`**, pas `\ref` : le template étiquette les
 `assumption` par un compteur `H1`, `H2`…, et `\eqref` les rend entre parenthèses.

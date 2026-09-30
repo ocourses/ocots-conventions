@@ -15,6 +15,12 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- `C5` : la table des préfixes donne le nom LaTeX de chaque objet
+  (`theorem`, `\section`, `align`…), pour que `ocots-lint` la lise au lieu
+  de la recopier. **Ajout** : conjecture → `conj:`, le préfixe que le
+  template pose déjà pour l'ancienne syntaxe (`\begin{conjecture}{…}{clé}`).
+  Aucune règle renumérotée.
+
 ---
 
 ## v2.5.0 — 2026-09-30
