@@ -14,7 +14,7 @@
 #
 # Prérequis : uv (https://docs.astral.sh/uv/). Sans lui, sortie 2.
 
-OCOTS_LINT_VERSION=v0.5.0
+OCOTS_LINT_VERSION=v0.6.0
 
 if [ -n "${OCOTS_LINT:-}" ]; then
   exec $OCOTS_LINT "$@"

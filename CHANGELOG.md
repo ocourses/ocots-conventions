@@ -17,6 +17,22 @@ git -C conventions describe --tags --always
 
 ---
 
+## v2.5.0 — 2026-09-30
+
+Version mineure : les outils changent, pas les identifiants de règle.
+
+- `ocots-lint` passe à
+  [`v0.6.0`](https://github.com/ocourses/ocots-lint/releases/tag/v0.6.0) :
+  les noms d'environnements ne sont plus codés dans l'outil, il les lit dans
+  `template/vocabulaire.json` du cours, par familles. **Monter aussi le
+  template en [`v1.2.0`](https://github.com/ocourses/ocots-latex-template/releases/tag/v1.2.0)**,
+  qui publie ce fichier ; avec un template plus ancien, l'outil lit sa copie
+  embarquée et le signale sur la sortie d'erreur. Nouvelles boîtes vues :
+  `conjecture`, `citedtheorem`, `hypothesis`, `openquestion`, `difficulty`.
+  C6 voit aussi les alias (`myexample`…) ; P3 reconnaît un transparent à sa
+  classe `beamer`. Dans un cours, la PR de montée montre ce qui change
+  (`ocots-lint comparer`).
+
 ## v2.4.0 — 2026-09-29
 
 Version mineure : la méthode et les outils changent, pas les identifiants de
