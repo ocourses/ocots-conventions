@@ -654,9 +654,9 @@ Labels de résultats jamais `\ref`-encés **nulle part dans le cours** — poly,
 td, slides, exam :
 
 ```bash
-./conventions/bin/verifier P12 poly/        # à écrire : nécessite de croiser
-                                             # les labels du poly avec les \ref
-                                             # de tout le cours, pas seulement du poly
+./conventions/bin/verifier C5 poly/         # labels du poly, croisés avec les
+                                             # renvois de tout le cours (lancer
+                                             # depuis la racine du cours)
 ```
 
 | Cours | Labels de résultats | Jamais cités | Part |

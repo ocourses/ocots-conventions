@@ -15,6 +15,25 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+---
+
+## v2.6.0 — 2026-10-01
+
+Version mineure : C5 est outillée, aucune règle renumérotée.
+
+- `ocots-lint` passe à
+  [`v0.7.0`](https://github.com/ocourses/ocots-lint/releases/tag/v0.7.0) :
+  **C5** signale, sur tout le cours, un label jamais cité, un préfixe qui ne
+  nomme pas l'objet (table ci-dessous, lue par l'outil) et une hypothèse
+  citée par `\ref`. `P12` et `C5` donnent la commande (`verifier C5`, depuis
+  la racine du cours). **Monter aussi le template en
+  [`v1.5.1`](https://github.com/ocourses/ocots-latex-template/releases/tag/v1.5.1)**,
+  dont le vocabulaire donne le préfixe que pose l'ancienne syntaxe et qui
+  ne pose plus d'étiquette pour une clé vide. Nouvelles issues attendues à
+  la vérification hebdomadaire suivant la montée : mesure 20, démo 2,
+  automatique 6, calcul-diff 1 (une par fichier).
+- La CI des cours (ocourses/agents#41) fait échouer une PR dont un document
+  a une référence non résolue ou un label multiplement défini (C5).
 - `C5` : la table des préfixes donne le nom LaTeX de chaque objet
   (`theorem`, `\section`, `align`…), pour que `ocots-lint` la lise au lieu
   de la recopier. **Ajout** : conjecture → `conj:`, le préfixe que le
