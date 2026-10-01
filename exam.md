@@ -4,7 +4,7 @@
 
 Classe `ocots-exam`. Prérequis : [`communes.md`](communes.md) et
 [`td.md`](td.md) (un sujet d'examen partage l'essentiel de la mécanique d'un TD :
-`exercise`, `question`, `subquestion`, `\solution`).
+`exercise`, `question`, `subquestion`, `correction`).
 
 > **État.** `EX1`–`EX7` sont éprouvées sur le corpus (14 sujets de
 > `mesure-integration`, 2019–2025). `EX5` reste sans prise mécanique — un
@@ -115,20 +115,21 @@ une décision pédagogique, pas un détail.
 ## EX6 — Corrigé et barème détaillé
 
 Même mécanique qu'en TD (règles [TD6](td.md#td6--corrigés--synthétiques-pour-les-intervenants)
-à [TD8](td.md#td8--ne-pas-rouvrir-question-dans-un-solution)) : `\solution` dans
-l'`exercise`, `solutions=inline` pour la version corrigée, `solutions=none` pour
-le sujet distribué.
+à [TD8](td.md#td8--un-corrigé-au-fil-des-questions)) : le contenu commun vit
+dans `contenu.tex`, le sujet compile avec `solutions=none` et la version
+corrigée avec `solutions=inline`. Chaque environnement `correction` suit la
+question qu'il corrige, dans l'`exercise`.
 
 Spécifique à l'examen : le corrigé porte la **répartition des points à
-l'intérieur de l'exercice** — c'est ce qui rend la correction reproductible
-entre correcteurs.
+l'intérieur de l'exercice**, au niveau des questions — c'est ce qui rend la
+correction reproductible entre correcteurs.
 
 ### Le corpus
 
-**Zéro `\solution`, zéro `\begin{correction}`** dans les 59 exercices des 14
-sujets — aucun corrigé écrit, pour aucune année. Différent du cas
-[TD7](td.md#td7--où-va-le-corrigé) : là un corrigé existait mais par le
-mauvais mécanisme ; ici il n'existe simplement pas encore dans le dépôt.
+Les 14 sujets de `mesure-integration` suivent cette structure. Leurs 59
+exercices contiennent 153 environnements `correction` et aucun `\solution` : le
+sujet les masque, tandis que la version corrigée les compose au fil des
+questions.
 
 ## EX7 — Notations identiques au cours
 

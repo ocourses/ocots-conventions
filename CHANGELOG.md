@@ -15,6 +15,23 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+Version majeure à venir : la mécanique des corrigés de TD et d'examen change.
+Les identifiants restent en place, mais `TD7`, `TD8` et `EX6` changent de sens.
+
+| Jusqu'à v2.7.0 | Depuis |
+|---|---|
+| `TD7` — un fichier dont le préambule bascule, corrigé global après `\solution` | une source `contenu.tex`, un wrapper sujet et un wrapper corrigé, environnements `correction` |
+| `TD8` — ne pas rouvrir `question` dans un `\solution`, reprendre les numéros à la main | placer chaque `correction` immédiatement après la question concernée |
+| `EX6` — `\solution` dans l'`exercise` | même structure et même placement de `correction` qu'en TD |
+
+- `td.md` : les corpus de TD1, TD5, TD6 et TD7 suivent les chemins et les
+  usages actuels de `automatique` et `mesure-integration`; la section « Le
+  corpus » dupliquée dans TD5 est supprimée.
+- `exam.md` : le corpus EX6 décrit les corrigés désormais présents dans les 14
+  sujets de `mesure-integration`.
+- Aucun relais ni règle d'`ocots-lint` ne change : aucune règle `TD*` ou `EX*`
+  correspondante n'est implémentée.
+
 ---
 
 ## v2.7.0 — 2026-10-01
