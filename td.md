@@ -29,17 +29,11 @@ comm -23 <(grep -rhoE '\\[A-Za-z]{2,}' --include='*.tex' td | sort -u) \
          <(grep -rhoE '\\[A-Za-z]{2,}' --include='*.tex' poly | sort -u)
 ```
 
-Sur `mesure-integration`, ce diff remonte deux cas réels :
-
-- **`\eqdef`** — redéfinie localement, en double (`td3.tex:7` et `td4.tex:9`,
-  chacune avec son propre `\newcommand{\eqdef}{\overset{\text{def}}{=}}`), et
-  rend visuellement différemment de `\coloneqq` du poly (171 emplois). Ce n'est
-  pas la même convention pour « défini comme ».
-- **`\norme{}`** — plus subtil : le commentaire de `td4.tex:7` affirme qu'elle
-  est « fournie par le template ». Vrai, mais c'est l'alias déprécié de
-  `ocots-compat.sty:100` pour `\norm{}` (177 emplois dans le poly, zéro
-  `\norme`) — le rendu ne change pas, mais le TD pointe sans le savoir vers la
-  voie de compatibilité plutôt que vers la macro actuelle.
+Sur `mesure-integration`, ce diff ne remonte plus de macro mathématique locale
+au 1er octobre 2026 : `\shorttitle`, `\numero`, `\discipline` et `\promotion`
+sont des métadonnées propres aux wrappers des TD ; `\iff` et `\searrow` sont
+des commandes LaTeX standard. Les anciens écarts `\eqdef` / `\coloneqq` et
+`\norme` / `\norm` ont été résorbés lors de l'harmonisation des TD.
 
 ## TD2 — Un énoncé se colle tel quel du TD au polycopié
 
@@ -113,28 +107,14 @@ pouvoir la nommer en TD** — un `\ref` sans nom reste conforme à la règle.
 ### Le corpus
 
 ```bash
-grep -rc '\ref{' --include='*.tex' td/ | awk -F: '{s+=$2} END{print s}'
+grep -rc '\ref{' --include='contenu.tex' td/ | awk -F: '{s+=$2} END{print s}'
 ```
 
-`mesure-integration` : **zéro** `\ref` dans tout `td/`. La moitié de la règle
-est déjà suivie — `td2.tex:148` cite bien « le théorème de convergence
-monotone » — mais sans renvoi, alors que le poly porte **deux** théorèmes
-labellisés sous ce nom (`thm:Beppo-Levi-v0`, `thm:Beppo-Levi-pp`,
-`theorems-limites.tex:173`). Rien à ajouter au poly ici : les labels existent
-déjà, il manque le `\ref` côté TD.
-
-### Le corpus
-
-```bash
-grep -rc '\ref{' --include='*.tex' td/ | awk -F: '{s+=$2} END{print s}'
-```
-
-`mesure-integration` : **zéro** `\ref` dans tout `td/`. La moitié de la règle
-est déjà suivie — `td2.tex:148` cite bien « le théorème de convergence
-monotone » — mais sans renvoi, alors que le poly porte **deux** théorèmes
-labellisés sous ce nom (`thm:Beppo-Levi-v0`, `thm:Beppo-Levi-pp`,
-`theorems-limites.tex:173`). Nommer sans citer laisse un lecteur qui voudrait
-vérifier l'énoncé sans moyen d'y aller directement.
+`mesure-integration` compte cinq `\ref` dans ses `tdN/contenu.tex`, tous vers
+une question ou un exercice du même TD. Les résultats du poly restent cités par
+leur nom et leur numéro en clair — par exemple le théorème de convergence
+monotone dans `td/td2/contenu.tex` et `td/td3/contenu.tex` — plutôt que par un
+renvoi. La règle n'est donc pas encore suivie pour ces citations du cours.
 
 ## TD6 — Corrigés : synthétiques, pour les intervenants
 
@@ -149,76 +129,73 @@ Donc : la démarche, les étapes-clés, le résultat. **Pas un cours.**
 
 ### Le corpus
 
-Trois corrections de `mesure-integration` dépassent 25 lignes
-(`td1.tex:108`, `td3.tex:51` — 39 lignes —, `td4.tex:34`). La longueur seule
-n'est pas la faute : TD6 tolère un calcul long réduit à ses étapes-clés. La
-plus longue (`td3.tex:51`) ne l'est pas pour cette raison — elle **enseigne** :
-deux apartés « Remarque » y proposent des méthodes alternatives (« On peut
-aussi utiliser les résultats du chapitre 4… », « On pouvait aussi utiliser
-directement le TCD… »), avec des justifications pédagogiques (« pour alléger
-les notations »). C'est écrit pour un étudiant qui découvre, pas pour un
-collègue qui enseigne — la distinction que pose la règle. Même exercice, même
-théorème cité sans `\ref` qu'en [TD5](#td5--citer-le-résultat-du-cours-mobilisé-pas-le-redémontrer).
+Les 39 corrections de `mesure-integration` respectent désormais ce calibrage :
+aucune ne dépasse 25 lignes dans les `tdN/contenu.tex`; la plus longue occupe
+23 lignes dans `td/td3/contenu.tex`. La longueur reste un signal, pas un
+verdict : un calcul long réduit à ses étapes-clés peut être conforme à TD6.
 
-## TD7 — Où va le corrigé
+## TD7 — Une source, deux versions
 
-- Le corrigé vit **dans le fichier de l'énoncé**, pas dans un `sol_tdN.tex`
-  séparé. Le préambule passe de `solutions=none` à `solutions=inline` : une
-  seule ligne change, et l'énoncé seul se retrouve avec `solutions=none`.
-- Dans chaque `exercise`, après la dernière question : une ligne `\solution`,
-  puis le corrigé. **`\solution` est une commande, pas un environnement**, et
-  c'est un marqueur unique par exercice — tout ce qui suit est la correction.
-- Hors boîte (remarque de séance, indication) : `\begin{correction}`.
-- Exercice sans corrigé à fournir : `\begin{exercise}[nosolution]`.
+Chaque TD sépare le contenu commun de ses deux wrappers de compilation :
+
+```text
+tdN/contenu.tex
+tdN/sujet.tex       — solutions=none
+tdN/correction.tex  — solutions=inline
+```
+
+`contenu.tex` porte les énoncés et leurs corrigés. Les deux wrappers partagent
+le même préambule, au titre et à l'option `solutions=` près, puis chargent ce
+contenu par `\input{contenu}`. Il n'y a donc ni copie de l'énoncé, ni fichier
+`sol_tdN.tex`, ni préambule à basculer à la main avant chaque compilation.
+
+Dans un TD, un corrigé s'écrit avec l'environnement `correction` : il disparaît
+en `solutions=none` et paraît en `solutions=inline`. La commande `\solution`,
+qui sépare le haut et le bas d'un `exercise` et permet notamment le report avec
+`solutions=end`, reste le mécanisme des exercices du polycopié.
 
 ### Le corpus
 
 ```bash
-echo "exercises : $(grep -rc 'begin{exercise}' --include='*.tex' td/ | awk -F: '{s+=$2}END{print s}')"
-echo "\solution : $(grep -rc '\\solution' --include='*.tex' td/ | awk -F: '{s+=$2}END{print s}')"
-echo "correction : $(grep -rc 'begin{correction}' --include='*.tex' td/ | awk -F: '{s+=$2}END{print s}')"
+echo "exercises : $(grep -rc 'begin{exercise}' --include='contenu.tex' td/ | awk -F: '{s+=$2}END{print s}')"
+echo "solution : $(grep -rc '\\solution' --include='contenu.tex' td/ | awk -F: '{s+=$2}END{print s}')"
+echo "correction : $(grep -rc 'begin{correction}' --include='contenu.tex' td/ | awk -F: '{s+=$2}END{print s}')"
 ```
+
+Au 1er octobre 2026 :
 
 | Cours | Exercices | `\solution` | `\begin{correction}` |
-|---|---|---|---|
-| `automatique` | 7 | **7** | 0 |
-| `mesure-integration` | 22 | **0** | 30 |
+|---|---:|---:|---:|
+| `automatique` | 8 | 0 | 39 |
+| `mesure-integration` | 21 | 0 | 39 |
 
-`automatique` suit le mécanisme du template exactement : un `\solution` par
-exercice. `mesure-integration` ne l'utilise **jamais** — chaque `exercise` se
-ferme, puis une ou plusieurs `\begin{correction}` séparées suivent, le
-mécanisme documenté pour l'usage inverse (« hors boîte, où l'énoncé n'est pas
-encadré »). Conséquence vérifiée : `solutions=none/inline/end` ne pilote **pas**
-ces corrigés — le préambule de `mesure-integration` a beau dire
-`solutions=none`, les corrections s'affichent quand même.
+Les deux cours de référence suivent donc la même architecture et la même
+commande de filtrage.
 
-Ces TD datent d'avant le template ocots (`% Olivier Cots, 13/10/2019` en
-première ligne) : c'est un reliquat de migration, pas une exception voulue —
-la classe `ocots-td` et les environnements `exercise`/`question` ont déjà
-migré, seul le corrigé ne suit pas encore le mécanisme actuel.
+## TD8 — Un corrigé au fil des questions
 
-## TD8 — Ne pas rouvrir `question` dans un `\solution`
-
-Le compteur `question` **continue** celui de l'énoncé : le corrigé de la Q1
-s'afficherait « 4 ». Structurer le corrigé par une **liste manuelle** qui
-reprend les numéros de l'énoncé :
+Chaque `correction` suit **immédiatement** la `question` ou `subquestion`
+qu'elle corrige, à l'intérieur de l'`exercise`. Elle est un environnement frère
+de la question, pas un environnement imbriqué dedans :
 
 ```latex
-\begin{description}
-  \item[1.] …
-  \item[2.] …   \item[a.] …   \item[b.] …
-\end{description}
+\begin{question}
+    Montrer que la suite converge.
+\end{question}
+\begin{correction}
+    Appliquer le théorème de convergence dominée.
+\end{correction}
 ```
 
-Renvoi ponctuel à une question de l'énoncé : `\ref{…}` si elle porte un label,
-sinon le numéro en clair. (`\newquestion` existe pour forcer le passage à la
-question suivante quand le corrigé est rédigé à part.)
+Si une même démarche corrige plusieurs questions consécutives, la correction
+suit la dernière question concernée et l'annonce explicitement. Un exercice
+sans `question` place sa correction directement après son énoncé, toujours
+avant `\end{exercise}`.
 
-`automatique` suit ce patron à la lettre (`td1.tex:152`, `td2.tex:73` :
-`\solution` puis `\begin{description}`, numéros repris à la main). Pas de
-signal côté `mesure-integration` : sans `\solution` ([TD7](#td7--où-va-le-corrigé)),
-le cas que cette règle vise ne peut pas se produire dans ce cours pour
-l'instant.
+Cette proximité conserve l'association entre l'énoncé et sa correction sans
+rouvrir `question`, sans recopier les numéros dans une liste `description` et
+sans employer `\newquestion`. Un renvoi utile à une autre question se fait
+normalement par `\label` / `\ref`.
 
 ## TD9 — Flottants dans un exercice
 
