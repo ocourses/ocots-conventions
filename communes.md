@@ -276,6 +276,11 @@ masse « au cas où ».
 grep -rn 'ref{thm:cauchy}' --include='*.tex' .
 ```
 
+`./conventions/bin/verifier C5` le fait pour tout le cours : label jamais
+cité, préfixe qui ne nomme pas l'objet (table ci-dessus), hypothèse citée
+par `\ref`. Les références non résolues et labels dupliqués, eux, se lisent
+dans le journal de compilation : la CI des cours en fait échouer la PR.
+
 ### Zéro référence non résolue
 
 Un document se compile sans aucune référence non résolue ni label multiplement
