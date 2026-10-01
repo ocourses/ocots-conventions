@@ -15,6 +15,19 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+---
+
+## v2.7.0 — 2026-10-01
+
+Version mineure : la relecture de jugement s'outille, aucune règle
+renumérotée.
+
+- `ocots-lint` passe à
+  [`v0.8.0`](https://github.com/ocourses/ocots-lint/releases/tag/v0.8.0) :
+  **`extraire`** liste les boîtes du polycopié et la carte des sections, sans
+  verdict, pour juger P1, P3, P4 et P7. `verifier` est inchangé : aucune
+  trouvaille ne bouge, la montée ne crée ni ne ferme d'issue. Le template
+  reste en v1.5.1.
 - `methode.md` : « Une relecture de jugement se prépare avec l'extraction »
   — `ocots-lint extraire` (ocots-lint v0.8.0) liste les boîtes et la carte
   des sections pour juger P1, P3, P4 et P7 ; P1 et P4 ne portent que sur les
