@@ -131,6 +131,33 @@ reports/<nom-de-la-passe>/
 Travail sur une branche dédiée, **PR ouverte tôt et laissée en Draft** : le fond
 mathématique demande une relecture humaine avant fusion.
 
+## Une relecture de jugement se prépare avec l'extraction
+
+P1, P3, P4 et P7 ne se vérifient pas : elles se jugent. `ocots-lint extraire`
+(à partir d'ocots-lint v0.8.0) en prépare la relecture, sans rien juger :
+
+```bash
+./conventions/bin/ocots-lint extraire poly/<chapitre>.tex > extraction.json
+```
+
+- **les boîtes**, chacune avec son empreinte, sa famille, sa section, ses
+  citations (`citations.ailleurs` : citée d'un autre fichier, donc lue
+  isolément — P1), son amorce et ce qui la précède (P3), sa preuve, sa
+  reprise et ce qui la suit (P4) ;
+- **la carte des sections** : ouverture (texte, introduction de chapitre,
+  `\minitoc`), contenu dans l'ordre, blocs `assumption`, ce qui termine la
+  section (P7, et P4 en fin de section).
+
+L'extraction garantit que **rien n'est sauté** : le rapport juge chaque
+boîte et chaque section qu'elle liste, ni plus ni moins, et ne relit dans la
+source que ce qu'il faut (le corps d'un résultat pour P1). Le format est
+décrit par le schéma `extraire-1.schema.json` d'ocots-lint. Un agent suit le
+rôle `judgment-reviewer` d'`ocourses/agents`, qui applique ce qui précède.
+
+P1 et P4 ne portent que sur les **résultats** (famille `resultat` de
+l'extraction) : un exemple qui suit un résultat *est* son exploitation, et
+une section qui finit sur un exemple n'est pas un point P4.
+
 ## Format d'un rapport de relecture
 
 Quand la passe produit un rapport plutôt que des corrections, trois niveaux :

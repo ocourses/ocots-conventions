@@ -15,6 +15,12 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- `methode.md` : « Une relecture de jugement se prépare avec l'extraction »
+  — `ocots-lint extraire` (ocots-lint v0.8.0) liste les boîtes et la carte
+  des sections pour juger P1, P3, P4 et P7 ; P1 et P4 ne portent que sur les
+  résultats. `poly.md` : P1, P3, P4 et P7 y renvoient. Aucune règle
+  renumérotée.
+
 ---
 
 ## v2.6.0 — 2026-10-01

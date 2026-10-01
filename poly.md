@@ -21,6 +21,11 @@ typographie, labels).
 > suivie d'une phrase qui *exploite* ce qu'elle apporte. Le lecteur ne doit
 > jamais tomber sur un énoncé sans savoir ce qu'on cherche à en faire.
 
+> **Relire P1, P3, P4 et P7.** Ces règles se jugent, aucun outil ne les
+> tranche. `ocots-lint extraire` liste chaque boîte et chaque section avec ce
+> qu'il faut pour les juger : voir
+> [`methode.md`](methode.md#une-relecture-de-jugement-se-prépare-avec-lextraction).
+
 ---
 
 ## P1 — Placement des hypothèses
@@ -38,6 +43,10 @@ observable : *cité de loin* = **porte un label qui est `\ref`-encé ailleurs**
 ```bash
 grep -rn 'ref{thm:cauchy}' --include='*.tex' . | wc -l
 ```
+
+Sur un chapitre entier, `ocots-lint extraire` donne ce compte pour chaque
+boîte, et `citations.ailleurs` dit si elle est citée d'un autre fichier
+([méthode](methode.md#une-relecture-de-jugement-se-prépare-avec-lextraction)).
 
 ### Ce que le critère donne, par environnement
 
@@ -190,6 +199,10 @@ mécaniquement. L'outil repère seulement deux formes sûres :
 Là encore, le polycopié qui a reçu la passe (`automatique`) est à **0**, contre
 13 et 14 pour ceux qui ne l'ont pas reçue.
 
+Le reste se relit : `ocots-lint extraire` donne pour chaque boîte son amorce
+(`amorce`, le paragraphe entier) et ce qui la précède (`precede_par`). Une
+amorce vide relève de [P2](#p2--pas-de-blocs-isolés-ou-enchaînés-sans-texte).
+
 ## P4 — Un résultat qui n'est pas exploité n'a pas été posé
 
 > **Après un résultat, quelque chose l'exploite. Ce n'est pas forcément une
@@ -239,6 +252,11 @@ La question à se poser est celle de l'exploitation, pas celle de la ponctuation
 de fin de section : *ce théorème, en a-t-on montré un cas concret ? a-t-on dit
 si ses hypothèses peuvent être relâchées ?* Si la réponse est non nulle part,
 il manque quelque chose — que ce soit avant ou après le titre suivant.
+
+`ocots-lint extraire` donne, pour chaque résultat, sa reprise après l'unité
+énoncé-preuve (`reprise`, `suivi_par`), et pour chaque section ce qui la
+termine (`termine_par`). Le signal ne porte que sur un **résultat** : un
+exemple qui suit un résultat est déjà son exploitation.
 
 ## P5 — Ce qu'est une `remark`
 
@@ -388,6 +406,11 @@ cas. Un contre-exemple d'ouverture — « ailleurs, ça se passe autrement » �
 une remarque.
 
 ## P7 — Ouverture de chapitre et de section
+
+Pour relire les ouvertures d'un polycopié, la carte des sections d'`ocots-lint
+extraire` donne pour chaque titre son ouverture (texte, `chapterintro`,
+`\minitoc`) et les blocs `assumption` de la section
+([méthode](methode.md#une-relecture-de-jugement-se-prépare-avec-lextraction)).
 
 ### Le chapitre : une ossature fixe
 
