@@ -429,6 +429,12 @@ extraire` donne pour chaque titre son ouverture (texte, `chapterintro`,
 `minitoc` est chargé par le support livre (`ocots-carrier-book.sty:27`, avec
 `minitocdepth=2`) — rien à faire d'autre que l'appeler.
 
+Lorsqu'un chapitre étoilé est ajouté à la table des matières, appeler
+`\adjustmtc` juste après `\addcontentsline` dans le fichier qui porte ce
+chapitre. Cette commande réajuste le compteur interne de `minitoc` et évite que
+les mini-tables des chapitres numérotés soient décalées. Elle ne doit pas être
+ajoutée pour un chapitre étoilé qui ne figure pas dans la table des matières.
+
 L'**introduction de chapitre** dit où l'on va et pourquoi : l'objet qu'on
 cherche à construire, les notions qu'il faudra pour y arriver, dans quel ordre.
 Elle s'adresse à un lecteur qui n'a encore rien lu du chapitre, se termine
