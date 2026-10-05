@@ -34,6 +34,18 @@ Les identifiants restent en place, mais `TD7`, `TD8` et `EX6` changent de sens.
 
 ---
 
+## v2.8.0 — 2026-10-05
+
+Version mineure : P7 est précisée, aucun identifiant de règle n'est
+renuméroté.
+
+- `poly.md` précise que `\adjustmtc` doit suivre `\addcontentsline` lorsqu'un
+  chapitre étoilé est ajouté à la table des matières, afin de maintenir
+  l'alignement des mini-tables. Une vérification correspondante est demandée
+  dans [ocots-lint](https://github.com/ocourses/ocots-lint/issues).
+
+---
+
 ## v2.7.0 — 2026-10-01
 
 Version mineure : la relecture de jugement s'outille, aucune règle
