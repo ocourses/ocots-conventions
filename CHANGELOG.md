@@ -15,8 +15,40 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
-Version majeure à venir : la mécanique des corrigés de TD et d'examen change.
-Les identifiants restent en place, mais `TD7`, `TD8` et `EX6` changent de sens.
+---
+
+## v2.9.0 — 2026-10-07
+
+Version mineure : l'outil de vérification monte, aucun identifiant de règle ne
+change.
+
+- `ocots-lint` passe à
+  [`v0.9.0`](https://github.com/ocourses/ocots-lint/releases/tag/v0.9.0) :
+  `.agents-ignore` vaut désormais pour toutes les commandes (`verifier`,
+  `nettoyer`, `extraire`, vérification des PR), pas seulement pour
+  `synchroniser`. Un document rangé (`attic/`, `archived/`) ne produit plus
+  de trouvailles ; un fichier nommé explicitement reste vérifié. Mesuré sur
+  les quatre cours : aucune trouvaille nouvelle, 180 de moins dans
+  `calcul-differentiel-edo`, toutes sous `attic/`.
+- Les notes de v2.8.0 sont complétées : le changement de sens de `TD7`,
+  `TD8` et `EX6` y avait été publié, mais ses notes étaient restées dans
+  « Non publié ».
+
+---
+
+## v2.8.0 — 2026-10-05
+
+Version mineure : P7 est précisée, aucun identifiant de règle n'est
+renuméroté.
+
+- `poly.md` précise que `\adjustmtc` doit suivre `\addcontentsline` lorsqu'un
+  chapitre étoilé est ajouté à la table des matières, afin de maintenir
+  l'alignement des mini-tables. Une vérification correspondante est demandée
+  dans [ocots-lint](https://github.com/ocourses/ocots-lint/issues).
+
+**Changement de sens publié dans cette version, mais oublié de ses notes**
+(rétabli en v2.9.0) : la mécanique des corrigés de TD et d'examen change. Les
+identifiants restent en place, mais `TD7`, `TD8` et `EX6` changent de sens.
 
 | Jusqu'à v2.7.0 | Depuis |
 |---|---|
@@ -31,18 +63,6 @@ Les identifiants restent en place, mais `TD7`, `TD8` et `EX6` changent de sens.
   sujets de `mesure-integration`.
 - Aucun relais ni règle d'`ocots-lint` ne change : aucune règle `TD*` ou `EX*`
   correspondante n'est implémentée.
-
----
-
-## v2.8.0 — 2026-10-05
-
-Version mineure : P7 est précisée, aucun identifiant de règle n'est
-renuméroté.
-
-- `poly.md` précise que `\adjustmtc` doit suivre `\addcontentsline` lorsqu'un
-  chapitre étoilé est ajouté à la table des matières, afin de maintenir
-  l'alignement des mini-tables. Une vérification correspondante est demandée
-  dans [ocots-lint](https://github.com/ocourses/ocots-lint/issues).
 
 ---
 
