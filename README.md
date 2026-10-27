@@ -29,7 +29,7 @@ chacun** — les conventions citent des macros du template (`\keyword`,
    **À lire dans tous les cas.**
 2. Le fichier du support sur lequel on travaille :
    - **[`poly.md`](poly.md)** — polycopié (`P1`–`P14`)
-   - **[`slides.md`](slides.md)** — transparents
+   - **[`slides.md`](slides.md)** — transparents (`SL1`–`SL11`)
    - **[`td.md`](td.md)** — TD et corrigés
    - **[`exam.md`](exam.md)** — sujets d'examen
 3. **[`methode.md`](methode.md)** — comment se déroule une passe de relecture :
@@ -202,7 +202,7 @@ Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 | `poly.md` | `P1`–`P14` — toutes relues avec l’auteur, éprouvées sur deux cours |
 | `methode.md` | v1 |
 | `td.md` | `TD1`–`TD9` — toutes relues avec l’auteur |
-| `slides.md` | `SL1`–`SL10` — toutes relues avec l’auteur |
+| `slides.md` | `SL1`–`SL11` — toutes relues avec l’auteur |
 | `exam.md` | `EX1`–`EX7` — toutes relues avec l’auteur |
 | `template.md` | historique de 7 chantiers — **tous appliqués** au template |
 

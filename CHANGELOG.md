@@ -15,6 +15,9 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- `slides.md` ajoute `SL11` : `\emphB` est réservé aux hypothèses à ne pas
+  oublier ; les conclusions et termes déjà définis utilisent respectivement
+  `\emph`/le texte normal et `\keyword` (#38).
 - C4 admet explicitement les renvois insécables `Sous-section~\ref{…}`,
   comme `Section~\ref{…}` ; le mot composé reste capitalisé et avec son trait
   d'union (#35). La commande de vérification des renvois ne trouvait rien : elle
