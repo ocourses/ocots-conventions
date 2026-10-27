@@ -189,9 +189,24 @@ faire**.
 | Guillemets | **`\enquote{…}`** — jamais `` `` `` ni `"` ni `\og` | `grep -rn "\`\`\|\\\\og\b" --include='*.tex' .` |
 | Apostrophes | U+2019 → U+0027 dans les sources | `grep -rn $'’' --include='*.tex' .` |
 | Terme défini | première occurrence : `\keyword{terme}` **et** `\index{terme}` | — |
-| Renvois | capitalisés et insécables : `Théorème~\ref{…}`, `Définition~\ref{…}`, `Figure~\ref{…}`, `Exemple~\ref{…}`, `Section~\ref{…}`, `Sous-section~\ref{…}`, `Exercice~\ref{…}` | `grep -rn -E '(^\|[^-[:alpha:]])(théorème\|définition\|figure\|exemple\|section\|sous-section\|exercice)[ ~]*\\ref' --include='*.tex' .` |
+| Renvois | capitalisés et insécables : `Théorème~\ref{…}`, `Définition~\ref{…}`, `Figure~\ref{…}`, `Exemple~\ref{…}`, `Section~\ref{…}`, `Sous-section~\ref{…}`, `Exercice~\ref{…}` ; **le mot nomme le niveau de la cible** (voir ci-dessous) | `grep -rn -E '(^\|[^-[:alpha:]])(théorème\|définition\|figure\|exemple\|section\|sous-section\|exercice)[ ~]*\\ref' --include='*.tex' .` |
+| Niveau du renvoi | `Section~\ref{sec:…}`, `Sous-section~\ref{ssec:…}` : le mot suit le préfixe du label ([C5](#c5--labels-et-renvois)) | `grep -rn -E 'Section~\\ref\{ssec:\|Sous-section~\\ref\{sec:' --include='*.tex' .` |
 | Étapes de preuve | `\newstep` pour séparer les étapes d'une preuve longue | — |
 | Mots composés | « sous-section », « sous-espace » (trait d'union) | `grep -rn 'sous [a-zé]' --include='*.tex' .` |
+
+### Le mot du renvoi nomme le niveau de la cible
+
+Un renvoi vers une `\subsection` s'écrit `Sous-section~\ref{ssec:…}`, vers une
+`\section` `Section~\ref{sec:…}` : **le préfixe du label** (table de
+[C5](#c5--labels-et-renvois)) **décide du mot**. Écrire « Section » pour une
+sous-section fait croire au lecteur que la cible est plus grande qu'elle ne
+l'est, et la règle n'a alors qu'une seule bonne façon par cas.
+
+Cette règle est **vérifiable sans jugement** : le préfixe est déjà celui que
+`ocots-lint` contrôle pour C5, la commande du tableau trouve les deux écarts
+(`Section~\ref{ssec:…}`, `Sous-section~\ref{sec:…}`). Les sous-sous-sections ne
+sont pas couvertes : C5 n'a pas de préfixe pour elles, on l'ajoutera avec le
+premier cours qui en emploie.
 
 ### Pourquoi pas `~:`
 
