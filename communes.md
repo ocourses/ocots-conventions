@@ -189,7 +189,7 @@ faire**.
 | Guillemets | **`\enquote{…}`** — jamais `` `` `` ni `"` ni `\og` | `grep -rn "\`\`\|\\\\og\b" --include='*.tex' .` |
 | Apostrophes | U+2019 → U+0027 dans les sources | `grep -rn $'’' --include='*.tex' .` |
 | Terme défini | première occurrence : `\keyword{terme}` **et** `\index{terme}` | — |
-| Renvois | capitalisés et insécables : `Théorème~\ref{…}`, `Définition~\ref{…}`, `Figure~\ref{…}`, `Exemple~\ref{…}`, `Section~\ref{…}`, `Exercice~\ref{…}` | `grep -rn -E '\b(théorème\|définition\|figure\|exemple\|section\|exercice) *\\\\ref' --include='*.tex' .` |
+| Renvois | capitalisés et insécables : `Théorème~\ref{…}`, `Définition~\ref{…}`, `Figure~\ref{…}`, `Exemple~\ref{…}`, `Section~\ref{…}`, `Sous-section~\ref{…}`, `Exercice~\ref{…}` | `grep -rn -E '(^\|[^-[:alpha:]])(théorème\|définition\|figure\|exemple\|section\|sous-section\|exercice)[ ~]*\\ref' --include='*.tex' .` |
 | Étapes de preuve | `\newstep` pour séparer les étapes d'une preuve longue | — |
 | Mots composés | « sous-section », « sous-espace » (trait d'union) | `grep -rn 'sous [a-zé]' --include='*.tex' .` |
 

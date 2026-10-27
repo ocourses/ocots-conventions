@@ -15,6 +15,11 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- C4 admet explicitement les renvois insécables `Sous-section~\ref{…}`,
+  comme `Section~\ref{…}` ; le mot composé reste capitalisé et avec son trait
+  d'union (#35). La commande de vérification des renvois ne trouvait rien : elle
+  cherchait deux antislashs ; elle trouve désormais aussi les renvois en bas de
+  casse écrits avec `~`, sans signaler `Sous-section~\ref`.
 - `slides.md#SL4` précise que deux boîtes sous un même `slide{titre}` ou
   `frame{titre}` ne déclenchent pas P2 ; une diapositive sans titre reste
   concernée (#34, ocots-lint#74).
