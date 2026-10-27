@@ -15,6 +15,10 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- `slides.md#SL4` précise que deux boîtes sous un même `slide{titre}` ou
+  `frame{titre}` ne déclenchent pas P2 ; une diapositive sans titre reste
+  concernée (#34, ocots-lint#74).
+
 ---
 
 ## v2.9.0 — 2026-10-07
