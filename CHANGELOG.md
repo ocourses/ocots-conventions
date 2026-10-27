@@ -15,6 +15,11 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- **WEB5** cite `latexScientifiqueFixe` pour les grandeurs qui traversent
+  plusieurs ordres de grandeur en LaTeX et précise que le test de largeur du
+  socle couvre les fonctions « fixes » (`latexNombreFixe`, `latexPositifFixe`,
+  `latexScientifiqueFixe`, `nombreScientifique`) (#51, ocots-site#35).
+
 
 ---
 
