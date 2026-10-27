@@ -15,6 +15,10 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- **WEB5 : la notation scientifique à largeur fixe a sa fonction LaTeX**,
+  `latexScientifiqueFixe` (socle v0.3.0). Le test de largeur du socle couvre les
+  six fonctions « fixes » du tableau, et c'est lui que cite « Vérifié par »
+  (#51, ocots-site#35, ocots-site#38).
 - **C4 : le mot du renvoi nomme le niveau de la cible.** `Sous-section~\ref{ssec:…}`
   pour une `\subsection`, `Section~\ref{sec:…}` pour une `\section` ; le préfixe du
   label (C5) décide du mot. `Section~\ref{ssec:…}` n'est plus admis. Nouvelle ligne
