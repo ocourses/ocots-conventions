@@ -17,9 +17,8 @@ dit comment on le **compose**.
 
 Le template et les conventions couvrent les **mêmes quatre supports** LaTeX.
 Un cours les monte tous les deux en sous-module et **épingle une version de
-chacun** — les conventions
-citent des macros du template (`\keyword`, `\index`, `\norm`, `\diff`), les deux
-versions doivent rester cohérentes.
+chacun** — les conventions citent des macros du template (`\keyword`,
+`\index`, `\norm`, `\diff`), les deux versions doivent rester cohérentes.
 
 ---
 
