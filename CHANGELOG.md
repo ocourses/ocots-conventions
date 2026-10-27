@@ -24,6 +24,10 @@ git -C conventions describe --tags --always
   mesure-integration 7, calcul-differentiel-edo : 4, automatique : 0). Elle
   fait disparaître le faux positif « en bas de casse » sur
   `Sous-section~\ref{…}`.
+- **WEB5 : la notation scientifique à largeur fixe a sa fonction LaTeX**,
+  `latexScientifiqueFixe` (socle v0.3.0). Le test de largeur du socle couvre les
+  six fonctions « fixes » du tableau, et c'est lui que cite « Vérifié par »
+  (#51, ocots-site#35, ocots-site#38).
 - **C4 : le mot du renvoi nomme le niveau de la cible.** `Sous-section~\ref{ssec:…}`
   pour une `\subsection`, `Section~\ref{sec:…}` pour une `\section` ; le préfixe du
   label (C5) décide du mot. `Section~\ref{ssec:…}` n'est plus admis. Nouvelle ligne
