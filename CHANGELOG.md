@@ -15,6 +15,13 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- README mis en cohérence avec l'état réel du dépôt : `template.md` est
+  présenté comme l'historique de sept chantiers désormais appliqués, le
+  tableau d'orientation inclut `ocots-lint`, `ocots-publication` et
+  `ocots-site`, et le polycopié est correctement décrit comme contenant
+  quatorze règles. `template.md` n'est pas déplacé afin de préserver ses
+  nombreux liens entrants (#41).
+
 ---
 
 ## v2.9.0 — 2026-10-07
