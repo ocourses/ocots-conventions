@@ -197,7 +197,7 @@ Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 | `poly.md` | `P1`–`P14` — toutes relues avec l’auteur, éprouvées sur deux cours |
 | `methode.md` | v1 |
 | `td.md` | `TD1`–`TD9` — toutes relues avec l’auteur |
-| `slides.md` | `SL1`–`SL10` — toutes relues avec l’auteur |
+| `slides.md` | `SL1`–`SL11` — toutes relues avec l’auteur |
 | `exam.md` | `EX1`–`EX7` — toutes relues avec l’auteur |
 | `template.md` | 7 chantiers — **non appliqués** au template |
 
