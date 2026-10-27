@@ -121,7 +121,7 @@ changer de taille.
   | La grandeur… | Forme | Fonctions de `format.js` |
   |---|---|---|
   | varie dans une plage connue (réglage, aire, intégrale) | virgule fixe | `latexNombreFixe`, `latexPositifFixe`, `latexComplexeFixe`, `latexMatriceFixe` |
-  | traverse plusieurs ordres de grandeur (erreur, écart qui tend vers 0) | notation scientifique **à largeur fixe** : signe réservé, mantisse à décimales fixes, exposant à largeur fixe | `nombreScientifique` (texte) ; `latexScientifiqueFixe` (LaTeX) |
+  | traverse plusieurs ordres de grandeur (erreur, écart qui tend vers 0) | notation scientifique **à largeur fixe** : signe réservé, mantisse à décimales fixes, exposant à largeur fixe | `nombreScientifique` (texte) ; `latexScientifiqueFixe` (LaTeX, socle v0.3.0) |
   | ne change pas pendant le geste | la forme la plus courte | `latexNombre`, `texte`, `latexNombreFinal` |
   | est une étiquette d'axe | mêmes décimales pour toutes ; scientifique aux extrêmes | `etiquettesAxe` |
   | s'écrit dans un journal (ligne ajoutée, jamais réécrite) | libre | `texte`, `nombreCourt` |
@@ -139,8 +139,7 @@ changer de taille.
   d'un coup (`replaceChildren`) : le vider d'abord étire le canevas voisin.
 
 Vérifié par : relecture, au glisser ; test du socle sur la largeur des
-fonctions « fixes » (`latexNombreFixe`, `latexPositifFixe`,
-`latexScientifiqueFixe`, `nombreScientifique`).
+six fonctions « fixes » du tableau (`tests/format.test.js`, socle v0.3.0).
 
 ## WEB6 — Un seul corps de texte, des formules du même corps
 
