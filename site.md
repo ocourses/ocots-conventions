@@ -114,10 +114,22 @@ Un texte qui affiche une valeur modifiée au glisser ou pendant une animation ne
 doit ni changer de largeur ni sauter de ligne, et la figure voisine ne doit pas
 changer de taille.
 
-- Tout nombre qui varie s'écrit à **nombre fixe de décimales**
-  (`latexNombreFixe`, `latexPositifFixe`, `latexComplexeFixe`,
-  `latexMatriceFixe` de `format.js`) ; `latexNombre` est réservé aux valeurs
-  qui ne changent pas pendant le geste.
+- **Un nombre garde sa largeur pendant le geste** : ni le « − » qui apparaît,
+  ni une décimale ou un chiffre de plus ne doivent faire bouger ce qui le
+  suit. La forme dépend de ce que fait la grandeur :
+
+  | La grandeur… | Forme | Fonctions de `format.js` |
+  |---|---|---|
+  | varie dans une plage connue (réglage, aire, intégrale) | virgule fixe | `latexNombreFixe`, `latexPositifFixe`, `latexComplexeFixe`, `latexMatriceFixe` |
+  | traverse plusieurs ordres de grandeur (erreur, écart qui tend vers 0) | notation scientifique **à largeur fixe** : signe réservé, mantisse à décimales fixes, exposant à largeur fixe | `nombreScientifique` (texte) ; en LaTeX, pas encore de fonction ([ocots-site#32](https://github.com/ocourses/ocots-site/issues/32)) |
+  | ne change pas pendant le geste | la forme la plus courte | `latexNombre`, `texte`, `latexNombreFinal` |
+  | est une étiquette d'axe | mêmes décimales pour toutes ; scientifique aux extrêmes | `etiquettesAxe` |
+  | s'écrit dans un journal (ligne ajoutée, jamais réécrite) | libre | `texte`, `nombreCourt` |
+
+  Le seuil entre virgule fixe et notation scientifique est celui du socle :
+  moins de 10⁻³ ou au-delà de 10⁵. Une notation scientifique dont la largeur
+  varie (`latexScientifique`, `nombreCourt`) ne convient pas à une valeur qui
+  bouge.
 - Quand la phrase elle-même change (nom du cas, verdict), les nombres vont
   dans une formule ou un tableau à part, de largeur fixe.
 - Un texte qui change avec les réglages a sa **hauteur réservée** (`.verdict`,
@@ -126,7 +138,8 @@ changer de taille.
 - Un texte ou un tableau qui change se construit à part, puis remplace l'ancien
   d'un coup (`replaceChildren`) : le vider d'abord étire le canevas voisin.
 
-Vérifié par : relecture, au glisser.
+Vérifié par : relecture, au glisser ; test du socle sur la largeur des
+fonctions « fixes » à venir ([ocots-site#32](https://github.com/ocourses/ocots-site/issues/32)).
 
 ## WEB6 — Un seul corps de texte, des formules du même corps
 
@@ -249,6 +262,14 @@ pas rond, qui se répète maintenu) et la saisie au clavier (↑ ↓ d'un pas,
 PageHaut, PageBas ou Maj pour dix pas). Une boîte de nombre seule reçoit les
 mêmes boutons par `ajoutePas()`.
 
+- **Un geste dont l'effet ne se voit pas sur la figure est dit.** Une phrase
+  sous le canevas, dans sa carte, donne la consigne tant qu'aucun geste n'a eu
+  lieu, puis dit ce que le dernier geste a fait (« Le point 4 rejoint le bloc
+  {4, 5}. »). Sa place est réservée ([WEB5](#web5--une-mise-en-page-qui-ne-bouge-pas-quand-une-valeur-change)),
+  et la cible se dit par son contenu, pas par son numéro. Ce n'est pas la
+  légende en bulle ([WEB10](#web10--une-figure-se-lit-avec-sa-légende-en-bulle)) :
+  elle dit ce qu'on *peut* faire, la phrase dit ce qu'on *vient* de faire. Un
+  clic dont l'effet se voit sur la figure n'en a pas besoin.
 - Un point qu'on fait glisser se saisit par `glisse()` (souris et tactile) ; le
   curseur dit ce qui se saisit (`.saisissable`) ou se clique (`.cliquable`).
 - Un point qui se colle à un lieu remarquable (axe, parabole Δ = 0, droite

@@ -15,6 +15,12 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- `site.md` : `WEB5` précise que la largeur d'un nombre ne change pas pendant un
+  geste, avec la forme à employer selon la grandeur (virgule fixe, notation
+  scientifique à largeur fixe pour ce qui traverse plusieurs ordres de grandeur,
+  forme courte si la valeur ne bouge pas) ; `WEB14` ajoute le retour d'un geste
+  dont l'effet ne se voit pas sur la figure, dit par une phrase sous le canevas
+  (#40, ocots-site#32).
 - **Nouveau fichier `site.md`**, espace `WEB1`–`WEB20` : les conventions des
   sites web des cours, construits sur `ocots-site` (v0.1.0 et au-delà). Tirées
   des trois `site/CONVENTIONS.md`, qui ne gardent que leurs arbitrages
