@@ -94,6 +94,10 @@ autre forme : **une suite de boîtes sans titre ni fil visible** reste illisible
 en projection. Le fil passe par les titres de diapositives — l'environnement
 `slide{titre}` (pas `frame` nu) est ce qui les porte.
 
+Deux boîtes qui se suivent sous un même `slide{titre}` (ou une `frame{titre}`)
+ne constituent donc pas un enchaînement P2 : le titre de la diapositive porte
+le fil. Seule une suite de boîtes sans titre, dans une `frame` nue, reste visée.
+
 ### Le corpus
 
 Mesuré sur `mesure-integration` : **176 `slide` titrées contre 62 `frame`
