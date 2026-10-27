@@ -15,17 +15,32 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+
+---
+
+## v2.10.0 — 2026-10-27
+
+Version mineure : un nouveau fichier de règles (`site.md`, `WEB1`–`WEB20`) et
+une règle ajoutée (`SL11`) ; aucun identifiant existant n'est renommé ni
+retiré. L'outil de vérification monte à
+[`v0.10.0`](https://github.com/ocourses/ocots-lint/releases/tag/v0.10.0).
+
+- `ocots-lint` passe à `v0.10.0` : P2 n'est plus signalée entre deux boîtes
+  sous une diapositive titrée d'un transparent (SL4), une mesure P7 repère le
+  `\chapter*` ajouté à la table sans `\adjustmtc`, et `ocots-lint couverture`
+  liste les règles `WEB*` « hors ocots-lint » (elles sont vérifiées par le
+  socle `ocots-site`).
+- **Nouveau fichier `site.md`**, espace `WEB1`–`WEB20` : les conventions des
+  sites web des cours, construits sur `ocots-site` (v0.1.0 et au-delà). Tirées
+  des trois `site/CONVENTIONS.md`, qui ne gardent que leurs arbitrages
+  (page de référence, rôles des couleurs, notations, briques propres). Chaque
+  règle dit ce qui la vérifie : test du socle, test du cours ou relecture (#40).
 - `site.md` : `WEB5` précise que la largeur d'un nombre ne change pas pendant un
   geste, avec la forme à employer selon la grandeur (virgule fixe, notation
   scientifique à largeur fixe pour ce qui traverse plusieurs ordres de grandeur,
   forme courte si la valeur ne bouge pas) ; `WEB14` ajoute le retour d'un geste
   dont l'effet ne se voit pas sur la figure, dit par une phrase sous le canevas
   (#40, ocots-site#32).
-- **Nouveau fichier `site.md`**, espace `WEB1`–`WEB20` : les conventions des
-  sites web des cours, construits sur `ocots-site` (v0.1.0 et au-delà). Tirées
-  des trois `site/CONVENTIONS.md`, qui ne gardent que leurs arbitrages
-  (page de référence, rôles des couleurs, notations, briques propres). Chaque
-  règle dit ce qui la vérifie : test du socle, test du cours ou relecture (#40).
 - `slides.md` ajoute `SL11` : `\emphB` est réservé aux hypothèses à ne pas
   oublier ; les conclusions et termes déjà définis utilisent respectivement
   `\emph`/le texte normal et `\keyword` (#38).
