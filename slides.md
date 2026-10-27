@@ -96,7 +96,7 @@ en projection. Le fil passe par les titres de diapositives — l'environnement
 
 Deux boîtes qui se suivent sous un même `slide{titre}` (ou une `frame{titre}`)
 ne constituent donc pas un enchaînement P2 : le titre de la diapositive porte
-le fil. Une `frame` nue reste soumise à cette forme affaiblie de P2.
+le fil. Seule une suite de boîtes sans titre, dans une `frame` nue, reste visée.
 
 ### Le corpus
 
