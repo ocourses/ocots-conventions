@@ -15,13 +15,25 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+---
+
+## v2.11.0 — 2026-10-27
+
+Version mineure : une règle précisée (`C4`, niveau du renvoi) et une autre complétée
+(`WEB5`, sa fonction LaTeX) ; aucun identifiant n'est renommé ni retiré. L'outil de
+vérification monte à
+[`v0.11.0`](https://github.com/ocourses/ocots-lint/releases/tag/v0.11.0), et
+`site.md` cite le socle [`v0.3.0`](https://github.com/ocourses/ocots-site/releases/tag/v0.3.0).
+Un cours qui monte de v2.10.0 à v2.11.0 peut voir **apparaître** des trouvailles `C4` :
+tout `Section~\ref{ssec:…}`.
+
 - `ocots-lint` passe à
   [`v0.11.0`](https://github.com/ocourses/ocots-lint/releases/tag/v0.11.0) :
   C4 vérifie le niveau des renvois (règle de C4 des conventions,
   ocots-conventions#50), et les releases ouvrent la PR de montée dans
   `ocots-conventions`. Une montée depuis v0.10.0 peut **faire apparaître** des
   trouvailles C4 : un `Section~\ref{ssec:…}` (avant correction :
-  mesure-integration 7, calcul-differentiel-edo : 4, automatique : 0). Elle
+  mesure-integration : 7, calcul-differentiel-edo : 4, automatique : 0). Elle
   fait disparaître le faux positif « en bas de casse » sur
   `Sous-section~\ref{…}`.
 - **WEB5 : la notation scientifique à largeur fixe a sa fonction LaTeX**,
@@ -32,8 +44,8 @@ git -C conventions describe --tags --always
   pour une `\subsection`, `Section~\ref{sec:…}` pour une `\section` ; le préfixe du
   label (C5) décide du mot. `Section~\ref{ssec:…}` n'est plus admis. Nouvelle ligne
   « Niveau du renvoi » du tableau de C4, avec sa commande de vérification. **Migration** :
-  les cours qui écrivent `Section~\ref{ssec:…}` (calcul-differentiel-edo) les corrigent ;
-  `ocots-lint` vérifiera l'accord à partir du préfixe (#46).
+  les cours qui écrivent `Section~\ref{ssec:…}` les corrigent (mesure-integration : 7,
+  calcul-differentiel-edo : 4) ; `ocots-lint` v0.11.0 vérifie l'accord à partir du préfixe (#46).
 
 ---
 
