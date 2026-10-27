@@ -29,6 +29,8 @@ versions doivent rester cohérentes.
    - **[`slides.md`](slides.md)** — transparents
    - **[`td.md`](td.md)** — TD et corrigés
    - **[`exam.md`](exam.md)** — sujets d'examen
+   - **[`site.md`](site.md)** — sites web des cours (`WEB1`–`WEB20`), construits sur
+     `ocots-site` ; seules la langue et les notations de `communes.md` s'y appliquent
 3. **[`methode.md`](methode.md)** — comment se déroule une passe de relecture :
    salves, périmètre, compilation, PR, format du rapport.
 
@@ -126,6 +128,7 @@ réordonner, fusionner ou scinder les règles.
 | `slides.md` | `SL1`, `SL2`, … |
 | `td.md` | `TD1`, `TD2`, … |
 | `exam.md` | `EX1`, `EX2`, … |
+| `site.md` | `WEB1`, `WEB2`, … |
 
 Un identifiant **préfixé** (`P5`, `C2`) dit à lui seul qu'il désigne ces
 conventions-ci. Un **nombre nu** (« règle 5 ») est une citation antérieure à ce
@@ -187,6 +190,12 @@ Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
   plutôt que « point de fonctionnement », « Lyapunov » plutôt que
   « Liapounov »…).
 
+Pour le site web, le `site/CONVENTIONS.md` du cours ne garde que ses
+arbitrages et renvoie à [`site.md`](site.md) pour le reste : la page de
+référence, le tableau des rôles de ses couleurs
+([WEB11](site.md#web11--une-couleur-un-rôle-défini-par-le-cours)), ses
+notations, ses briques propres et l'ordre de son catalogue.
+
 ---
 
 ## État
@@ -199,6 +208,7 @@ Ce dépôt porte les **règles**. Restent propres à chaque cours, dans
 | `td.md` | `TD1`–`TD9` — toutes relues avec l’auteur |
 | `slides.md` | `SL1`–`SL10` — toutes relues avec l’auteur |
 | `exam.md` | `EX1`–`EX7` — toutes relues avec l’auteur |
+| `site.md` | `WEB1`–`WEB20` — tirées des trois `site/CONVENTIONS.md`, à relire avec l’auteur |
 | `template.md` | 7 chantiers — **non appliqués** au template |
 
 ---
