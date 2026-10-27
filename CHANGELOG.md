@@ -15,6 +15,11 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- **Nouveau fichier `site.md`**, espace `WEB1`–`WEB20` : les conventions des
+  sites web des cours, construits sur `ocots-site` (v0.1.0 et au-delà). Tirées
+  des trois `site/CONVENTIONS.md`, qui ne gardent que leurs arbitrages
+  (page de référence, rôles des couleurs, notations, briques propres). Chaque
+  règle dit ce qui la vérifie : test du socle, test du cours ou relecture (#40).
 - `slides.md` ajoute `SL11` : `\emphB` est réservé aux hypothèses à ne pas
   oublier ; les conclusions et termes déjà définis utilisent respectivement
   `\emph`/le texte normal et `\keyword` (#38).
