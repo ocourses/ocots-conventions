@@ -15,6 +15,9 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- `slides.md#SL4` précise que deux boîtes sous un même `slide{titre}` ou
+  `frame{titre}` ne déclenchent pas P2 ; une diapositive sans titre reste
+  concernée (#34, ocots-lint#74).
 - README mis en cohérence avec l'état réel du dépôt : `template.md` est
   présenté comme l'historique de sept chantiers désormais appliqués, le
   tableau d'orientation inclut `ocots-lint`, `ocots-publication` et
