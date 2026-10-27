@@ -15,6 +15,12 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- **C4 : le mot du renvoi nomme le niveau de la cible.** `Sous-section~\ref{ssec:…}`
+  pour une `\subsection`, `Section~\ref{sec:…}` pour une `\section` ; le préfixe du
+  label (C5) décide du mot. `Section~\ref{ssec:…}` n'est plus admis. Nouvelle ligne
+  « Niveau du renvoi » du tableau de C4, avec sa commande de vérification. **Migration** :
+  les cours qui écrivent `Section~\ref{ssec:…}` (calcul-differentiel-edo) les corrigent ;
+  `ocots-lint` vérifiera l'accord à partir du préfixe (#46).
 
 ---
 
