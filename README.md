@@ -15,8 +15,9 @@ dit comment on le **compose**.
 | `ocots-publication` | comment publier les supports vers le dépôt étudiant ? |
 | `ocots-site` | comment construire, tester et déployer le site web interactif d'un cours ? |
 
-Les deux couvrent les **mêmes quatre supports**. Un cours les monte tous les
-deux en sous-module et **épingle une version de chacun** — les conventions
+Le template et les conventions couvrent les **mêmes quatre supports** LaTeX.
+Un cours les monte tous les deux en sous-module et **épingle une version de
+chacun** — les conventions
 citent des macros du template (`\keyword`, `\index`, `\norm`, `\diff`), les deux
 versions doivent rester cohérentes.
 
