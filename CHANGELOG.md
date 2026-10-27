@@ -15,6 +15,15 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- `ocots-lint` passe à
+  [`v0.11.0`](https://github.com/ocourses/ocots-lint/releases/tag/v0.11.0) :
+  C4 vérifie le niveau des renvois (règle de C4 des conventions,
+  ocots-conventions#50), et les releases ouvrent la PR de montée dans
+  `ocots-conventions`. Une montée depuis v0.10.0 peut **faire apparaître** des
+  trouvailles C4 : un `Section~\ref{ssec:…}` (avant correction :
+  mesure-integration 7, calcul-differentiel-edo : 4, automatique : 0). Elle
+  fait disparaître le faux positif « en bas de casse » sur
+  `Sous-section~\ref{…}`.
 - **WEB5 : la notation scientifique à largeur fixe a sa fonction LaTeX**,
   `latexScientifiqueFixe` (socle v0.3.0). Le test de largeur du socle couvre les
   six fonctions « fixes » du tableau, et c'est lui que cite « Vérifié par »
