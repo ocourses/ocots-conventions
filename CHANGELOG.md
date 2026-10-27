@@ -20,6 +20,23 @@ git -C conventions describe --tags --always
   des trois `site/CONVENTIONS.md`, qui ne gardent que leurs arbitrages
   (page de référence, rôles des couleurs, notations, briques propres). Chaque
   règle dit ce qui la vérifie : test du socle, test du cours ou relecture (#40).
+- `slides.md` ajoute `SL11` : `\emphB` est réservé aux hypothèses à ne pas
+  oublier ; les conclusions et termes déjà définis utilisent respectivement
+  `\emph`/le texte normal et `\keyword` (#38).
+- C4 admet explicitement les renvois insécables `Sous-section~\ref{…}`,
+  comme `Section~\ref{…}` ; le mot composé reste capitalisé et avec son trait
+  d'union (#35). La commande de vérification des renvois ne trouvait rien : elle
+  cherchait deux antislashs ; elle trouve désormais aussi les renvois en bas de
+  casse écrits avec `~`, sans signaler `Sous-section~\ref`.
+- `slides.md#SL4` précise que deux boîtes sous un même `slide{titre}` ou
+  `frame{titre}` ne déclenchent pas P2 ; une diapositive sans titre reste
+  concernée (#34, ocots-lint#74).
+- README mis en cohérence avec l'état réel du dépôt : `template.md` est
+  présenté comme l'historique de sept chantiers désormais appliqués, le
+  tableau d'orientation inclut `ocots-lint`, `ocots-publication` et
+  `ocots-site`, et le polycopié est correctement décrit comme contenant
+  quatorze règles. `template.md` n'est pas déplacé afin de préserver ses
+  nombreux liens entrants (#41).
 
 ---
 

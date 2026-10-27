@@ -11,11 +11,14 @@ dit comment on le **compose**.
 |---|---|
 | `ocots-latex-template` | quelle commande, quel environnement, quel rendu ? |
 | `ocots-conventions` (ici) | quel texte autour, dans quel ordre, avec quelles notations ? |
+| `ocots-lint` | quelles règles LaTeX sont vérifiées mécaniquement, et avec quelle garantie ? |
+| `ocots-publication` | comment publier les supports vers le dépôt étudiant ? |
+| `ocots-site` | comment construire, tester et déployer le site web interactif d'un cours ? |
 
-Les deux couvrent les **mêmes quatre supports**. Un cours les monte tous les
-deux en sous-module et **épingle une version de chacun** — les conventions
-citent des macros du template (`\keyword`, `\index`, `\norm`, `\diff`), les deux
-versions doivent rester cohérentes.
+Le template et les conventions couvrent les **mêmes quatre supports** LaTeX.
+Un cours les monte tous les deux en sous-module et **épingle une version de
+chacun** — les conventions citent des macros du template (`\keyword`,
+`\index`, `\norm`, `\diff`), les deux versions doivent rester cohérentes.
 
 ---
 
@@ -26,7 +29,7 @@ versions doivent rester cohérentes.
    **À lire dans tous les cas.**
 2. Le fichier du support sur lequel on travaille :
    - **[`poly.md`](poly.md)** — polycopié (`P1`–`P14`)
-   - **[`slides.md`](slides.md)** — transparents
+   - **[`slides.md`](slides.md)** — transparents (`SL1`–`SL11`)
    - **[`td.md`](td.md)** — TD et corrigés
    - **[`exam.md`](exam.md)** — sujets d'examen
    - **[`site.md`](site.md)** — sites web des cours (`WEB1`–`WEB20`), construits sur
@@ -34,8 +37,10 @@ versions doivent rester cohérentes.
 3. **[`methode.md`](methode.md)** — comment se déroule une passe de relecture :
    salves, périmètre, compilation, PR, format du rapport.
 
-En annexe, **[`template.md`](template.md)** — les révisions demandées au
-template LaTeX. Proposition, rien n'est encore appliqué.
+En annexe, **[`template.md`](template.md)** — l'historique des sept chantiers
+de révision du template LaTeX. Les sept chantiers sont désormais appliqués au
+template ; le fichier est conservé ici parce que les règles et les documents
+de support le citent encore. Il ne constitue pas une proposition à appliquer.
 
 Le fil conducteur, si on ne devait retenir qu'une phrase :
 
@@ -206,16 +211,16 @@ notations, ses briques propres et l'ordre de son catalogue.
 | `poly.md` | `P1`–`P14` — toutes relues avec l’auteur, éprouvées sur deux cours |
 | `methode.md` | v1 |
 | `td.md` | `TD1`–`TD9` — toutes relues avec l’auteur |
-| `slides.md` | `SL1`–`SL10` — toutes relues avec l’auteur |
+| `slides.md` | `SL1`–`SL11` — toutes relues avec l’auteur |
 | `exam.md` | `EX1`–`EX7` — toutes relues avec l’auteur |
 | `site.md` | `WEB1`–`WEB20` — tirées des trois `site/CONVENTIONS.md`, à relire avec l’auteur |
-| `template.md` | 7 chantiers — **non appliqués** au template |
+| `template.md` | historique de 7 chantiers — **tous appliqués** au template |
 
 ---
 
 ## Origine
 
-Les 13 règles du polycopié ont été dégagées pendant la relecture ligne à ligne
+Les 14 règles du polycopié ont été dégagées pendant la relecture ligne à ligne
 de `ocourses/calcul-differentiel-edo-enseignants`
 (`reports/poly-update-2026/06-regles-style-relecture.md`), puis reprises et
 adaptées aux noms d'environnements `ocots` sur
