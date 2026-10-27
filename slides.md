@@ -229,6 +229,22 @@ après un `\pause`, ou en remplaçant l'invite (`\only<1>` pour l'invite,
 `\only<2>` pour la réponse). L'invite est bien visible (centrée, en gros), pour
 marquer l'arrêt.
 
+## SL11 — `\emphB` marque une hypothèse à ne pas oublier
+
+Dans le texte d'une diapositive, `\emphB{…}` sert à attirer l'attention sur
+une **hypothèse à ne pas oublier** : « deux à deux disjoints », « $\sigma$-
+finies », « positive », « intégrable », « à valeurs dans
+$[0,+\infty]$ », etc.
+
+Il ne sert pas à marquer une conclusion ni un terme déjà défini. Une conclusion
+ou une emphase ordinaire utilise `\emph{…}` ou du texte normal ; un terme défini
+garde `\keyword{…}` conformément à [C4](communes.md#c4--typographie).
+L'invite `\invite` reste l'autre usage prévu de la couleur dans une
+présentation.
+
+Ne pas imbriquer `\textbf` dans `\emphB` : la couleur et la graisse sont deux
+signaux différents, et le renforcement visuel n'est pas nécessaire.
+
 ### Choisir l'exercice
 
 On le prend dans le poly (résultat, exemple ou exercice) : un énoncé qui se

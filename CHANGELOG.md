@@ -15,6 +15,10 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- `slides.md` ajoute `SL11` : `\emphB` est réservé aux hypothèses à ne pas
+  oublier ; les conclusions et termes déjà définis utilisent respectivement
+  `\emph`/le texte normal et `\keyword` (#38).
+
 ---
 
 ## v2.9.0 — 2026-10-07

@@ -26,7 +26,7 @@ versions doivent rester cohérentes.
    **À lire dans tous les cas.**
 2. Le fichier du support sur lequel on travaille :
    - **[`poly.md`](poly.md)** — polycopié (`P1`–`P14`)
-   - **[`slides.md`](slides.md)** — transparents
+   - **[`slides.md`](slides.md)** — transparents (`SL1`–`SL11`)
    - **[`td.md`](td.md)** — TD et corrigés
    - **[`exam.md`](exam.md)** — sujets d'examen
 3. **[`methode.md`](methode.md)** — comment se déroule une passe de relecture :
