@@ -15,6 +15,10 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- C4 admet explicitement les renvois insécables `Sous-section~\ref{…}`,
+  comme `Section~\ref{…}` ; le mot composé doit rester capitalisé et
+  hyphéné (#35, ocots-lint#74).
+
 ---
 
 ## v2.9.0 — 2026-10-07
