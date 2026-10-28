@@ -15,6 +15,12 @@ git -C conventions describe --tags --always
 
 ## Non publié
 
+- **`WEB14`** précisée : une remise aux valeurs de départ s'écrit « ↺ » (nom
+  accessible et infobulle, confirmation si la mémoire du navigateur est
+  effacée) ; relancer une simulation garde un libellé texte. Aucun
+  identifiant n'est renommé ni retiré. Voir
+  [#55](https://github.com/ocourses/ocots-conventions/issues/55).
+
 ---
 
 ## v2.11.0 — 2026-10-27
