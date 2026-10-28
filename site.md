@@ -279,6 +279,14 @@ mêmes boutons par `ajoutePas()`.
   ferment avec Échap ; un bouton qui ne porte qu'un symbole a un `aria-label`.
 - Le zoom d'une courbe temporelle : molette autour du curseur, glisser pour
   déplacer, boutons +, −, ↺ ; le temps reste ≥ 0.
+- **Remettre aux valeurs de départ s'écrit « ↺ »** (`bouton-lien`), avec un
+  `aria-label` et un `title` qui disent ce qui est remis : « Valeurs par
+  défaut », « Zoom initial ». Si l'action efface aussi la mémoire du navigateur
+  ([WEB13](#web13--deux-mémoires--lurl-pour-lexpérience-le-navigateur-pour-le-confort)),
+  elle demande confirmation. « ↺ » est réservé à ce sens : relancer une
+  simulation depuis sa condition initiale garde un libellé en toutes lettres
+  (« Réinitialiser »), pour ne pas mettre deux « ↺ » de sens différent sur une
+  page.
 
 Vérifié par : tests du socle (`champ`, `ajoutePas`, onglets, infobulles) ; tests
 du cours pour l'aimantation.
